@@ -20,6 +20,15 @@ body {
   margin-top: 8px;
 }
 
+.list-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-top > *:not(:first-child) {
+  margin-top: 8px;
+}
+
 .day {
   display: flex;
   flex-direction: column;
@@ -35,23 +44,8 @@ body {
   border: 1px solid;
 }
 
-.meals-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.meals-list > *:not(:first-child) {
-  margin-top: 8px;
-}
-
 .meal {
-  display: flex;
-  flex-direction: column;
   border: 1px solid;
-}
-
-.meal > *:not(:first-child) {
-  margin-top: 8px;
 }
 
 .meal .values {
@@ -115,17 +109,4 @@ body {
   to {
     opacity: 0;
   }
-}
-
-.delete-day-modal {
-  align-items: center;
-}
-
-.list-top {
-  display: flex;
-  flex-direction: column;
-}
-
-.list-top > *:not(:first-child) {
-  margin-top: 8px;
 }

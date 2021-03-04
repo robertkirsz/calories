@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styled from 'styled-components/macro'
 import dayjs from 'dayjs'
 
 import type { DayInterface } from 'types'
@@ -39,11 +40,11 @@ export default function Day({ day, onDeleteDay }: Props) {
           <button onClick={toggleDeleteConfirmationModal}>Delete</button>
         </nav>
 
-        <div className="meals-list">
+        <MealsList>
           {day.meals.map(meal => (
             <Meal key={meal.id} meal={meal} />
           ))}
-        </div>
+        </MealsList>
 
         <button>Add meal</button>
       </div>
@@ -52,12 +53,31 @@ export default function Day({ day, onDeleteDay }: Props) {
         show={showDeleteConfirmation}
         onClose={toggleDeleteConfirmationModal}
       >
-        <div className="delete-day-modal list-top">
+        <DeleteDayModal>
           <span>You sure?</span>
           <button onClick={confirmDeleteDay}>Yes</button>
           <button onClick={toggleDeleteConfirmationModal}>No</button>
-        </div>
+        </DeleteDayModal>
       </Modal>
     </>
   )
 }
+
+const MealsList = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  > *:not(:first-child) {
+    margin-top: 40px;
+  }
+`
+
+const DeleteDayModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > *:not(:first-child) {
+    margin-top: 16px;
+  }
+`

@@ -13,7 +13,7 @@ export default function Meal({ meal }: Props) {
 
   return (
     <>
-      <div className="meal" data-testid="Meal">
+      <div className="meal list-top" data-testid="Meal">
         {meal.name && <span>{meal.name}</span>}
         <div className="values">
           <span>{meal.consumedGrams} g</span>
