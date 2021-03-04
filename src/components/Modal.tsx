@@ -2,6 +2,14 @@ import { createPortal } from 'react-dom'
 
 import Fade from 'components/Fade'
 
+let root = document.getElementById('modal-root')
+
+if (root === null) {
+  root = document.createElement('div')
+  root.id = 'modal-root'
+  document.body.appendChild(root)
+}
+
 type Props = {
   show: boolean
   onClose: () => void
@@ -23,6 +31,6 @@ export default function Modal({ show, onClose, children, ...props }: Props) {
         </div>
       </div>
     </Fade>,
-    document.getElementById('modal-root')!
+    root!
   )
 }

@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import type { DayInterface } from 'types'
 
 import Modal from 'components/Modal'
-import Meal from 'Meal'
+import Meal from 'components/Meal'
 
 type Props = {
   day: DayInterface

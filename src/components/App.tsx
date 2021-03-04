@@ -1,11 +1,11 @@
 import { useState } from 'react'
+import dayjs from 'dayjs'
 
 import type { DayInterface } from 'types'
 import { descendingBy } from 'utils'
 
 import Modal from 'components/Modal'
-import Day from 'Day'
-import dayjs from 'dayjs'
+import Day from 'components/Day'
 
 type Props = {
   initialState: DayInterface[]
