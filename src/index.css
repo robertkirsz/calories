@@ -116,3 +116,16 @@ body {
     opacity: 0;
   }
 }
+
+.delete-day-modal {
+  align-items: center;
+}
+
+.list-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-top > *:not(:first-child) {
+  margin-top: 8px;
+}

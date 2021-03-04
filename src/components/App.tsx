@@ -13,10 +13,9 @@ type Props = {
 }
 
 export default function App({ initialState }: Props) {
-  const [days] = useState([...initialState])
-  const [showAddNewDayModal, setShowAddNewDayModal] = useState(false)
-
+  const [days, setDays] = useState([...initialState])
   const sortedDays = days.sort(descendingBy('date'))
+  const [showAddNewDayModal, setShowAddNewDayModal] = useState(false)
 
   function saveData() {
     localStorage.setItem('days', JSON.stringify(days))
@@ -24,6 +23,10 @@ export default function App({ initialState }: Props) {
 
   function clearData() {
     localStorage.removeItem('days')
+  }
+
+  function deleteDay(dayId: DayInterface['id']) {
+    setDays(days => days.filter(day => day.id !== dayId))
   }
 
   return (
@@ -36,7 +39,7 @@ export default function App({ initialState }: Props) {
       </button>
 
       {sortedDays.map(day => (
-        <Day key={day.id} day={day} />
+        <Day key={day.id} day={day} onDeleteDay={deleteDay} />
       ))}
 
       <button onClick={saveData}>Save</button>
