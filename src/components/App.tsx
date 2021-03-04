@@ -7,6 +7,7 @@ import type { DayInterface } from 'types'
 import { descendingBy } from 'utils'
 
 import Day from 'components/Day'
+import Version from 'components/Version'
 
 type Props = {
   initialState: DayInterface[]
@@ -55,6 +56,7 @@ export default function App({ initialState }: Props) {
 
       <button onClick={saveData}>Save</button>
       <button onClick={clearData}>Clear</button>
+      <Version />
     </>
   )
 }
