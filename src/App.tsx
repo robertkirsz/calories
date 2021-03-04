@@ -1,23 +1,20 @@
-import logo from './logo.svg'
-import './App.css'
+import { useState } from 'react'
+import type { DayInterface } from './types'
 
-export default function App() {
+type Props = {
+  initialState: DayInterface[]
+}
+
+export default function App({ initialState }: Props) {
+  const [days] = useState([...initialState])
+
+  function saveData() {
+    localStorage.setItem('days', JSON.stringify(days))
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={saveData}>Save</button>
     </div>
   )
 }

@@ -1,0 +1,53 @@
+[
+  {
+    "date": "2021-03-04",
+    "meals": [
+      {
+        "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        "kcalPer100g": 231,
+        "consumedGrams": 123,
+        "name": "Cup Noodle"
+      },
+      {
+        "id": "ur763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
+        "kcalPer100g": 129,
+        "consumedGrams": 27,
+        "name": ""
+      }
+    ]
+  },
+  {
+    "date": "2021-03-03",
+    "meals": [
+      {
+        "id": "pdo87324d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        "kcalPer100g": 200,
+        "consumedGrams": 100,
+        "name": "Huel"
+      },
+      {
+        "id": "pdo87324d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        "kcalPer100g": 200,
+        "consumedGrams": 49,
+        "name": "Huel"
+      },
+      {
+        "id": "xbdfhyb4d-3b7d-4bad-9bdd-2b0d7b3dh709",
+        "kcalPer100g": 234,
+        "consumedGrams": 150,
+        "name": ""
+      }
+    ]
+  },
+  {
+    "date": "2021-03-01",
+    "meals": [
+      {
+        "id": "pflru76d-3b7d-4bad-9bdd-2b0d7b3dh709",
+        "kcalPer100g": 526,
+        "consumedGrams": 87,
+        "name": ""
+      }
+    ]
+  }
+]

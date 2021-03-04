@@ -1,13 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
+import { StrictMode } from 'react'
+import { render } from 'react-dom'
 import App from './App'
+import './index.css'
 // import reportWebVitals from './reportWebVitals'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+import mockDays from './days.json'
+
+const days = localStorage.getItem('days')
+  ? JSON.parse(localStorage.getItem('days')!)
+  : mockDays
+
+render(
+  <StrictMode>
+    <App initialState={days} />
+  </StrictMode>,
   document.getElementById('root')
 )
 
