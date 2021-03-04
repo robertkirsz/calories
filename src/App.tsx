@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import type { DayInterface } from './types'
+
+import type { DayInterface } from 'types'
+
+import Day from 'Day'
 
 type Props = {
   initialState: DayInterface[]
@@ -8,13 +11,28 @@ type Props = {
 export default function App({ initialState }: Props) {
   const [days] = useState([...initialState])
 
+  function addNewDay() {
+    localStorage.setItem('days', JSON.stringify(days))
+  }
+
   function saveData() {
     localStorage.setItem('days', JSON.stringify(days))
   }
 
+  function clearData() {
+    localStorage.removeItem('days')
+  }
+
+  const showAddNewDayButton = true
+
   return (
-    <div className="App">
+    <>
+      {showAddNewDayButton && <button onClick={addNewDay}>New day</button>}
+      {days.map(day => (
+        <Day key={day.date} day={day} />
+      ))}
       <button onClick={saveData}>Save</button>
-    </div>
+      <button onClick={clearData}>Clear</button>
+    </>
   )
 }

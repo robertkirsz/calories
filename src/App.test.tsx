@@ -1,9 +1,11 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import App from './App'
 
-test('renders learn react link', () => {
-  render(<App />)
-  const linkElement = screen.getByText(/learn react/i)
-  expect(linkElement).toBeInTheDocument()
+import App from 'App'
+import mockDays from 'days.json'
+
+test('Renders button for adding new days', () => {
+  render(<App initialState={mockDays} />)
+  const addDayButton = screen.getByText('New day')
+  expect(addDayButton).toBeInTheDocument()
 })
