@@ -14,10 +14,7 @@ body {
 #app-root {
   display: flex;
   flex-direction: column;
-}
-
-#app-root > *:not(:first-child) {
-  margin-top: 8px;
+  align-items: center;
 }
 
 .list-top {

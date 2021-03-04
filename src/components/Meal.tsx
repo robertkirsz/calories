@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import styled from 'styled-components'
+
 import type { MealInterface } from 'types'
 
 import Modal from 'components/Modal'
@@ -8,8 +10,12 @@ type Props = {
 }
 
 export default function Meal({ meal }: Props) {
-  const [isEditing, setIsEditing] = useState(false)
+  const [isEditMealModalVisible, setIsEditMealModalVisible] = useState(false)
   const consumedKcal = Math.round((meal.kcalPer100g * meal.consumedGrams) / 100)
+
+  function toogleEditMealModal() {
+    setIsEditMealModalVisible(state => !state)
+  }
 
   return (
     <>
@@ -19,13 +25,23 @@ export default function Meal({ meal }: Props) {
           <span>{meal.consumedGrams} g</span>
           <span>{meal.kcalPer100g} kcal</span>
           <span>{consumedKcal} kcal</span>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
+          <button onClick={toogleEditMealModal}>Edit</button>
         </div>
       </div>
 
-      <Modal show={isEditing} onClose={() => setIsEditing(false)}>
-        Hello!
+      <Modal show={isEditMealModalVisible} onClose={toogleEditMealModal}>
+        <EditMealModal>Edit meal</EditMealModal>
       </Modal>
     </>
   )
 }
+
+const EditMealModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > *:not(:first-child) {
+    margin-top: 16px;
+  }
+`

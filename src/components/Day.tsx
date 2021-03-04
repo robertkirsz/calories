@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import dayjs from 'dayjs'
 
 import type { DayInterface } from 'types'
@@ -13,10 +13,13 @@ type Props = {
 }
 
 export default function Day({ day, onDeleteDay }: Props) {
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
+  const [
+    isDeleteConfirmationModalVisible,
+    setIsDeleteConfirmationModalVisible
+  ] = useState(false)
 
   function toggleDeleteConfirmationModal() {
-    setShowDeleteConfirmation(state => !state)
+    setIsDeleteConfirmationModalVisible(state => !state)
   }
 
   function confirmDeleteDay() {
@@ -50,7 +53,7 @@ export default function Day({ day, onDeleteDay }: Props) {
       </div>
 
       <Modal
-        show={showDeleteConfirmation}
+        show={isDeleteConfirmationModalVisible}
         onClose={toggleDeleteConfirmationModal}
       >
         <DeleteDayModal>
@@ -68,7 +71,7 @@ const MealsList = styled.div`
   flex-direction: column;
 
   > *:not(:first-child) {
-    margin-top: 40px;
+    margin-top: 16px;
   }
 `
 

@@ -1,10 +1,10 @@
 import { useState } from 'react'
+import styled from 'styled-components'
 import dayjs from 'dayjs'
 
 import type { DayInterface } from 'types'
 import { descendingBy } from 'utils'
 
-import Modal from 'components/Modal'
 import Day from 'components/Day'
 
 type Props = {
@@ -15,7 +15,6 @@ type Props = {
 export default function App({ initialState }: Props) {
   const [days, setDays] = useState([...initialState])
   const sortedDays = days.sort(descendingBy('date'))
-  const [showAddNewDayModal, setShowAddNewDayModal] = useState(false)
 
   function saveData() {
     localStorage.setItem('days', JSON.stringify(days))
@@ -25,6 +24,8 @@ export default function App({ initialState }: Props) {
     localStorage.removeItem('days')
   }
 
+  function addNewDay() {}
+
   function deleteDay(dayId: DayInterface['id']) {
     setDays(days => days.filter(day => day.id !== dayId))
   }
@@ -33,24 +34,30 @@ export default function App({ initialState }: Props) {
     <>
       <button
         disabled={dayjs().isSame(sortedDays[0].date, 'day')}
-        onClick={() => setShowAddNewDayModal(true)}
+        onClick={addNewDay}
       >
         New day
       </button>
 
-      {sortedDays.map(day => (
-        <Day key={day.id} day={day} onDeleteDay={deleteDay} />
-      ))}
+      <DaysList>
+        {sortedDays.map(day => (
+          <Day key={day.id} day={day} onDeleteDay={deleteDay} />
+        ))}
+      </DaysList>
 
       <button onClick={saveData}>Save</button>
       <button onClick={clearData}>Clear</button>
-
-      <Modal
-        show={showAddNewDayModal}
-        onClose={() => setShowAddNewDayModal(false)}
-      >
-        Add day!
-      </Modal>
     </>
   )
 }
+
+const DaysList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  margin: 40px 0;
+
+  > *:not(:first-child) {
+    margin-top: 40px;
+  }
+`
