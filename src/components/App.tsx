@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
 import { v4 as uuid } from 'uuid'
@@ -11,20 +11,15 @@ import Version from 'components/Version'
 
 type Props = {
   initialState: DayInterface[]
-  autosaveEnabled?: boolean
 }
 
 export default function App({ initialState }: Props) {
   const [days, setDays] = useState([...initialState])
   const sortedDays = days.sort(descendingBy('date'))
 
-  function saveData() {
+  useEffect(() => {
     localStorage.setItem('days', JSON.stringify(days))
-  }
-
-  function clearData() {
-    localStorage.removeItem('days')
-  }
+  }, [days])
 
   function addNewDay() {
     setDays(days => [
@@ -54,8 +49,10 @@ export default function App({ initialState }: Props) {
         ))}
       </DaysList>
 
-      <button onClick={saveData}>Save</button>
-      <button onClick={clearData}>Clear</button>
+      {process.env.NODE_ENV === 'development' && (
+        <button onClick={() => localStorage.removeItem('days')}>Clear</button>
+      )}
+
       <Version />
     </>
   )
