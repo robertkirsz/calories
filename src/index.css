@@ -11,12 +11,12 @@ body {
   color: white;
 }
 
-#root {
+#app-root {
   display: flex;
   flex-direction: column;
 }
 
-#root > *:not(:first-child) {
+#app-root > *:not(:first-child) {
   margin-top: 8px;
 }
 
@@ -46,4 +46,35 @@ body {
 
 .meal {
   border: 1px solid;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 16px;
+  background: white;
+  color: black;
+  overflow: auto;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
