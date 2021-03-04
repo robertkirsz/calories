@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
+import { v4 as uuid } from 'uuid'
 
 import type { DayInterface } from 'types'
 import { descendingBy } from 'utils'
@@ -24,7 +25,12 @@ export default function App({ initialState }: Props) {
     localStorage.removeItem('days')
   }
 
-  function addNewDay() {}
+  function addNewDay() {
+    setDays(days => [
+      ...days,
+      { id: uuid(), date: dayjs().format('YYYY-MM-DD'), meals: [] }
+    ])
+  }
 
   function deleteDay(dayId: DayInterface['id']) {
     setDays(days => days.filter(day => day.id !== dayId))
@@ -33,7 +39,9 @@ export default function App({ initialState }: Props) {
   return (
     <>
       <button
-        disabled={dayjs().isSame(sortedDays[0].date, 'day')}
+        disabled={
+          sortedDays.length !== 0 && dayjs().isSame(sortedDays[0].date, 'day')
+        }
         onClick={addNewDay}
       >
         New day
