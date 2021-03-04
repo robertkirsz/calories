@@ -1,10 +1,11 @@
 import { StrictMode } from 'react'
 import { render } from 'react-dom'
-import App from './App'
-import './index.css'
-// import reportWebVitals from './reportWebVitals'
 
-import mockDays from './days.json'
+import App from 'App'
+import 'index.css'
+// import reportWebVitals from 'reportWebVitals'
+
+import mockDays from 'days.json'
 
 const days = localStorage.getItem('days')
   ? JSON.parse(localStorage.getItem('days')!)
