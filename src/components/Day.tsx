@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import type { DayInterface } from 'types'
 
 import Modal from 'components/Modal'
+import AddActivityModal from 'components/AddActivityModal'
 import Meal from 'components/Meal'
 
 type Props = {
@@ -25,6 +26,10 @@ export default function Day({ day, onDeleteDay }: Props) {
   function confirmDeleteDay() {
     toggleDeleteConfirmationModal()
     onDeleteDay(day.id)
+  }
+
+  function addActivity() {
+    console.log('addActivity')
   }
 
   const totalKcalConsumed = Math.round(
@@ -49,7 +54,7 @@ export default function Day({ day, onDeleteDay }: Props) {
           ))}
         </MealsList>
 
-        <button>Add meal</button>
+        <AddActivityModal onSubmit={addActivity} />
       </div>
 
       <Modal
