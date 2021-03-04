@@ -45,7 +45,45 @@ body {
 }
 
 .meal {
+  display: flex;
+  flex-direction: column;
   border: 1px solid;
+}
+
+.meal > *:not(:first-child) {
+  margin-top: 8px;
+}
+
+.meal .values {
+  display: flex;
+}
+
+.meal .values > *:not(:first-child) {
+  margin-left: 8px;
+}
+
+.meal .values > *:last-child {
+  margin-left: auto;
+}
+
+.emoji {
+  font-family: apple color emoji, segoe ui emoji, noto color emoji,
+    android emoji, emojisymbols, emojione mozilla, twemoji mozilla,
+    segoe ui symbol;
+  font-weight: 400;
+}
+
+.modal-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {

@@ -1,8 +1,11 @@
 import { useState } from 'react'
 
 import type { DayInterface } from 'types'
+import { descendingBy } from 'utils'
 
+import Modal from 'components/Modal'
 import Day from 'Day'
+import dayjs from 'dayjs'
 
 type Props = {
   initialState: DayInterface[]
@@ -11,10 +14,9 @@ type Props = {
 
 export default function App({ initialState }: Props) {
   const [days] = useState([...initialState])
+  const [showAddNewDayModal, setShowAddNewDayModal] = useState(false)
 
-  function addNewDay() {
-    localStorage.setItem('days', JSON.stringify(days))
-  }
+  const sortedDays = days.sort(descendingBy('date'))
 
   function saveData() {
     localStorage.setItem('days', JSON.stringify(days))
@@ -24,16 +26,28 @@ export default function App({ initialState }: Props) {
     localStorage.removeItem('days')
   }
 
-  const showAddNewDayButton = true
-
   return (
     <>
-      {showAddNewDayButton && <button onClick={addNewDay}>New day</button>}
-      {days.map(day => (
+      <button
+        disabled={dayjs().isSame(sortedDays[0].date, 'day')}
+        onClick={() => setShowAddNewDayModal(true)}
+      >
+        New day
+      </button>
+
+      {sortedDays.map(day => (
         <Day key={day.id} day={day} />
       ))}
+
       <button onClick={saveData}>Save</button>
       <button onClick={clearData}>Clear</button>
+
+      <Modal
+        show={showAddNewDayModal}
+        onClose={() => setShowAddNewDayModal(false)}
+      >
+        Add day!
+      </Modal>
     </>
   )
 }
