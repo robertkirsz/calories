@@ -9,7 +9,9 @@ import mockDays from 'days.json'
 
 const days = localStorage.getItem('days')
   ? JSON.parse(localStorage.getItem('days')!)
-  : mockDays
+  : process.env.NODE_ENV === 'development'
+  ? mockDays
+  : []
 
 render(
   <StrictMode>
