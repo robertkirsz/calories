@@ -15,3 +15,9 @@ test('Renders days list', () => {
   const daysList = screen.getAllByTestId('Day')
   expect(daysList).toHaveLength(3)
 })
+
+test('Renders meals list', () => {
+  render(<App initialState={mockDays} />)
+  const mealsList = screen.getAllByTestId('Meal')
+  expect(mealsList).toHaveLength(6)
+})

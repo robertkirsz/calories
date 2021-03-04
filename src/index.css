@@ -19,3 +19,31 @@ body {
 #root > *:not(:first-child) {
   margin-top: 8px;
 }
+
+.day {
+  display: flex;
+  flex-direction: column;
+}
+
+.day > *:not(:first-child) {
+  margin-top: 8px;
+}
+
+.day nav {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid;
+}
+
+.meals-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.meals-list > *:not(:first-child) {
+  margin-top: 8px;
+}
+
+.meal {
+  border: 1px solid;
+}
