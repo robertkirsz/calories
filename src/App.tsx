@@ -6,6 +6,7 @@ import Day from 'Day'
 
 type Props = {
   initialState: DayInterface[]
+  autosaveEnabled?: boolean
 }
 
 export default function App({ initialState }: Props) {
@@ -29,7 +30,7 @@ export default function App({ initialState }: Props) {
     <>
       {showAddNewDayButton && <button onClick={addNewDay}>New day</button>}
       {days.map(day => (
-        <Day key={day.date} day={day} />
+        <Day key={day.id} day={day} />
       ))}
       <button onClick={saveData}>Save</button>
       <button onClick={clearData}>Clear</button>

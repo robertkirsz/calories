@@ -1,5 +1,6 @@
 [
   {
+    "id": "xb1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "date": "2021-03-04",
     "meals": [
       {
@@ -17,6 +18,7 @@
     ]
   },
   {
+    "id": "yb1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "date": "2021-03-03",
     "meals": [
       {
@@ -40,6 +42,7 @@
     ]
   },
   {
+    "id": "zb1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "date": "2021-03-01",
     "meals": [
       {

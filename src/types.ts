@@ -6,6 +6,7 @@ export interface MealInterface {
 }
 
 export interface DayInterface {
+  id: string
   date: string
   meals: MealInterface[]
 }
