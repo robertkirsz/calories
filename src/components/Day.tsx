@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
 
-import type { DayInterface } from 'types'
+import type { ActivityFormDataInterface, DayInterface } from 'types'
 
 import Modal from 'components/Modal'
 import AddActivityModal from 'components/AddActivityModal'
@@ -10,10 +10,14 @@ import Meal from 'components/Meal'
 
 type Props = {
   day: DayInterface
+  onAddActivity: (
+    dayId: DayInterface['id'],
+    formData: ActivityFormDataInterface
+  ) => void
   onDeleteDay: (dayId: DayInterface['id']) => void
 }
 
-export default function Day({ day, onDeleteDay }: Props) {
+export default function Day({ day, onDeleteDay, onAddActivity }: Props) {
   const [
     isDeleteConfirmationModalVisible,
     setIsDeleteConfirmationModalVisible
@@ -23,13 +27,13 @@ export default function Day({ day, onDeleteDay }: Props) {
     setIsDeleteConfirmationModalVisible(state => !state)
   }
 
+  function addActivity(formData: ActivityFormDataInterface) {
+    onAddActivity(day.id, formData)
+  }
+
   function confirmDeleteDay() {
     toggleDeleteConfirmationModal()
     onDeleteDay(day.id)
-  }
-
-  function addActivity() {
-    console.log('addActivity')
   }
 
   const totalKcalConsumed = Math.round(

@@ -1,10 +1,12 @@
 import { useState } from 'react'
 
+import type { ActivityFormDataInterface } from 'types'
+
 import Modal from 'components/Modal'
 import ActivityForm from 'components/ActivityForm'
 
 type Props = {
-  onSubmit: () => void
+  onSubmit: (formData: ActivityFormDataInterface) => void
 }
 
 export default function AddActivityModal({ onSubmit }: Props) {
@@ -14,8 +16,8 @@ export default function AddActivityModal({ onSubmit }: Props) {
     setIsModalVisible(state => !state)
   }
 
-  function submit() {
-    onSubmit()
+  function submit(formData: ActivityFormDataInterface) {
+    onSubmit(formData)
     toggleModalVisibility()
   }
 

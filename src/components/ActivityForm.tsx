@@ -1,20 +1,12 @@
 import { useState } from 'react'
 import 'styled-components/macro'
 
-import type { ActivityType } from 'types'
+import type { ActivityFormDataInterface, ActivityType } from 'types'
 
 import Div from 'components/Div'
 
-interface FormDataInterface {
-  type: ActivityType
-  consumedGrams: number | null
-  kcalPer100g: number | null
-  consumedKcal: number | null
-  name: string
-}
-
 type Props = {
-  onSubmit: (formData: FormDataInterface) => void
+  onSubmit: (formData: ActivityFormDataInterface) => void
   onCancel: () => void
 }
 
@@ -32,7 +24,7 @@ export default function ActivityForm({ onSubmit, onCancel }: Props) {
   function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const formData: FormDataInterface = {
+    const formData: ActivityFormDataInterface = {
       type,
       name,
       consumedGrams: parseInt(consumedGrams),
