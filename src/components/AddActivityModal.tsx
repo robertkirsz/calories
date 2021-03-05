@@ -1,5 +1,7 @@
-import Modal from 'components/Modal'
 import { useState } from 'react'
+
+import Modal from 'components/Modal'
+import ActivityForm from 'components/ActivityForm'
 
 type Props = {
   onSubmit: () => void
@@ -25,28 +27,5 @@ export default function AddActivityModal({ onSubmit }: Props) {
         <ActivityForm onSubmit={submit} onCancel={toggleModalVisibility} />
       </Modal>
     </>
-  )
-}
-
-function ActivityForm({
-  onSubmit,
-  onCancel
-}: {
-  onSubmit: () => void
-  onCancel: () => void
-}) {
-  function submit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    onSubmit()
-  }
-
-  return (
-    <form onSubmit={e => submit(e)}>
-      <span>ActivityForm</span>
-      <button>Submit</button>
-      <button type="button" onClick={onCancel}>
-        Cancel
-      </button>
-    </form>
   )
 }

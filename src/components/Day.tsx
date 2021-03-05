@@ -33,10 +33,19 @@ export default function Day({ day, onDeleteDay }: Props) {
   }
 
   const totalKcalConsumed = Math.round(
-    day.meals.reduce(
-      (all, meal) => all + (meal.kcalPer100g * meal.consumedGrams) / 100,
-      0
-    )
+    day.meals.reduce((all, activity) => {
+      if (activity.type === 'gramsOfKcal') {
+        // TODO: make sure these are not null if type === 'gramsOfKcal'
+        return all + (activity.kcalPer100g! * activity.consumedGrams!) / 100
+      }
+
+      if (activity.type === 'onlyKcal') {
+        // TODO: make sure this is not null if type === 'onlyKcal'
+        return all + activity.consumedKcal!
+      }
+
+      return all
+    }, 0)
   )
 
   return (

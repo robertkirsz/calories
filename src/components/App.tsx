@@ -49,9 +49,9 @@ export default function App({ initialState }: Props) {
         ))}
       </DaysList>
 
-      {process.env.NODE_ENV === 'development' && (
-        <button onClick={() => localStorage.removeItem('days')}>Clear</button>
-      )}
+      {/* {process.env.NODE_ENV === 'development' && ( */}
+      <button onClick={() => localStorage.removeItem('days')}>Clear</button>
+      {/* )} */}
 
       <Version />
     </>

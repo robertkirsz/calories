@@ -1,8 +1,12 @@
+export type ActivityType = 'gramsOfKcal' | 'onlyKcal'
+
 export interface MealInterface {
   id: string
-  kcalPer100g: number
-  consumedGrams: number
+  type: ActivityType
   name: string
+  kcalPer100g: number | null
+  consumedGrams: number | null
+  consumedKcal: number | null
 }
 
 export interface DayInterface {

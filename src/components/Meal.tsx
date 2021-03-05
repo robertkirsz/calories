@@ -11,7 +11,19 @@ type Props = {
 
 export default function Meal({ meal }: Props) {
   const [isEditMealModalVisible, setIsEditMealModalVisible] = useState(false)
-  const consumedKcal = Math.round((meal.kcalPer100g * meal.consumedGrams) / 100)
+
+  // TODO: this is similar to what's in Day, ler's extract the logic and re-use it
+  let consumedKcal = 0
+
+  if (meal.type === 'gramsOfKcal') {
+    // TODO: make sure these are not null if type === 'gramsOfKcal'
+    consumedKcal = Math.round((meal.kcalPer100g! * meal.consumedGrams!) / 100)
+  }
+
+  if (meal.type === 'onlyKcal') {
+    // TODO: make sure this is not null if type === 'onlyKcal'
+    consumedKcal = meal.consumedKcal!
+  }
 
   function toogleEditMealModal() {
     setIsEditMealModalVisible(state => !state)

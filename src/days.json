@@ -5,9 +5,11 @@
     "meals": [
       {
         "id": "pflru76d-3b7d-4bad-9bdd-2b0d7b3dh709",
+        "name": "",
+        "type": "gramsOfKcal",
         "kcalPer100g": 526,
         "consumedGrams": 87,
-        "name": ""
+        "consumedKcal": null
       }
     ]
   },
@@ -17,21 +19,27 @@
     "meals": [
       {
         "id": "pdo87324d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        "name": "Huel",
+        "type": "gramsOfKcal",
         "kcalPer100g": 200,
         "consumedGrams": 100,
-        "name": "Huel"
+        "consumedKcal": null
       },
       {
         "id": "xss87324d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        "name": "Huel",
+        "type": "gramsOfKcal",
         "kcalPer100g": 200,
         "consumedGrams": 49,
-        "name": "Huel"
+        "consumedKcal": null
       },
       {
         "id": "xbdfhyb4d-3b7d-4bad-9bdd-2b0d7b3dh709",
+        "name": "",
+        "type": "gramsOfKcal",
         "kcalPer100g": 234,
         "consumedGrams": 150,
-        "name": ""
+        "consumedKcal": null
       }
     ]
   },
@@ -41,15 +49,19 @@
     "meals": [
       {
         "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        "name": "Cup Noodle",
+        "type": "gramsOfKcal",
         "kcalPer100g": 231,
         "consumedGrams": 123,
-        "name": "Cup Noodle"
+        "consumedKcal": null
       },
       {
         "id": "ur763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
+        "name": "",
+        "type": "gramsOfKcal",
         "kcalPer100g": 129,
         "consumedGrams": 27,
-        "name": ""
+        "consumedKcal": null
       }
     ]
   },
@@ -59,15 +71,19 @@
     "meals": [
       {
         "id": "1b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        "name": "Cup Noodle",
+        "type": "gramsOfKcal",
         "kcalPer100g": 231,
         "consumedGrams": 123,
-        "name": "Cup Noodle"
+        "consumedKcal": null
       },
       {
         "id": "1r763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
+        "name": "",
+        "type": "gramsOfKcal",
         "kcalPer100g": 129,
         "consumedGrams": 27,
-        "name": ""
+        "consumedKcal": null
       }
     ]
   },
@@ -77,15 +93,19 @@
     "meals": [
       {
         "id": "2b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        "name": "Cup Noodle",
+        "type": "gramsOfKcal",
         "kcalPer100g": 231,
         "consumedGrams": 123,
-        "name": "Cup Noodle"
+        "consumedKcal": null
       },
       {
         "id": "2r763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
+        "name": "",
+        "type": "gramsOfKcal",
         "kcalPer100g": 129,
         "consumedGrams": 27,
-        "name": ""
+        "consumedKcal": null
       }
     ]
   },
@@ -95,15 +115,19 @@
     "meals": [
       {
         "id": "3b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        "name": "Cup Noodle",
+        "type": "gramsOfKcal",
         "kcalPer100g": 231,
         "consumedGrams": 123,
-        "name": "Cup Noodle"
+        "consumedKcal": null
       },
       {
         "id": "3r763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
+        "name": "",
+        "type": "gramsOfKcal",
         "kcalPer100g": 129,
         "consumedGrams": 27,
-        "name": ""
+        "consumedKcal": null
       }
     ]
   }
