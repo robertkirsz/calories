@@ -1,6 +1,6 @@
 export type ActivityType = 'gramsOfKcal' | 'onlyKcal'
 
-export interface MealInterface {
+export interface ActivityInterface {
   id: string
   type: ActivityType
   name: string
@@ -12,7 +12,7 @@ export interface MealInterface {
 export interface DayInterface {
   id: string
   date: string
-  meals: MealInterface[]
+  activities: ActivityInterface[]
 }
 
 export interface ActivityFormDataInterface {

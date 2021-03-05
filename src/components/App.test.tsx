@@ -16,8 +16,8 @@ test('Renders days list', () => {
   expect(daysList).toHaveLength(6)
 })
 
-test('Renders meals list', () => {
+test('Renders activities list', () => {
   render(<App initialState={mockDays} />)
-  const mealsList = screen.getAllByTestId('Meal')
-  expect(mealsList).toHaveLength(12)
+  const activitiesList = screen.getAllByTestId('Activity')
+  expect(activitiesList).toHaveLength(12)
 })

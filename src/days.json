@@ -2,7 +2,7 @@
   {
     "id": "zb1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "date": "2021-02-20",
-    "meals": [
+    "activities": [
       {
         "id": "pflru76d-3b7d-4bad-9bdd-2b0d7b3dh709",
         "name": "",
@@ -16,7 +16,7 @@
   {
     "id": "yb1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "date": "2021-02-22",
-    "meals": [
+    "activities": [
       {
         "id": "pdo87324d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
         "name": "Huel",
@@ -46,7 +46,7 @@
   {
     "id": "4b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "date": "2021-02-27",
-    "meals": [
+    "activities": [
       {
         "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
         "name": "Cup Noodle",
@@ -68,7 +68,7 @@
   {
     "id": "3b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "date": "2021-03-01",
-    "meals": [
+    "activities": [
       {
         "id": "1b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
         "name": "Cup Noodle",
@@ -90,7 +90,7 @@
   {
     "id": "2b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "date": "2021-03-02",
-    "meals": [
+    "activities": [
       {
         "id": "2b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
         "name": "Cup Noodle",
@@ -112,7 +112,7 @@
   {
     "id": "1b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "date": "2021-03-04",
-    "meals": [
+    "activities": [
       {
         "id": "3b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
         "name": "Cup Noodle",

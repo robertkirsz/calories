@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid'
 import type {
   DayInterface,
   ActivityFormDataInterface,
-  MealInterface
+  ActivityInterface
 } from 'types'
 
 import { descendingBy } from 'utils'
@@ -29,7 +29,7 @@ export default function App({ initialState }: Props) {
   function addNewDay() {
     setDays(days => [
       ...days,
-      { id: uuid(), date: dayjs().format('YYYY-MM-DD'), meals: [] }
+      { id: uuid(), date: dayjs().format('YYYY-MM-DD'), activities: [] }
     ])
   }
 
@@ -41,14 +41,17 @@ export default function App({ initialState }: Props) {
       days.map(day =>
         day.id !== dayId
           ? day
-          : { ...day, meals: [...day.meals, { id: uuid(), ...formData }] }
+          : {
+              ...day,
+              activities: [...day.activities, { id: uuid(), ...formData }]
+            }
       )
     )
   }
 
   function deleteActivity(
     dayId: DayInterface['id'],
-    activityId: MealInterface['id']
+    activityId: ActivityInterface['id']
   ) {
     setDays(days =>
       days.map(day =>
@@ -56,7 +59,9 @@ export default function App({ initialState }: Props) {
           ? day
           : {
               ...day,
-              meals: day.meals.filter(activity => activity.id !== activityId)
+              activities: day.activities.filter(
+                activity => activity.id !== activityId
+              )
             }
       )
     )

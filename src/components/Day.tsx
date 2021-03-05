@@ -4,14 +4,14 @@ import dayjs from 'dayjs'
 
 import type {
   ActivityFormDataInterface,
-  MealInterface,
+  ActivityInterface,
   DayInterface
 } from 'types'
 
 import Div from 'components/Div'
 import Modal from 'components/Modal'
 import AddActivityModal from 'components/AddActivityModal'
-import Meal from 'components/Meal'
+import Activity from 'components/Activity'
 
 type Props = {
   day: DayInterface
@@ -21,7 +21,7 @@ type Props = {
   ) => void
   onDeleteActivity: (
     dayId: DayInterface['id'],
-    activityId: MealInterface['id']
+    activityId: ActivityInterface['id']
   ) => void
   onDeleteDay: (dayId: DayInterface['id']) => void
 }
@@ -45,7 +45,7 @@ export default function Day({
     onAddActivity(day.id, formData)
   }
 
-  function deleteActivity(activityId: MealInterface['id']) {
+  function deleteActivity(activityId: ActivityInterface['id']) {
     onDeleteActivity(day.id, activityId)
   }
 
@@ -55,7 +55,7 @@ export default function Day({
   }
 
   const totalKcalConsumed = Math.round(
-    day.meals.reduce((all, activity) => {
+    day.activities.reduce((all, activity) => {
       if (activity.type === 'gramsOfKcal') {
         // TODO: make sure these are not null if type === 'gramsOfKcal'
         return all + (activity.kcalPer100g! * activity.consumedGrams!) / 100
@@ -79,11 +79,15 @@ export default function Day({
           <button onClick={toggleDeleteConfirmationModal}>Delete</button>
         </nav>
 
-        <MealsList>
-          {day.meals.map(meal => (
-            <Meal key={meal.id} meal={meal} onDeleteActivity={deleteActivity} />
+        <ActivitysList>
+          {day.activities.map(activity => (
+            <Activity
+              key={activity.id}
+              activity={activity}
+              onDeleteActivity={deleteActivity}
+            />
           ))}
-        </MealsList>
+        </ActivitysList>
 
         <AddActivityModal onSubmit={addActivity} />
       </div>
@@ -102,7 +106,7 @@ export default function Day({
   )
 }
 
-const MealsList = styled.div`
+const ActivitysList = styled.div`
   display: flex;
   flex-direction: column;
 
