@@ -46,22 +46,6 @@ body {
   border: 1px solid;
 }
 
-.meal {
-  border: 1px solid;
-}
-
-.meal .values {
-  display: flex;
-}
-
-.meal .values > *:not(:first-child) {
-  margin-left: 8px;
-}
-
-.meal .values > *:last-child {
-  margin-left: auto;
-}
-
 .emoji {
   font-family: apple color emoji, segoe ui emoji, noto color emoji,
     android emoji, emojisymbols, emojione mozilla, twemoji mozilla,

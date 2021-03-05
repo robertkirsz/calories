@@ -117,17 +117,17 @@
         "id": "3b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
         "name": "Cup Noodle",
         "type": "gramsOfKcal",
-        "kcalPer100g": 231,
-        "consumedGrams": 123,
+        "kcalPer100g": 200,
+        "consumedGrams": 50,
         "consumedKcal": null
       },
       {
         "id": "3r763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
         "name": "",
-        "type": "gramsOfKcal",
-        "kcalPer100g": 129,
-        "consumedGrams": 27,
-        "consumedKcal": null
+        "type": "onlyKcal",
+        "kcalPer100g": null,
+        "consumedGrams": null,
+        "consumedKcal": 100
       }
     ]
   }

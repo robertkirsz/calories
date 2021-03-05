@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import type { MealInterface } from 'types'
 
+import Div from 'components/Div'
 import Modal from 'components/Modal'
 
 type Props = {
@@ -31,15 +32,23 @@ export default function Meal({ meal }: Props) {
 
   return (
     <>
-      <div className="meal list-top" data-testid="Meal">
+      <Div columnTop border="1px solid" data-testid="Meal">
         {meal.name && <span>{meal.name}</span>}
-        <div className="values">
-          <span>{meal.consumedGrams} g</span>
-          <span>{meal.kcalPer100g} kcal</span>
+
+        <Div itemsBaseline>
           <span>{consumedKcal} kcal</span>
-          <button onClick={toogleEditMealModal}>Edit</button>
-        </div>
-      </div>
+
+          {meal.type === 'gramsOfKcal' && (
+            <small css="margin-left: 8px;">
+              ({meal.consumedGrams} g x {meal.kcalPer100g} kcal/100g)
+            </small>
+          )}
+
+          <button css="margin-left: auto;" onClick={toogleEditMealModal}>
+            Edit
+          </button>
+        </Div>
+      </Div>
 
       <Modal show={isEditMealModalVisible} onClose={toogleEditMealModal}>
         <EditMealModal>Edit meal</EditMealModal>
