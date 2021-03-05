@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 import type { MealInterface } from 'types'
 
@@ -33,20 +33,20 @@ export default function Meal({ meal }: Props) {
   return (
     <>
       <Div columnTop border="1px solid" data-testid="Meal">
-        {meal.name && <span>{meal.name}</span>}
+        {meal.name !== '' && <span>{meal.name}</span>}
 
         <Div itemsBaseline>
           <span>{consumedKcal} kcal</span>
 
           {meal.type === 'gramsOfKcal' && (
-            <small css="margin-left: 8px;">
+            <Div mLeft={8} fontSize="0.8em">
               ({meal.consumedGrams} g x {meal.kcalPer100g} kcal/100g)
-            </small>
+            </Div>
           )}
 
-          <button css="margin-left: auto;" onClick={toogleEditMealModal}>
+          <Div as="button" mLeft="auto" onClick={toogleEditMealModal}>
             Edit
-          </button>
+          </Div>
         </Div>
       </Div>
 
