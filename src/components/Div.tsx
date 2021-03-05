@@ -136,6 +136,7 @@ const stuff = {
   ),
   // Other
   overflow: (value: string) => `overflow: ${value};` /* Tested */,
+  opacity: (value: number) => `opacity: ${value};`,
   // Helpers
   layer: layerStyles,
   square: (value: DuoType) =>
@@ -261,6 +262,7 @@ function doMediaQueriesStuff(props = {}) {
 
 export type DivProps = {
   // Display
+  block?: boolean
   inline?: boolean
   // flex-direction
   row?: boolean
@@ -360,6 +362,7 @@ export type DivProps = {
   columnBottom?: boolean | number | string
   // Other
   overflow?: string
+  opacity?: number
   // Helpers
   layer?: boolean
   square?: number | string
@@ -372,7 +375,14 @@ export type DivProps = {
 }
 
 export default styled.div<DivProps>`
-  display: ${({ inline }) => (inline ? 'inline-flex' : 'flex')};
+  display: ${({ block, inline }) =>
+    block && inline
+      ? 'inline-block'
+      : block
+      ? 'block'
+      : inline
+      ? 'inline-flex'
+      : 'flex'};
   ${doStuff}
   ${doMediaQueriesStuff}
 `
