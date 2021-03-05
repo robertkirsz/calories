@@ -71,6 +71,12 @@ export default function App({ initialState }: Props) {
     setDays(days => days.filter(day => day.id !== dayId))
   }
 
+  async function loadMockData() {
+    import(/* webpackChunkName: 'mock-data' */ 'days.json').then(module => {
+      setDays(module.default as DayInterface[])
+    })
+  }
+
   return (
     <>
       <button
@@ -95,9 +101,11 @@ export default function App({ initialState }: Props) {
         ))}
       </DaysList>
 
-      {/* {process.env.NODE_ENV === 'development' && ( */}
       <button onClick={() => localStorage.removeItem('days')}>Clear</button>
-      {/* )} */}
+
+      {process.env.NODE_ENV === 'development' && (
+        <button onClick={loadMockData}>Load mock data</button>
+      )}
 
       <Version />
     </>
