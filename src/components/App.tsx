@@ -78,6 +78,7 @@ export default function App({ initialState }: Props) {
           sortedDays.length !== 0 && dayjs().isSame(sortedDays[0].date, 'day')
         }
         onClick={addNewDay}
+        data-testid="add-new-day-button"
       >
         New day
       </button>
