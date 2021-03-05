@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import styled from 'styled-components'
 
 import type { MealInterface } from 'types'
 
@@ -8,12 +7,14 @@ import Modal from 'components/Modal'
 
 type Props = {
   meal: MealInterface
+  onDeleteActivity: (activityId: MealInterface['id']) => void
 }
 
-export default function Meal({ meal }: Props) {
-  const [isEditMealModalVisible, setIsEditMealModalVisible] = useState(false)
+export default function Meal({ meal, onDeleteActivity }: Props) {
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false)
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
 
-  // TODO: this is similar to what's in Day, ler's extract the logic and re-use it
+  // TODO: this is similar to what's in Day, let's extract the logic and re-use it
   let consumedKcal = 0
 
   if (meal.type === 'gramsOfKcal') {
@@ -27,42 +28,54 @@ export default function Meal({ meal }: Props) {
   }
 
   function toogleEditMealModal() {
-    setIsEditMealModalVisible(state => !state)
+    setIsEditModalVisible(state => !state)
+  }
+
+  function toggleDeleteActivityModal() {
+    setIsDeleteModalVisible(state => !state)
+  }
+
+  function confirmDelete() {
+    toggleDeleteActivityModal()
+    onDeleteActivity(meal.id)
   }
 
   return (
     <>
-      <Div columnTop border="1px solid" data-testid="Meal">
-        {meal.name !== '' && <span>{meal.name}</span>}
+      <Div justifyBetween itemsCenter border="1px solid" data-testid="Meal">
+        <Div columnTop>
+          {meal.name !== '' && <span>{meal.name}</span>}
 
-        <Div itemsBaseline>
-          <span>{consumedKcal} kcal</span>
+          <Div itemsBaseline>
+            <span>{consumedKcal} kcal</span>
 
-          {meal.type === 'gramsOfKcal' && (
-            <Div mLeft={8} fontSize="0.8em">
-              ({meal.consumedGrams} g x {meal.kcalPer100g} kcal/100g)
-            </Div>
-          )}
-
-          <Div as="button" mLeft="auto" onClick={toogleEditMealModal}>
-            Edit
+            {meal.type === 'gramsOfKcal' && (
+              <Div mLeft={8} fontSize="0.8em">
+                ({meal.consumedGrams} g x {meal.kcalPer100g} kcal/100g)
+              </Div>
+            )}
           </Div>
+        </Div>
+
+        <Div listLeft>
+          <button onClick={toggleDeleteActivityModal}>x</button>
+          <button onClick={toogleEditMealModal}>Edit</button>
         </Div>
       </Div>
 
-      <Modal show={isEditMealModalVisible} onClose={toogleEditMealModal}>
-        <EditMealModal>Edit meal</EditMealModal>
+      <Modal show={isEditModalVisible} onClose={toogleEditMealModal}>
+        <Div columnTop={16} itemsCenter>
+          Edit meal
+        </Div>
+      </Modal>
+
+      <Modal show={isDeleteModalVisible} onClose={toggleDeleteActivityModal}>
+        <Div columnTop={16} itemsCenter>
+          <span>You sure?</span>
+          <button onClick={confirmDelete}>Yes</button>
+          <button onClick={toggleDeleteActivityModal}>No</button>
+        </Div>
       </Modal>
     </>
   )
 }
-
-const EditMealModal = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  > *:not(:first-child) {
-    margin-top: 16px;
-  }
-`

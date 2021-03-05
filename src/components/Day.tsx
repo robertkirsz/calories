@@ -2,8 +2,13 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
 
-import type { ActivityFormDataInterface, DayInterface } from 'types'
+import type {
+  ActivityFormDataInterface,
+  MealInterface,
+  DayInterface
+} from 'types'
 
+import Div from 'components/Div'
 import Modal from 'components/Modal'
 import AddActivityModal from 'components/AddActivityModal'
 import Meal from 'components/Meal'
@@ -14,10 +19,19 @@ type Props = {
     dayId: DayInterface['id'],
     formData: ActivityFormDataInterface
   ) => void
+  onDeleteActivity: (
+    dayId: DayInterface['id'],
+    activityId: MealInterface['id']
+  ) => void
   onDeleteDay: (dayId: DayInterface['id']) => void
 }
 
-export default function Day({ day, onDeleteDay, onAddActivity }: Props) {
+export default function Day({
+  day,
+  onDeleteDay,
+  onAddActivity,
+  onDeleteActivity
+}: Props) {
   const [
     isDeleteConfirmationModalVisible,
     setIsDeleteConfirmationModalVisible
@@ -29,6 +43,10 @@ export default function Day({ day, onDeleteDay, onAddActivity }: Props) {
 
   function addActivity(formData: ActivityFormDataInterface) {
     onAddActivity(day.id, formData)
+  }
+
+  function deleteActivity(activityId: MealInterface['id']) {
+    onDeleteActivity(day.id, activityId)
   }
 
   function confirmDeleteDay() {
@@ -63,7 +81,7 @@ export default function Day({ day, onDeleteDay, onAddActivity }: Props) {
 
         <MealsList>
           {day.meals.map(meal => (
-            <Meal key={meal.id} meal={meal} />
+            <Meal key={meal.id} meal={meal} onDeleteActivity={deleteActivity} />
           ))}
         </MealsList>
 
@@ -74,11 +92,11 @@ export default function Day({ day, onDeleteDay, onAddActivity }: Props) {
         show={isDeleteConfirmationModalVisible}
         onClose={toggleDeleteConfirmationModal}
       >
-        <DeleteDayModal>
+        <Div columnTop={16} itemsCenter>
           <span>You sure?</span>
           <button onClick={confirmDeleteDay}>Yes</button>
           <button onClick={toggleDeleteConfirmationModal}>No</button>
-        </DeleteDayModal>
+        </Div>
       </Modal>
     </>
   )
@@ -87,16 +105,6 @@ export default function Day({ day, onDeleteDay, onAddActivity }: Props) {
 const MealsList = styled.div`
   display: flex;
   flex-direction: column;
-
-  > *:not(:first-child) {
-    margin-top: 16px;
-  }
-`
-
-const DeleteDayModal = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
   > *:not(:first-child) {
     margin-top: 16px;
