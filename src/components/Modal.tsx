@@ -1,4 +1,5 @@
 import { createPortal } from 'react-dom'
+import styled from 'styled-components'
 
 import Fade from 'components/Fade'
 
@@ -25,12 +26,43 @@ export default function Modal({ show, onClose, children, ...props }: Props) {
 
   return createPortal(
     <Fade show={show}>
-      <div className="modal-background" onClick={handleBackgroundClick}>
-        <div className="modal-content" {...props}>
-          {children}
-        </div>
-      </div>
+      <Background onClick={handleBackgroundClick}>
+        <Content {...props}>{children}</Content>
+      </Background>
     </Fade>,
     root!
   )
 }
+
+const Background = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 8px;
+  background: rgba(50, 50, 50, 0.7);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  backdrop-filter: blur(2px);
+`
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  max-width: 100%;
+  max-height: 100%;
+  padding: 24px 16px;
+
+  background: var(--near-white);
+  border-radius: 4px;
+
+  color: var(--near-black);
+
+  overflow: auto;
+`
