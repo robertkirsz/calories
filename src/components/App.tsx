@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import dayjs from 'dayjs'
 import { v4 as uuid } from 'uuid'
 
@@ -11,8 +10,10 @@ import type {
 
 import { descendingBy } from 'utils'
 
+import Div from 'components/Div'
 import Day from 'components/Day'
-import Version from 'components/Version'
+
+import { version } from '../../package.json'
 
 type Props = {
   initialState: DayInterface[]
@@ -77,6 +78,10 @@ export default function App({ initialState }: Props) {
     })
   }
 
+  function handleClear() {
+    setDays([])
+  }
+
   return (
     <>
       <button
@@ -89,7 +94,7 @@ export default function App({ initialState }: Props) {
         New day
       </button>
 
-      <DaysList>
+      <Div columnTop={40} selfStretch margin="16px 0">
         {sortedDays.map(day => (
           <Day
             key={day.id}
@@ -99,26 +104,17 @@ export default function App({ initialState }: Props) {
             onDeleteDay={deleteDay}
           />
         ))}
-      </DaysList>
+      </Div>
 
-      <button onClick={() => localStorage.removeItem('days')}>Clear</button>
+      <Div listLeft itemsCenter>
+        <button onClick={handleClear}>Clear</button>
 
-      {process.env.NODE_ENV === 'development' && (
-        <button onClick={loadMockData}>Load mock data</button>
-      )}
+        {process.env.NODE_ENV === 'development' && (
+          <button onClick={loadMockData}>Load mock data</button>
+        )}
 
-      <Version />
+        <small>v{version}</small>
+      </Div>
     </>
   )
 }
-
-const DaysList = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
-  margin: 40px 0;
-
-  > *:not(:first-child) {
-    margin-top: 40px;
-  }
-`
