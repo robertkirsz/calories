@@ -46,13 +46,15 @@ export default function Activity({ activity, onDeleteActivity }: Props) {
     <>
       <Div justifyBetween itemsCenter border="1px solid" data-testid="Activity">
         <Div columnTop>
-          {activity.name !== '' && <span>{activity.name}</span>}
+          {activity.name !== '' && (
+            <span data-testid="Activity name">{activity.name}</span>
+          )}
 
           <Div itemsBaseline>
-            <span>{consumedKcal} kcal</span>
+            <span data-testid="Activity calories">{consumedKcal} kcal</span>
 
             {activity.type === 'gramsOfKcal' && (
-              <Div mLeft={8} fontSize="0.8em">
+              <Div mLeft={8} fontSize="0.8em" data-testid="Activity details">
                 ({activity.consumedGrams} g x {activity.kcalPer100g} kcal/100g)
               </Div>
             )}
@@ -60,8 +62,18 @@ export default function Activity({ activity, onDeleteActivity }: Props) {
         </Div>
 
         <Div listLeft>
-          <button onClick={toggleDeleteActivityModal}>x</button>
-          <button onClick={toogleEditActivityModal}>Edit</button>
+          <button
+            data-testid="Activity delete button"
+            onClick={toggleDeleteActivityModal}
+          >
+            x
+          </button>
+          <button
+            data-testid="Activity edit button"
+            onClick={toogleEditActivityModal}
+          >
+            Edit
+          </button>
         </Div>
       </Div>
 
@@ -71,11 +83,22 @@ export default function Activity({ activity, onDeleteActivity }: Props) {
         </Div>
       </Modal>
 
+      {/* TODO: move confirmation modal to a separate component */}
       <Modal show={isDeleteModalVisible} onClose={toggleDeleteActivityModal}>
-        <Div columnTop={16} itemsCenter>
+        <Div columnTop={16} itemsCenter data-testid="Delete confirmation modal">
           <span>You sure?</span>
-          <button onClick={confirmDelete}>Yes</button>
-          <button onClick={toggleDeleteActivityModal}>No</button>
+          <button
+            data-testid="Delete confirmation modal yes button"
+            onClick={confirmDelete}
+          >
+            Yes
+          </button>
+          <button
+            data-testid="Delete confirmation modal no button"
+            onClick={toggleDeleteActivityModal}
+          >
+            No
+          </button>
         </Div>
       </Modal>
     </>

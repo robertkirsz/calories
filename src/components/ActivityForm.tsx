@@ -45,7 +45,13 @@ export default function ActivityForm({ onSubmit, onCancel }: Props) {
   }
 
   return (
-    <Div as="form" columnTop={16} width={240} onSubmit={submit}>
+    <Div
+      as="form"
+      columnTop={16}
+      width={240}
+      onSubmit={submit}
+      data-testid="ActivityForm"
+    >
       <Div listLeft itemsBaseline>
         <input
           type="radio"
@@ -62,12 +68,14 @@ export default function ActivityForm({ onSubmit, onCancel }: Props) {
         >
           <span>I ate</span>
           <input
+            name="consumedGrams"
             value={consumedGrams}
             onChange={event => setConsumedGrams(event.target.value)}
             css="width: 32px; margin: 0 4px;"
           />
           <span>grams of food that has</span>
           <input
+            name="kcalPer100g"
             value={kcalPer100g}
             onChange={event => setKcalPer100g(event.target.value)}
             css="width: 32px; margin: 0 4px;"
@@ -92,6 +100,7 @@ export default function ActivityForm({ onSubmit, onCancel }: Props) {
         >
           <span>I consumed</span>
           <input
+            name="consumedKcal"
             value={consumedKcal}
             onChange={event => setConsumedKcal(event.target.value)}
             css="width: 32px; margin: 0 4px;"
@@ -103,6 +112,7 @@ export default function ActivityForm({ onSubmit, onCancel }: Props) {
       </Div>
 
       <input
+        name="name"
         placeholder="Optional name of meal or activity"
         value={name}
         onChange={event => setName(event.target.value)}

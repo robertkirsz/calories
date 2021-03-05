@@ -13,8 +13,16 @@ yarn # Installs dependencies
 yarn start # Launches app on port 3000
 ```
 
-### Testing
+### Unit tests with Jest
 
 ```bash
 yarn test
 ```
+
+### e2e tests with Cypress
+
+```bash
+yarn e2e
+```
+
+Make sure you have app started locally with `yarn start` first.

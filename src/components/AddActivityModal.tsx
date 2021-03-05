@@ -23,7 +23,12 @@ export default function AddActivityModal({ onSubmit }: Props) {
 
   return (
     <>
-      <button onClick={toggleModalVisibility}>+</button>
+      <button
+        data-testid="AddActivityModal button"
+        onClick={toggleModalVisibility}
+      >
+        +
+      </button>
 
       <Modal show={isModalVisible} onClose={toggleModalVisibility}>
         <ActivityForm onSubmit={submit} onCancel={toggleModalVisibility} />

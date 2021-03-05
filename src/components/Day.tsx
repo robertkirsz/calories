@@ -74,9 +74,18 @@ export default function Day({
     <>
       <div className="day" data-testid="Day">
         <nav>
-          <span>{dayjs(day.date).format('DD-MM-YYYY')}</span>
-          <span>{totalKcalConsumed} kcal</span>
-          <button onClick={toggleDeleteConfirmationModal}>Delete</button>
+          <span data-testid="Day date">
+            {dayjs(day.date).format('DD-MM-YYYY')}
+          </span>
+          <span data-testid="Day total kcal consumed">
+            {totalKcalConsumed} kcal
+          </span>
+          <button
+            data-testid="Day delete button"
+            onClick={toggleDeleteConfirmationModal}
+          >
+            Delete
+          </button>
         </nav>
 
         <ActivitysList>
@@ -96,10 +105,20 @@ export default function Day({
         show={isDeleteConfirmationModalVisible}
         onClose={toggleDeleteConfirmationModal}
       >
-        <Div columnTop={16} itemsCenter>
+        <Div columnTop={16} itemsCenter data-testid="Delete confirmation modal">
           <span>You sure?</span>
-          <button onClick={confirmDeleteDay}>Yes</button>
-          <button onClick={toggleDeleteConfirmationModal}>No</button>
+          <button
+            data-testid="Delete confirmation modal yes button"
+            onClick={confirmDeleteDay}
+          >
+            Yes
+          </button>
+          <button
+            data-testid="Delete confirmation modal no button"
+            onClick={toggleDeleteConfirmationModal}
+          >
+            No
+          </button>
         </Div>
       </Modal>
     </>
