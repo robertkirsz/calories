@@ -7,14 +7,14 @@ context('e2e test', () => {
     cy.visit('/')
   })
 
-  it('Day and activity can be added and deleted', () => {
+  it('Day and activities can be added and deleted', () => {
     // There should be no days visible on the page at first
     cy.get('[data-testid="Day"]').should('not.exist')
 
     // Button for adding a new day should be visible
-    cy.get('[data-testid="add-new-day-button"]')
-      .should('be.visible')
-      .and('have.text', 'New day')
+    cy.get('[data-testid="add-new-day-button"]').should('be.visible').and('have.text', 'New day')
+
+    // ADDING STUFF
 
     // When we click on it, an entry on the list of days should appear
     cy.get('[data-testid="add-new-day-button"]').click()
@@ -29,19 +29,20 @@ context('e2e test', () => {
       .and('have.text', dayjs().format('DD-MM-YYYY'))
 
     // Total calories consumed should be 0 kcal
-    cy.get(
-      '[data-testid="Day"] [data-testid="Day total kcal consumed"]'
-    ).should('have.text', '0 kcal')
+    cy.get('[data-testid="Day"] [data-testid="Day total kcal consumed"]').should(
+      'have.text',
+      '0 kcal'
+    )
 
     // There should be a button for adding activities
     cy.get('[data-testid="Day"] [data-testid="AddActivityModal button"]')
       .should('be.visible')
       .and('have.text', '+')
 
+    // ACTIVITY #1
+
     // Clicking it should show a modal for adding activities
-    cy.get(
-      '[data-testid="Day"] [data-testid="AddActivityModal button"]'
-    ).click()
+    cy.get('[data-testid="Day"] [data-testid="AddActivityModal button"]').click()
 
     cy.get('[data-testid="ActivityForm"]').should('be.visible')
 
@@ -59,28 +60,51 @@ context('e2e test', () => {
 
     // A new activity should appear
     cy.get('[data-testid="Activity"]').should('be.visible')
-    cy.get('[data-testid="Activity name"]')
-      .should('be.visible')
-      .and('have.text', 'Pizza')
-    cy.get('[data-testid="Activity calories"]')
-      .should('be.visible')
-      .and('have.text', '200 kcal')
+    cy.get('[data-testid="Activity name"]').should('be.visible').and('have.text', 'Pizza')
+    cy.get('[data-testid="Activity calories"]').should('be.visible').and('have.text', '200 kcal')
     cy.get('[data-testid="Activity details"]')
       .should('be.visible')
       .and('have.text', '(100 g x 200 kcal/100g)')
 
     // Total calories consumed should now be 200 kcal
-    cy.get(
-      '[data-testid="Day"] [data-testid="Day total kcal consumed"]'
-    ).should('have.text', '200 kcal')
+    cy.get('[data-testid="Day"] [data-testid="Day total kcal consumed"]').should(
+      'have.text',
+      '200 kcal'
+    )
 
-    // The activity should disappear when clicking it's delete butto
-    cy.get('[data-testid="Activity delete button"]').click()
+    // ACTIVITY #2
+
+    cy.get('[data-testid="Day"] [data-testid="AddActivityModal button"]').click()
+    cy.get('[data-testid="ActivityForm onlyKcal radio"]').click()
+    cy.get('[data-testid="ActivityForm consumedKcal input"]').type('150')
+    cy.get('[data-testid="ActivityForm"]').submit()
+
+    // We now should have two activities visible
+    cy.get('[data-testid="Activity"]').should('have.length', 2)
+
+    // Total calories consumed should now be 350 kcal
+    cy.get('[data-testid="Day"] [data-testid="Day total kcal consumed"]').should(
+      'have.text',
+      '350 kcal'
+    )
+
+    // DELETING STUFF
+
+    // The first activity should disappear when clicking it's delete button
+    cy.get('[data-testid="Activity delete button"]').first().click()
     cy.get('[data-testid="Delete confirmation modal"]').should('be.visible')
     cy.get('[data-testid="Delete confirmation modal yes button"]').click()
-    cy.get('[data-testid="Activity"]').should('not.exist')
 
-    // Day should dissapear when clicking it's delete button
+    // We now should have only one activity visible
+    cy.get('[data-testid="Activity"]').should('have.length', 1)
+
+    // Total calories consumed should be reduced to 150
+    cy.get('[data-testid="Day"] [data-testid="Day total kcal consumed"]').should(
+      'have.text',
+      '150 kcal'
+    )
+
+    // Day should disappear when clicking it's delete button
     cy.get('[data-testid="Day delete button"]').click()
     cy.get('[data-testid="Delete confirmation modal"]').should('be.visible')
     cy.get('[data-testid="Delete confirmation modal yes button"]').click()
