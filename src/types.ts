@@ -14,11 +14,3 @@ export interface DayInterface {
   date: string
   activities: ActivityInterface[]
 }
-
-export interface ActivityFormDataInterface {
-  type: ActivityType
-  consumedGrams: number | null
-  kcalPer100g: number | null
-  consumedKcal: number | null
-  name: string
-}

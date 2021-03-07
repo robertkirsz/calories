@@ -2,6 +2,8 @@ import { render, screen, fireEvent } from '@testing-library/react'
 
 import ActivityForm from './ActivityForm'
 
+jest.mock('uuid', () => ({ v4: () => 'mocked-id' }))
+
 describe('Add new activity', () => {
   test('All important elements are in place', () => {
     render(<ActivityForm />)
@@ -41,6 +43,7 @@ describe('Add new activity', () => {
     fireEvent.submit(screen.getByTestId('ActivityForm'))
 
     expect(submitCallback).toBeCalledWith({
+      id: 'mocked-id',
       type: 'gramsOfKcal',
       name: 'Pizza',
       consumedGrams: 50,
@@ -67,6 +70,7 @@ describe('Add new activity', () => {
     fireEvent.submit(screen.getByTestId('ActivityForm'))
 
     expect(submitCallback).toBeCalledWith({
+      id: 'mocked-id',
       type: 'onlyKcal',
       name: 'Pizza',
       consumedGrams: null,

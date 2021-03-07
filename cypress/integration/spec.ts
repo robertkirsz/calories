@@ -88,6 +88,27 @@ context('e2e test', () => {
       '350 kcal'
     )
 
+    // EDITING STUFF
+
+    // Edit values of the first activity
+    cy.get('[data-testid="EditActivityModal button"]').first().click()
+    cy.get('[data-testid="EditActivityModal"]').should('be.visible')
+    cy.get('input[name="name"]').clear().type('Hamburger')
+    cy.get('input[name="consumedGrams"]').clear().type('50')
+    cy.get('input[name="kcalPer100g"]').clear().type('150')
+    cy.get('[data-testid="ActivityForm"]').submit()
+
+    // Activity should be updated
+    cy.get('[data-testid="Activity name"]').first().should('have.text', 'Hamburger')
+    cy.get('[data-testid="Activity calories"]').first().should('have.text', '75 kcal')
+    cy.get('[data-testid="Activity details"]').first().should('have.text', '(50 g x 150 kcal/100g)')
+
+    // Total calories consumed should be reduced to 275
+    cy.get('[data-testid="Day"] [data-testid="Day total kcal consumed"]').should(
+      'have.text',
+      '225 kcal'
+    )
+
     // DELETING STUFF
 
     // The first activity should disappear when clicking it's delete button

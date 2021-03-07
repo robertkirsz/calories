@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import 'styled-components/macro'
+import { v4 as uuid } from 'uuid'
 
-import type { ActivityFormDataInterface, ActivityType } from 'types'
+import type { ActivityInterface, ActivityType } from 'types'
 
 import Div from 'components/Div'
 
 type Props = {
-  initialData?: ActivityFormDataInterface
-  onSubmit?: (formData: ActivityFormDataInterface) => void
+  initialData?: ActivityInterface
+  onSubmit?: (formData: ActivityInterface) => void
   onCancel?: () => void
 }
 
@@ -25,7 +26,8 @@ export default function ActivityForm({ initialData, onSubmit, onCancel }: Props)
   function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const formData: ActivityFormDataInterface = {
+    const formData: ActivityInterface = {
+      id: initialData?.id || uuid(),
       type,
       name,
       consumedGrams: parseInt(consumedGrams),

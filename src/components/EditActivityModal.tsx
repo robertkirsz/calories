@@ -6,10 +6,11 @@ import Modal from 'components/Modal'
 import ActivityForm from 'components/ActivityForm'
 
 type Props = {
+  activity: ActivityInterface
   onSubmit: (formData: ActivityInterface) => void
 }
 
-export default function AddActivityModal({ onSubmit }: Props) {
+export default function EditActivityModal({ activity, onSubmit }: Props) {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   function toggleModalVisibility() {
@@ -23,12 +24,12 @@ export default function AddActivityModal({ onSubmit }: Props) {
 
   return (
     <>
-      <button data-testid="AddActivityModal button" onClick={toggleModalVisibility}>
-        +
+      <button data-testid="EditActivityModal button" onClick={toggleModalVisibility}>
+        Edit
       </button>
 
-      <Modal show={isModalVisible} onClose={toggleModalVisibility}>
-        <ActivityForm onSubmit={submit} onCancel={toggleModalVisibility} />
+      <Modal show={isModalVisible} onClose={toggleModalVisibility} data-testid="EditActivityModal">
+        <ActivityForm initialData={activity} onSubmit={submit} onCancel={toggleModalVisibility} />
       </Modal>
     </>
   )

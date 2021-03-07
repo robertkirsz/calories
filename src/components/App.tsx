@@ -2,11 +2,7 @@ import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import { v4 as uuid } from 'uuid'
 
-import type {
-  DayInterface,
-  ActivityFormDataInterface,
-  ActivityInterface
-} from 'types'
+import type { DayInterface, ActivityInterface } from 'types'
 
 import { descendingBy } from 'utils'
 
@@ -28,41 +24,45 @@ export default function App({ initialState }: Props) {
   }, [days])
 
   function addNewDay() {
-    setDays(days => [
-      ...days,
-      { id: uuid(), date: dayjs().format('YYYY-MM-DD'), activities: [] }
-    ])
+    setDays(days => [...days, { id: uuid(), date: dayjs().format('YYYY-MM-DD'), activities: [] }])
   }
 
-  function addActivity(
-    dayId: DayInterface['id'],
-    formData: ActivityFormDataInterface
-  ) {
+  function addActivity(dayId: DayInterface['id'], formData: ActivityInterface) {
     setDays(days =>
       days.map(day =>
         day.id !== dayId
           ? day
           : {
               ...day,
-              activities: [...day.activities, { id: uuid(), ...formData }]
+              activities: [...day.activities, formData],
             }
       )
     )
   }
 
-  function deleteActivity(
-    dayId: DayInterface['id'],
-    activityId: ActivityInterface['id']
-  ) {
+  function editActivity(dayId: DayInterface['id'], formData: ActivityInterface) {
     setDays(days =>
       days.map(day =>
         day.id !== dayId
           ? day
           : {
               ...day,
-              activities: day.activities.filter(
-                activity => activity.id !== activityId
-              )
+              activities: day.activities.map(activity =>
+                activity.id !== formData.id ? activity : formData
+              ),
+            }
+      )
+    )
+  }
+
+  function deleteActivity(dayId: DayInterface['id'], activityId: ActivityInterface['id']) {
+    setDays(days =>
+      days.map(day =>
+        day.id !== dayId
+          ? day
+          : {
+              ...day,
+              activities: day.activities.filter(activity => activity.id !== activityId),
             }
       )
     )
@@ -85,9 +85,7 @@ export default function App({ initialState }: Props) {
   return (
     <>
       <button
-        disabled={
-          sortedDays.length !== 0 && dayjs().isSame(sortedDays[0].date, 'day')
-        }
+        disabled={sortedDays.length !== 0 && dayjs().isSame(sortedDays[0].date, 'day')}
         onClick={addNewDay}
         data-testid="add-new-day-button"
       >
@@ -100,6 +98,7 @@ export default function App({ initialState }: Props) {
             key={day.id}
             day={day}
             onAddActivity={addActivity}
+            onEditActivity={editActivity}
             onDeleteActivity={deleteActivity}
             onDeleteDay={deleteDay}
           />

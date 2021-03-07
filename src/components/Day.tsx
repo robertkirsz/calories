@@ -2,11 +2,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
 
-import type {
-  ActivityFormDataInterface,
-  ActivityInterface,
-  DayInterface
-} from 'types'
+import type { ActivityInterface, DayInterface } from 'types'
 
 import Div from 'components/Div'
 import Modal from 'components/Modal'
@@ -15,14 +11,9 @@ import Activity from 'components/Activity'
 
 type Props = {
   day: DayInterface
-  onAddActivity: (
-    dayId: DayInterface['id'],
-    formData: ActivityFormDataInterface
-  ) => void
-  onDeleteActivity: (
-    dayId: DayInterface['id'],
-    activityId: ActivityInterface['id']
-  ) => void
+  onAddActivity: (dayId: DayInterface['id'], formData: ActivityInterface) => void
+  onEditActivity: (dayId: DayInterface['id'], formData: ActivityInterface) => void
+  onDeleteActivity: (dayId: DayInterface['id'], activityId: ActivityInterface['id']) => void
   onDeleteDay: (dayId: DayInterface['id']) => void
 }
 
@@ -30,19 +21,21 @@ export default function Day({
   day,
   onDeleteDay,
   onAddActivity,
-  onDeleteActivity
+  onEditActivity,
+  onDeleteActivity,
 }: Props) {
-  const [
-    isDeleteConfirmationModalVisible,
-    setIsDeleteConfirmationModalVisible
-  ] = useState(false)
+  const [isDeleteConfirmationModalVisible, setIsDeleteConfirmationModalVisible] = useState(false)
 
   function toggleDeleteConfirmationModal() {
     setIsDeleteConfirmationModalVisible(state => !state)
   }
 
-  function addActivity(formData: ActivityFormDataInterface) {
+  function addActivity(formData: ActivityInterface) {
     onAddActivity(day.id, formData)
+  }
+
+  function editActivity(formData: ActivityInterface) {
+    onEditActivity(day.id, formData)
   }
 
   function deleteActivity(activityId: ActivityInterface['id']) {
@@ -74,16 +67,9 @@ export default function Day({
     <>
       <div className="day" data-testid="Day">
         <nav>
-          <span data-testid="Day date">
-            {dayjs(day.date).format('DD-MM-YYYY')}
-          </span>
-          <span data-testid="Day total kcal consumed">
-            {totalKcalConsumed} kcal
-          </span>
-          <button
-            data-testid="Day delete button"
-            onClick={toggleDeleteConfirmationModal}
-          >
+          <span data-testid="Day date">{dayjs(day.date).format('DD-MM-YYYY')}</span>
+          <span data-testid="Day total kcal consumed">{totalKcalConsumed} kcal</span>
+          <button data-testid="Day delete button" onClick={toggleDeleteConfirmationModal}>
             Delete
           </button>
         </nav>
@@ -93,6 +79,7 @@ export default function Day({
             <Activity
               key={activity.id}
               activity={activity}
+              onEditActivity={editActivity}
               onDeleteActivity={deleteActivity}
             />
           ))}
@@ -101,16 +88,10 @@ export default function Day({
         <AddActivityModal onSubmit={addActivity} />
       </div>
 
-      <Modal
-        show={isDeleteConfirmationModalVisible}
-        onClose={toggleDeleteConfirmationModal}
-      >
+      <Modal show={isDeleteConfirmationModalVisible} onClose={toggleDeleteConfirmationModal}>
         <Div columnTop={16} itemsCenter data-testid="Delete confirmation modal">
           <span>You sure?</span>
-          <button
-            data-testid="Delete confirmation modal yes button"
-            onClick={confirmDeleteDay}
-          >
+          <button data-testid="Delete confirmation modal yes button" onClick={confirmDeleteDay}>
             Yes
           </button>
           <button
