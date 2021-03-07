@@ -4,9 +4,9 @@ export interface ActivityInterface {
   id: string
   type: ActivityType
   name: string
-  kcalPer100g: number | null
-  consumedGrams: number | null
-  consumedKcal: number | null
+  kcalPer100g: number
+  consumedGrams: number
+  consumedKcal: number
 }
 
 export interface DayInterface {

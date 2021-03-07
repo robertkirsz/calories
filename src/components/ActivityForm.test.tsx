@@ -48,7 +48,7 @@ describe('Add new activity', () => {
       name: 'Pizza',
       consumedGrams: 50,
       kcalPer100g: 200,
-      consumedKcal: null,
+      consumedKcal: 0,
     })
   })
 
@@ -73,8 +73,8 @@ describe('Add new activity', () => {
       id: 'mocked-id',
       type: 'onlyKcal',
       name: 'Pizza',
-      consumedGrams: null,
-      kcalPer100g: null,
+      consumedGrams: 0,
+      kcalPer100g: 0,
       consumedKcal: 100,
     })
   })

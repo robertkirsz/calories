@@ -36,12 +36,12 @@ export default function ActivityForm({ initialData, onSubmit, onCancel }: Props)
     }
 
     if (type === 'gramsOfKcal') {
-      formData.consumedKcal = null
+      formData.consumedKcal = 0
     }
 
     if (type === 'onlyKcal') {
-      formData.consumedGrams = null
-      formData.kcalPer100g = null
+      formData.consumedGrams = 0
+      formData.kcalPer100g = 0
     }
 
     onSubmit?.(formData)

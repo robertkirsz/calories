@@ -9,7 +9,7 @@
         "type": "gramsOfKcal",
         "kcalPer100g": 526,
         "consumedGrams": 87,
-        "consumedKcal": null
+        "consumedKcal": 0
       }
     ]
   },
@@ -23,7 +23,7 @@
         "type": "gramsOfKcal",
         "kcalPer100g": 200,
         "consumedGrams": 100,
-        "consumedKcal": null
+        "consumedKcal": 0
       },
       {
         "id": "xss87324d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
@@ -31,7 +31,7 @@
         "type": "gramsOfKcal",
         "kcalPer100g": 200,
         "consumedGrams": 49,
-        "consumedKcal": null
+        "consumedKcal": 0
       },
       {
         "id": "xbdfhyb4d-3b7d-4bad-9bdd-2b0d7b3dh709",
@@ -39,7 +39,7 @@
         "type": "gramsOfKcal",
         "kcalPer100g": 234,
         "consumedGrams": 150,
-        "consumedKcal": null
+        "consumedKcal": 0
       }
     ]
   },
@@ -53,7 +53,7 @@
         "type": "gramsOfKcal",
         "kcalPer100g": 231,
         "consumedGrams": 123,
-        "consumedKcal": null
+        "consumedKcal": 0
       },
       {
         "id": "ur763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
@@ -61,7 +61,7 @@
         "type": "gramsOfKcal",
         "kcalPer100g": 129,
         "consumedGrams": 27,
-        "consumedKcal": null
+        "consumedKcal": 0
       }
     ]
   },
@@ -75,7 +75,7 @@
         "type": "gramsOfKcal",
         "kcalPer100g": 231,
         "consumedGrams": 123,
-        "consumedKcal": null
+        "consumedKcal": 0
       },
       {
         "id": "1r763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
@@ -83,7 +83,7 @@
         "type": "gramsOfKcal",
         "kcalPer100g": 129,
         "consumedGrams": 27,
-        "consumedKcal": null
+        "consumedKcal": 0
       }
     ]
   },
@@ -97,7 +97,7 @@
         "type": "gramsOfKcal",
         "kcalPer100g": 231,
         "consumedGrams": 123,
-        "consumedKcal": null
+        "consumedKcal": 0
       },
       {
         "id": "2r763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
@@ -105,7 +105,7 @@
         "type": "gramsOfKcal",
         "kcalPer100g": 129,
         "consumedGrams": 27,
-        "consumedKcal": null
+        "consumedKcal": 0
       }
     ]
   },
@@ -119,14 +119,14 @@
         "type": "gramsOfKcal",
         "kcalPer100g": 200,
         "consumedGrams": 50,
-        "consumedKcal": null
+        "consumedKcal": 0
       },
       {
         "id": "3r763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
         "name": "",
         "type": "onlyKcal",
-        "kcalPer100g": null,
-        "consumedGrams": null,
+        "kcalPer100g": 0,
+        "consumedGrams": 0,
         "consumedKcal": 100
       }
     ]
