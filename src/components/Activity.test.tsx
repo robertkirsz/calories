@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 
-import type { ActivityInterface } from '../types'
+import type { ActivityInterface } from 'types'
 
-import Activity, { getTotalCalories } from './Activity'
+import Activity, { getTotalCalories } from 'components/Activity'
 
 const gramsOfKcalActivity: ActivityInterface = {
   id: 'some-id',

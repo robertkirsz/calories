@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 
-import ActivityForm from './ActivityForm'
+import ActivityForm from 'components/ActivityForm'
 
 jest.mock('uuid', () => ({ v4: () => 'mocked-id' }))
 
@@ -23,7 +23,7 @@ describe('Add new activity', () => {
     expect(screen.getByTestId('ActivityForm onlyKcal radio')).not.toBeChecked()
   })
 
-  fit('Default submit values look like expected', () => {
+  it('Default submit values look like expected', () => {
     const submitCallback = jest.fn()
 
     render(<ActivityForm onSubmit={submitCallback} />)

@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 
-import type { DayInterface, ActivityInterface } from '../types'
+import type { DayInterface, ActivityInterface } from 'types'
 
-import Day from './Day'
+import Day from 'components/Day'
 
 jest.mock('uuid', () => ({ v4: () => 'mocked-id' }))
 
