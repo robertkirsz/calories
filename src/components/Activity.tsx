@@ -12,16 +12,13 @@ type Props = {
   onDeleteActivity: (activityId: ActivityInterface['id']) => void
 }
 
-// TODO: this is similar to what's in Day, let's extract the logic and re-use it
 export const getTotalCalories = ({
   type,
   kcalPer100g,
   consumedGrams,
   consumedKcal,
-}: ActivityInterface) => {
-  if (type === 'onlyKcal') return consumedKcal
-  return Math.round((kcalPer100g * consumedGrams) / 100)
-}
+}: ActivityInterface) =>
+  type === 'onlyKcal' ? consumedKcal : Math.round((kcalPer100g * consumedGrams) / 100)
 
 export default function Activity({ activity, onEditActivity, onDeleteActivity }: Props) {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)

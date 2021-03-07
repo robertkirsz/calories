@@ -6,9 +6,8 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -31,25 +30,9 @@ body {
   margin-top: 8px;
 }
 
-.day {
-  display: flex;
-  flex-direction: column;
-}
-
-.day > *:not(:first-child) {
-  margin-top: 8px;
-}
-
-.day nav {
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid;
-}
-
 .emoji {
-  font-family: apple color emoji, segoe ui emoji, noto color emoji,
-    android emoji, emojisymbols, emojione mozilla, twemoji mozilla,
-    segoe ui symbol;
+  font-family: apple color emoji, segoe ui emoji, noto color emoji, android emoji, emojisymbols,
+    emojione mozilla, twemoji mozilla, segoe ui symbol;
   font-weight: 400;
 }
 

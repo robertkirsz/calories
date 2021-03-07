@@ -7,7 +7,7 @@ import type { ActivityInterface, DayInterface } from 'types'
 import Div from 'components/Div'
 import Modal from 'components/Modal'
 import AddActivityModal from 'components/AddActivityModal'
-import Activity from 'components/Activity'
+import Activity, { getTotalCalories } from 'components/Activity'
 
 type Props = {
   day: DayInterface
@@ -48,31 +48,19 @@ export default function Day({
   }
 
   const totalKcalConsumed = Math.round(
-    day.activities.reduce((all, activity) => {
-      if (activity.type === 'gramsOfKcal') {
-        // TODO: make sure these are not null if type === 'gramsOfKcal'
-        return all + (activity.kcalPer100g! * activity.consumedGrams!) / 100
-      }
-
-      if (activity.type === 'onlyKcal') {
-        // TODO: make sure this is not null if type === 'onlyKcal'
-        return all + activity.consumedKcal!
-      }
-
-      return all
-    }, 0)
+    day.activities.reduce((all, activity) => all + getTotalCalories(activity), 0)
   )
 
   return (
     <>
-      <div className="day" data-testid="Day">
-        <nav>
+      <Div columnTop data-testid="Day">
+        <Div justifyBetween>
           <span data-testid="Day date">{dayjs(day.date).format('DD-MM-YYYY')}</span>
           <span data-testid="Day total kcal consumed">{totalKcalConsumed} kcal</span>
           <button data-testid="Day delete button" onClick={toggleDeleteConfirmationModal}>
             Delete
           </button>
-        </nav>
+        </Div>
 
         <ActivitysList>
           {day.activities.map(activity => (
@@ -86,7 +74,7 @@ export default function Day({
         </ActivitysList>
 
         <AddActivityModal onSubmit={addActivity} />
-      </div>
+      </Div>
 
       <Modal show={isDeleteConfirmationModalVisible} onClose={toggleDeleteConfirmationModal}>
         <Div columnTop={16} itemsCenter data-testid="Delete confirmation modal">

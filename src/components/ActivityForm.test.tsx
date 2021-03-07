@@ -5,7 +5,7 @@ import ActivityForm from './ActivityForm'
 jest.mock('uuid', () => ({ v4: () => 'mocked-id' }))
 
 describe('Add new activity', () => {
-  test('All important elements are in place', () => {
+  it('All important elements are in place', () => {
     render(<ActivityForm />)
 
     expect(screen.getByTestId('ActivityForm')).toBeVisible()
@@ -23,7 +23,28 @@ describe('Add new activity', () => {
     expect(screen.getByTestId('ActivityForm onlyKcal radio')).not.toBeChecked()
   })
 
-  test('Data for "gramsOfKcal" activity is returned correctly', () => {
+  fit('Default submit values look like expected', () => {
+    const submitCallback = jest.fn()
+
+    render(<ActivityForm onSubmit={submitCallback} />)
+
+    expect(screen.getByTestId('ActivityForm name input')).not.toHaveValue()
+    expect(screen.getByTestId('ActivityForm consumedGrams input')).not.toHaveValue()
+    expect(screen.getByTestId('ActivityForm kcalPer100g input')).not.toHaveValue()
+
+    fireEvent.submit(screen.getByTestId('ActivityForm'))
+
+    expect(submitCallback).toBeCalledWith({
+      id: 'mocked-id',
+      type: 'gramsOfKcal',
+      name: '',
+      consumedGrams: 0,
+      kcalPer100g: 0,
+      consumedKcal: 0,
+    })
+  })
+
+  it('Data for "gramsOfKcal" activity is returned correctly', () => {
     const submitCallback = jest.fn()
 
     render(<ActivityForm onSubmit={submitCallback} />)
@@ -52,7 +73,7 @@ describe('Add new activity', () => {
     })
   })
 
-  test('Data for "onlyKcal" activity is returned correctly', () => {
+  it('Data for "onlyKcal" activity is returned correctly', () => {
     const submitCallback = jest.fn()
 
     render(<ActivityForm onSubmit={submitCallback} />)
@@ -79,7 +100,7 @@ describe('Add new activity', () => {
     })
   })
 
-  test('Cancel callback is called', () => {
+  it('Cancel callback is called', () => {
     const cancelCallback = jest.fn()
 
     render(<ActivityForm onCancel={cancelCallback} />)

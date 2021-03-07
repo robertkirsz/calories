@@ -6,14 +6,14 @@ type Props = {
 }
 
 export default function Fade({ show, children }: Props) {
-  const [shouldRender, setRender] = useState(show)
+  const [shouldRender, setShouldRender] = useState(show)
 
   useEffect(() => {
-    if (show) setRender(true)
+    if (show) setShouldRender(true)
   }, [show])
 
-  const onAnimationEnd = () => {
-    if (!show) setRender(false)
+  function onAnimationEnd(event: React.AnimationEvent<HTMLDivElement>) {
+    if (event.target === event.currentTarget && !show) setShouldRender(false)
   }
 
   if (!shouldRender) return null
@@ -22,6 +22,7 @@ export default function Fade({ show, children }: Props) {
     <div
       style={{ animation: `${show ? 'fadeIn' : 'fadeOut'} 250ms` }}
       onAnimationEnd={onAnimationEnd}
+      data-testid="Fade"
     >
       {children}
     </div>
