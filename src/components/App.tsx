@@ -2,26 +2,34 @@ import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import { v4 as uuid } from 'uuid'
 
-import type { DayInterface, ActivityInterface } from 'types'
+import type { SettingsInterface, DayInterface, ActivityInterface } from 'types'
 
+import defaultSettings from 'defaultSettings'
 import { descendingBy } from 'utils'
 
 import Div from 'components/Div'
+import SettingsModal from 'components/SettingsModal'
 import Day from 'components/Day'
 
 import { version } from '../../package.json'
 
 type Props = {
-  initialState: DayInterface[]
+  initialSettings?: SettingsInterface
+  initialDays?: DayInterface[]
 }
 
-export default function App({ initialState }: Props) {
-  const [days, setDays] = useState([...initialState])
+export default function App({ initialSettings = defaultSettings, initialDays = [] }: Props) {
+  const [settings, setSettings] = useState(initialSettings)
+  const [days, setDays] = useState(initialDays)
   const sortedDays = days.sort(descendingBy('date'))
 
   useEffect(() => {
     localStorage.setItem('days', JSON.stringify(days))
   }, [days])
+
+  useEffect(() => {
+    localStorage.setItem('settings', JSON.stringify(settings))
+  }, [settings])
 
   function addNewDay() {
     setDays(days => [...days, { id: uuid(), date: dayjs().format('YYYY-MM-DD'), activities: [] }])
@@ -84,6 +92,8 @@ export default function App({ initialState }: Props) {
 
   return (
     <>
+      <SettingsModal settings={settings} onUpdate={setSettings} />
+
       <button
         disabled={sortedDays.length !== 0 && dayjs().isSame(sortedDays[0].date, 'day')}
         onClick={addNewDay}
@@ -97,6 +107,7 @@ export default function App({ initialState }: Props) {
           <Day
             key={day.id}
             day={day}
+            dailyCaloricTarget={settings.dailyCaloricTarget}
             onAddActivity={addActivity}
             onEditActivity={editActivity}
             onDeleteActivity={deleteActivity}

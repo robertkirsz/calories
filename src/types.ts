@@ -14,3 +14,8 @@ export interface DayInterface {
   date: string
   activities: ActivityInterface[]
 }
+
+export interface SettingsInterface {
+  dailyCaloricTarget: number
+  darkMode: boolean
+}

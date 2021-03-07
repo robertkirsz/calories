@@ -1,14 +1,17 @@
 import { StrictMode } from 'react'
 import { render } from 'react-dom'
 
-import App from 'components/App'
-import 'index.css'
+import type { SettingsInterface, DayInterface } from 'types'
 
-const days = JSON.parse(localStorage.getItem('days') || '[]')
+import 'index.css'
+import App from 'components/App'
+
+const initialDays = JSON.parse(String(localStorage.getItem('days'))) as DayInterface[]
+const initialSettings = JSON.parse(String(localStorage.getItem('settings'))) as SettingsInterface
 
 render(
   <StrictMode>
-    <App initialState={days} />
+    <App initialSettings={initialSettings || undefined} initialDays={initialDays || undefined} />
   </StrictMode>,
   document.getElementById('app-root')
 )

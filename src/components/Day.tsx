@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
 
-import type { ActivityInterface, DayInterface } from 'types'
+import type { SettingsInterface, ActivityInterface, DayInterface } from 'types'
 
 import Div from 'components/Div'
 import Modal from 'components/Modal'
@@ -11,6 +11,7 @@ import Activity, { getTotalCalories } from 'components/Activity'
 
 type Props = {
   day: DayInterface
+  dailyCaloricTarget: SettingsInterface['dailyCaloricTarget']
   onAddActivity: (dayId: DayInterface['id'], formData: ActivityInterface) => void
   onEditActivity: (dayId: DayInterface['id'], formData: ActivityInterface) => void
   onDeleteActivity: (dayId: DayInterface['id'], activityId: ActivityInterface['id']) => void
@@ -19,6 +20,7 @@ type Props = {
 
 export default function Day({
   day,
+  dailyCaloricTarget,
   onDeleteDay,
   onAddActivity,
   onEditActivity,
@@ -54,6 +56,8 @@ export default function Day({
   return (
     <>
       <Div columnTop data-testid="Day">
+        <div>daily: {dailyCaloricTarget}</div>
+
         <Div justifyBetween>
           <span data-testid="Day date">{dayjs(day.date).format('DD-MM-YYYY')}</span>
           <span data-testid="Day total kcal consumed">{totalKcalConsumed} kcal</span>
