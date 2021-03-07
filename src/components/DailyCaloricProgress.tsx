@@ -5,7 +5,7 @@ type Props = {
 }
 
 export default function DailyCaloricProgress({ percentage }: Props) {
-  if (percentage === null) return null
+  if (percentage === null || percentage <= 0) return null
 
   return (
     <Wrapper
