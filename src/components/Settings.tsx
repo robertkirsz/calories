@@ -6,7 +6,7 @@ import defaultSettings from 'defaultSettings'
 import Div from 'components/Div'
 
 type Props = {
-  settings: SettingsInterface
+  settings?: SettingsInterface
   onUpdate: (settings: SettingsInterface) => void
 }
 
@@ -27,6 +27,7 @@ export default function Settings({ settings = defaultSettings, onUpdate }: Props
           value={settings.dailyCaloricTarget === 0 ? '' : settings.dailyCaloricTarget}
           onChange={changeDailyCaloricTarget}
           css="width: 32px; margin: 0 4px;"
+          data-testid="Settings dailyCaloricTarget input"
         />
         <span>kcal</span>
       </Div>
