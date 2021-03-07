@@ -11,9 +11,21 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "e2e": "cypress open"
+    "e2e": "cypress open",
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "prettier": "prettier . --check"
   },
   "dependencies": {
+    "dayjs": "1.10.4",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-scripts": "4.0.3",
+    "styled-components": "5.2.1",
+    "typescript": "4.1.2",
+    "uuid": "8.3.2"
+  },
+  "devDependencies": {
+    "@bahmutov/add-typescript-to-cypress": "2.1.2",
     "@testing-library/jest-dom": "5.11.4",
     "@testing-library/react": "11.1.0",
     "@testing-library/user-event": "12.1.10",
@@ -23,19 +35,22 @@
     "@types/react-dom": "17.0.0",
     "@types/styled-components": "5.1.7",
     "@types/uuid": "8.3.0",
-    "dayjs": "1.10.4",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-scripts": "4.0.3",
-    "styled-components": "5.2.1",
-    "typescript": "4.1.2",
-    "uuid": "8.3.2"
+    "cypress": "6.6.0",
+    "prettier": "2.2.1",
+    "webpack": "5.24.3"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "semi": false,
+    "arrowParens": "avoid",
+    "printWidth": 100
   },
   "browserslist": {
     "production": [
@@ -48,10 +63,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@bahmutov/add-typescript-to-cypress": "2.1.2",
-    "cypress": "6.6.0",
-    "webpack": "5.24.3"
   }
 }
