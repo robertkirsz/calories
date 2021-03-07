@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import styled from 'styled-components'
 import dayjs from 'dayjs'
 
 import type { SettingsInterface, ActivityInterface, DayInterface } from 'types'
@@ -8,6 +7,7 @@ import Div from 'components/Div'
 import Modal from 'components/Modal'
 import AddActivityModal from 'components/AddActivityModal'
 import Activity, { getTotalCalories } from 'components/Activity'
+import DailyCaloricProgress from 'components/DailyCaloricProgress'
 
 type Props = {
   day: DayInterface
@@ -53,10 +53,13 @@ export default function Day({
     day.activities.reduce((all, activity) => all + getTotalCalories(activity), 0)
   )
 
+  const dailyCaloricProgressPercentage =
+    dailyCaloricTarget > 0 ? Math.round((totalKcalConsumed / dailyCaloricTarget) * 100) : null
+
   return (
     <>
       <Div columnTop data-testid="Day">
-        <div>daily: {dailyCaloricTarget}</div>
+        <DailyCaloricProgress percentage={dailyCaloricProgressPercentage} />
 
         <Div justifyBetween>
           <span data-testid="Day date">{dayjs(day.date).format('DD-MM-YYYY')}</span>
@@ -66,7 +69,7 @@ export default function Day({
           </button>
         </Div>
 
-        <ActivitysList>
+        <Div columnTop={16}>
           {day.activities.map(activity => (
             <Activity
               key={activity.id}
@@ -75,7 +78,7 @@ export default function Day({
               onDeleteActivity={deleteActivity}
             />
           ))}
-        </ActivitysList>
+        </Div>
 
         <AddActivityModal onSubmit={addActivity} />
       </Div>
@@ -97,12 +100,3 @@ export default function Day({
     </>
   )
 }
-
-const ActivitysList = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  > *:not(:first-child) {
-    margin-top: 16px;
-  }
-`
