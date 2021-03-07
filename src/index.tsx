@@ -1,12 +1,12 @@
 import { StrictMode } from 'react'
 import { render } from 'react-dom'
 
-import type { SettingsInterface, DayInterface } from 'types'
+import type { SettingsInterface } from 'types'
 
+import { initialDays } from 'reducers/daysReducer'
 import 'index.css'
 import App from 'components/App'
 
-const initialDays = JSON.parse(String(localStorage.getItem('days'))) as DayInterface[]
 const initialSettings = JSON.parse(String(localStorage.getItem('settings'))) as SettingsInterface
 
 render(

@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useReducer } from 'react'
 import dayjs from 'dayjs'
-import { v4 as uuid } from 'uuid'
 
 import type { SettingsInterface, DayInterface, ActivityInterface } from 'types'
 
 import defaultSettings from 'defaultSettings'
 import { descendingBy } from 'utils'
+import daysReducer from 'reducers/daysReducer'
 
 import Div from 'components/Div'
 import SettingsModal from 'components/SettingsModal'
@@ -20,7 +20,8 @@ type Props = {
 
 export default function App({ initialSettings = defaultSettings, initialDays = [] }: Props) {
   const [settings, setSettings] = useState(initialSettings)
-  const [days, setDays] = useState(initialDays)
+  const [days, dispatchDays] = useReducer(daysReducer, initialDays)
+
   const sortedDays = days.sort(descendingBy('date'))
 
   useEffect(() => {
@@ -32,62 +33,33 @@ export default function App({ initialSettings = defaultSettings, initialDays = [
   }, [settings])
 
   function addNewDay() {
-    setDays(days => [...days, { id: uuid(), date: dayjs().format('YYYY-MM-DD'), activities: [] }])
+    dispatchDays({ type: 'addNewDay' })
   }
 
   function addActivity(dayId: DayInterface['id'], formData: ActivityInterface) {
-    setDays(days =>
-      days.map(day =>
-        day.id !== dayId
-          ? day
-          : {
-              ...day,
-              activities: [...day.activities, formData],
-            }
-      )
-    )
+    dispatchDays({ type: 'addActivity', payload: { dayId, formData } })
   }
 
   function editActivity(dayId: DayInterface['id'], formData: ActivityInterface) {
-    setDays(days =>
-      days.map(day =>
-        day.id !== dayId
-          ? day
-          : {
-              ...day,
-              activities: day.activities.map(activity =>
-                activity.id !== formData.id ? activity : formData
-              ),
-            }
-      )
-    )
+    dispatchDays({ type: 'editActivity', payload: { dayId, formData } })
   }
 
   function deleteActivity(dayId: DayInterface['id'], activityId: ActivityInterface['id']) {
-    setDays(days =>
-      days.map(day =>
-        day.id !== dayId
-          ? day
-          : {
-              ...day,
-              activities: day.activities.filter(activity => activity.id !== activityId),
-            }
-      )
-    )
+    dispatchDays({ type: 'deleteActivity', payload: { dayId, activityId } })
   }
 
   function deleteDay(dayId: DayInterface['id']) {
-    setDays(days => days.filter(day => day.id !== dayId))
+    dispatchDays({ type: 'deleteDay', payload: { dayId } })
   }
 
   async function loadMockData() {
     import(/* webpackChunkName: 'mock-data' */ 'days.json').then(module => {
-      setDays(module.default as DayInterface[])
+      dispatchDays({ type: 'setDays', payload: { days: module.default as DayInterface[] } })
     })
   }
 
   function handleClear() {
-    setDays([])
+    dispatchDays({ type: 'clearDays' })
   }
 
   return (
@@ -103,7 +75,8 @@ export default function App({ initialSettings = defaultSettings, initialDays = [
       </button>
 
       <Div columnTop={40} selfStretch margin="16px 0">
-        {sortedDays.map(day => (
+        {/* TDOD: this (day: DayInterface) should be unnecessary */}
+        {sortedDays.map((day: DayInterface) => (
           <Day
             key={day.id}
             day={day}
