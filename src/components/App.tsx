@@ -32,43 +32,13 @@ export default function App({ initialSettings = defaultSettings, initialDays = [
     localStorage.setItem('settings', JSON.stringify(settings))
   }, [settings])
 
-  function addNewDay() {
-    dispatchDays({ type: 'addNewDay' })
-  }
-
-  function addActivity(dayId: DayInterface['id'], formData: ActivityInterface) {
-    dispatchDays({ type: 'addActivity', payload: { dayId, formData } })
-  }
-
-  function editActivity(dayId: DayInterface['id'], formData: ActivityInterface) {
-    dispatchDays({ type: 'editActivity', payload: { dayId, formData } })
-  }
-
-  function deleteActivity(dayId: DayInterface['id'], activityId: ActivityInterface['id']) {
-    dispatchDays({ type: 'deleteActivity', payload: { dayId, activityId } })
-  }
-
-  function deleteDay(dayId: DayInterface['id']) {
-    dispatchDays({ type: 'deleteDay', payload: { dayId } })
-  }
-
-  async function loadMockData() {
-    import(/* webpackChunkName: 'mock-data' */ 'days.json').then(module => {
-      dispatchDays({ type: 'setDays', payload: { days: module.default as DayInterface[] } })
-    })
-  }
-
-  function handleClear() {
-    dispatchDays({ type: 'clearDays' })
-  }
-
   return (
     <>
       <SettingsModal settings={settings} onUpdate={setSettings} />
 
       <button
         disabled={sortedDays.length !== 0 && dayjs().isSame(sortedDays[0].date, 'day')}
-        onClick={addNewDay}
+        onClick={() => dispatchDays({ type: 'addNewDay' })}
         data-testid="add-new-day-button"
       >
         New day
@@ -81,19 +51,38 @@ export default function App({ initialSettings = defaultSettings, initialDays = [
             key={day.id}
             day={day}
             dailyCaloricTarget={settings.dailyCaloricTarget}
-            onAddActivity={addActivity}
-            onEditActivity={editActivity}
-            onDeleteActivity={deleteActivity}
-            onDeleteDay={deleteDay}
+            onAddActivity={(dayId: DayInterface['id'], formData: ActivityInterface) =>
+              dispatchDays({ type: 'addActivity', payload: { dayId, formData } })
+            }
+            onEditActivity={(dayId: DayInterface['id'], formData: ActivityInterface) =>
+              dispatchDays({ type: 'editActivity', payload: { dayId, formData } })
+            }
+            onDeleteActivity={(dayId: DayInterface['id'], activityId: ActivityInterface['id']) =>
+              dispatchDays({ type: 'deleteActivity', payload: { dayId, activityId } })
+            }
+            onDeleteDay={(dayId: DayInterface['id']) =>
+              dispatchDays({ type: 'deleteDay', payload: { dayId } })
+            }
           />
         ))}
       </Div>
 
       <Div listLeft itemsCenter>
-        <button onClick={handleClear}>Clear</button>
+        <button onClick={() => dispatchDays({ type: 'clearDays' })}>Clear</button>
 
         {process.env.NODE_ENV === 'development' && (
-          <button onClick={loadMockData}>Load mock data</button>
+          <button
+            onClick={() => {
+              import(/* webpackChunkName: 'mock-data' */ 'days.json').then(module => {
+                dispatchDays({
+                  type: 'setDays',
+                  payload: { days: module.default as DayInterface[] },
+                })
+              })
+            }}
+          >
+            Load mock data
+          </button>
         )}
 
         <small>v{version}</small>
