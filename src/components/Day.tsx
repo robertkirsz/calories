@@ -12,7 +12,6 @@ import DailyCaloricProgress from 'components/DailyCaloricProgress'
 type Props = {
   day: DayInterface
   dailyCaloricTarget: SettingsInterface['dailyCaloricTarget']
-  onAddActivity: (dayId: DayInterface['id'], formData: ActivityInterface) => void
   onEditActivity: (dayId: DayInterface['id'], formData: ActivityInterface) => void
   onDeleteActivity: (dayId: DayInterface['id'], activityId: ActivityInterface['id']) => void
   onDeleteDay: (dayId: DayInterface['id']) => void
@@ -22,7 +21,6 @@ export default function Day({
   day,
   dailyCaloricTarget,
   onDeleteDay,
-  onAddActivity,
   onEditActivity,
   onDeleteActivity,
 }: Props) {
@@ -30,10 +28,6 @@ export default function Day({
 
   function toggleDeleteConfirmationModal() {
     setIsDeleteConfirmationModalVisible(state => !state)
-  }
-
-  function addActivity(formData: ActivityInterface) {
-    onAddActivity(day.id, formData)
   }
 
   function editActivity(formData: ActivityInterface) {
@@ -80,7 +74,7 @@ export default function Day({
           ))}
         </Div>
 
-        <AddActivityModal onSubmit={addActivity} />
+        <AddActivityModal dayId={day.id} />
       </Div>
 
       <Modal show={isDeleteConfirmationModalVisible} onClose={toggleDeleteConfirmationModal}>

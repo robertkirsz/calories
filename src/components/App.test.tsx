@@ -1,13 +1,23 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 
-import type { DayInterface } from 'types'
+import type { DayInterface, StoreStateInterface } from 'types'
 
 import mockDays from 'days.json'
+import defaultSettings from 'defaultSettings'
+import { StoreProvider } from 'store'
 import App from 'components/App'
+
+function AppToTest({ initialState }: { initialState: StoreStateInterface }) {
+  return (
+    <StoreProvider initialState={initialState}>
+      <App />
+    </StoreProvider>
+  )
+}
 
 describe('Clear state', () => {
   test('Day can be added', () => {
-    render(<App initialDays={[]} />)
+    render(<AppToTest initialState={{ days: [], settings: defaultSettings }} />)
 
     expect(screen.queryAllByTestId('Day')).toHaveLength(0)
     fireEvent.click(screen.getByText('New day'))
@@ -16,23 +26,13 @@ describe('Clear state', () => {
 })
 
 describe('Existing data', () => {
-  const initialDays = mockDays as DayInterface[]
+  test('Has everything in place', () => {
+    render(
+      <AppToTest initialState={{ days: mockDays as DayInterface[], settings: defaultSettings }} />
+    )
 
-  test('Renders button for adding new days', () => {
-    render(<App initialDays={initialDays} />)
-    const addDayButton = screen.getByText('New day')
-    expect(addDayButton).toBeInTheDocument()
-  })
-
-  test('Renders days list', () => {
-    render(<App initialDays={initialDays} />)
-    const daysList = screen.getAllByTestId('Day')
-    expect(daysList).toHaveLength(6)
-  })
-
-  test('Renders activities list', () => {
-    render(<App initialDays={initialDays} />)
-    const activitiesList = screen.getAllByTestId('Activity')
-    expect(activitiesList).toHaveLength(12)
+    expect(screen.getByText('New day')).toBeInTheDocument()
+    expect(screen.getAllByTestId('Day')).toHaveLength(6)
+    expect(screen.getAllByTestId('Activity')).toHaveLength(12)
   })
 })

@@ -25,8 +25,8 @@ it('All texts and interactive elements are in place', () => {
   render(
     <Day
       day={day}
+      dailyCaloricTarget={2000}
       onDeleteDay={() => {}}
-      onAddActivity={() => {}}
       onEditActivity={() => {}}
       onDeleteActivity={() => {}}
     />
@@ -42,15 +42,14 @@ it('All texts and interactive elements are in place', () => {
 
 it('Callbacks work', async () => {
   const deleteDayCallback = jest.fn()
-  const addActivityCallback = jest.fn()
   const editActivityCallback = jest.fn()
   const deleteActivityCallback = jest.fn()
 
   render(
     <Day
       day={day}
+      dailyCaloricTarget={2000}
       onDeleteDay={deleteDayCallback}
-      onAddActivity={addActivityCallback}
       onEditActivity={editActivityCallback}
       onDeleteActivity={deleteActivityCallback}
     />
@@ -65,23 +64,6 @@ it('Callbacks work', async () => {
   expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
 
   expect(deleteDayCallback).toBeCalledWith('some-id')
-
-  expect(screen.queryByTestId('AddActivityModal')).not.toBeInTheDocument()
-  fireEvent.click(screen.getByTestId('AddActivityModal button'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.getByTestId('AddActivityModal')).toBeVisible()
-  fireEvent.submit(screen.getByTestId('ActivityForm'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.queryByTestId('AddActivityModal')).not.toBeInTheDocument()
-
-  expect(addActivityCallback).toBeCalledWith('some-id', {
-    id: 'mocked-id',
-    type: 'gramsOfKcal',
-    name: '',
-    consumedGrams: 0,
-    kcalPer100g: 0,
-    consumedKcal: 0,
-  })
 
   expect(screen.queryByTestId('EditActivityModal')).not.toBeInTheDocument()
   fireEvent.click(screen.getByTestId('EditActivityModal button'))
