@@ -1,7 +1,7 @@
 import { createContext, useReducer, Dispatch, ReactNode, useEffect } from 'react'
 
 import { DayInterface, SettingsInterface, StoreStateInterface } from 'types'
-import { daysReducer, settingsReducer, Actions } from 'reducers'
+import { mainReducer, Actions } from 'reducers'
 import defaultSettings from 'defaultSettings'
 
 const stateFromStorage = {
@@ -17,14 +17,6 @@ const StoreContext = createContext<{
   state: stateFromStorage,
   dispatch: () => {},
 })
-
-const mainReducer = ({ days, settings }: StoreStateInterface, action: Actions) => {
-  console.log(action.type)
-  return {
-    days: daysReducer(days, action),
-    settings: settingsReducer(settings, action),
-  }
-}
 
 type Props = {
   initialState?: StoreStateInterface

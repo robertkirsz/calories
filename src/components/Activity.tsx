@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
-import type { ActivityInterface } from 'types'
+import type { ActivityInterface, DayInterface } from 'types'
+
+import { StoreContext } from 'store'
+import { ActionTypes } from 'reducers'
 
 import Div from 'components/Div'
 import Modal from 'components/Modal'
@@ -8,8 +11,7 @@ import EditActivityModal from 'components/EditActivityModal'
 
 type Props = {
   activity: ActivityInterface
-  onEditActivity: (formData: ActivityInterface) => void
-  onDeleteActivity: (activityId: ActivityInterface['id']) => void
+  dayId: DayInterface['id']
 }
 
 export const getTotalCalories = ({
@@ -20,7 +22,8 @@ export const getTotalCalories = ({
 }: ActivityInterface) =>
   type === 'onlyKcal' ? consumedKcal : Math.round((kcalPer100g * consumedGrams) / 100)
 
-export default function Activity({ activity, onEditActivity, onDeleteActivity }: Props) {
+export default function Activity({ activity, dayId }: Props) {
+  const { dispatch } = useContext(StoreContext)
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
 
   function toggleDeleteActivityModal() {
@@ -29,11 +32,11 @@ export default function Activity({ activity, onEditActivity, onDeleteActivity }:
 
   function confirmDelete() {
     toggleDeleteActivityModal()
-    onDeleteActivity(activity.id)
+    dispatch({ type: ActionTypes.deleteActivity, payload: { dayId, activityId: activity.id } })
   }
 
   function editActivity(formData: ActivityInterface) {
-    onEditActivity(formData)
+    dispatch({ type: ActionTypes.editActivity, payload: { dayId, formData } })
   }
 
   return (

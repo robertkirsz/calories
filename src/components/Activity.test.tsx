@@ -23,13 +23,7 @@ const onlyKcalActivity: ActivityInterface = {
 }
 
 it('All interactive elements are in place', () => {
-  render(
-    <Activity
-      activity={gramsOfKcalActivity}
-      onEditActivity={() => {}}
-      onDeleteActivity={() => {}}
-    />
-  )
+  render(<Activity activity={gramsOfKcalActivity} dayId="some-id" />)
 
   expect(screen.getByTestId('Activity')).toBeVisible()
   expect(screen.getByTestId('Activity delete button')).toBeVisible()
@@ -37,13 +31,7 @@ it('All interactive elements are in place', () => {
 })
 
 it('Properly displays "gramsOfKcal" activity type', () => {
-  render(
-    <Activity
-      activity={gramsOfKcalActivity}
-      onEditActivity={() => {}}
-      onDeleteActivity={() => {}}
-    />
-  )
+  render(<Activity activity={gramsOfKcalActivity} dayId="some-id" />)
 
   expect(screen.getByTestId('Activity name')).toHaveTextContent(gramsOfKcalActivity.name)
   expect(screen.getByTestId('Activity calories')).toHaveTextContent('100 kcal')
@@ -51,9 +39,7 @@ it('Properly displays "gramsOfKcal" activity type', () => {
 })
 
 it('Properly displays "onlyKcal" activity type', () => {
-  render(
-    <Activity activity={onlyKcalActivity} onEditActivity={() => {}} onDeleteActivity={() => {}} />
-  )
+  render(<Activity activity={onlyKcalActivity} dayId="some-id" />)
 
   expect(screen.queryByTestId('Activity name')).not.toBeInTheDocument()
   expect(screen.getByTestId('Activity calories')).toHaveTextContent('100 kcal')
@@ -61,17 +47,9 @@ it('Properly displays "onlyKcal" activity type', () => {
 })
 
 it('Callbacks work', async () => {
-  const editCallback = jest.fn()
-  const deleteCallback = jest.fn()
+  render(<Activity activity={gramsOfKcalActivity} dayId="some-id" />)
 
-  render(
-    <Activity
-      activity={gramsOfKcalActivity}
-      onEditActivity={editCallback}
-      onDeleteActivity={deleteCallback}
-    />
-  )
-
+  // Not sure about these tests, they don't test much
   expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
   fireEvent.click(screen.getByTestId('Activity delete button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
@@ -80,8 +58,6 @@ it('Callbacks work', async () => {
   fireEvent.animationEnd(screen.getByTestId('Fade'))
   expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
 
-  expect(deleteCallback).toBeCalledWith(gramsOfKcalActivity.id)
-
   expect(screen.queryByTestId('EditActivityModal')).not.toBeInTheDocument()
   fireEvent.click(screen.getByTestId('EditActivityModal button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
@@ -89,8 +65,6 @@ it('Callbacks work', async () => {
   fireEvent.click(screen.getByTestId('ActivityForm submit button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
   expect(screen.queryByTestId('EditActivityModal')).not.toBeInTheDocument()
-
-  expect(editCallback).toBeCalledWith(gramsOfKcalActivity)
 })
 
 it('Total calories are calculated propery', () => {

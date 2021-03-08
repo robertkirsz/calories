@@ -22,15 +22,7 @@ const day: DayInterface = {
 }
 
 it('All texts and interactive elements are in place', () => {
-  render(
-    <Day
-      day={day}
-      dailyCaloricTarget={2000}
-      onDeleteDay={() => {}}
-      onEditActivity={() => {}}
-      onDeleteActivity={() => {}}
-    />
-  )
+  render(<Day day={day} />)
 
   expect(screen.getByTestId('Day')).toBeVisible()
   expect(screen.getByTestId('Day date')).toHaveTextContent('01-06-1987')
@@ -41,20 +33,10 @@ it('All texts and interactive elements are in place', () => {
 })
 
 it('Callbacks work', async () => {
-  const deleteDayCallback = jest.fn()
-  const editActivityCallback = jest.fn()
-  const deleteActivityCallback = jest.fn()
+  render(<Day day={day} />)
 
-  render(
-    <Day
-      day={day}
-      dailyCaloricTarget={2000}
-      onDeleteDay={deleteDayCallback}
-      onEditActivity={editActivityCallback}
-      onDeleteActivity={deleteActivityCallback}
-    />
-  )
-
+  // --------------------------
+  /* These should be moved somewhere else perhaps */
   expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
   fireEvent.click(screen.getByTestId('Day delete button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
@@ -63,7 +45,15 @@ it('Callbacks work', async () => {
   fireEvent.animationEnd(screen.getByTestId('Fade'))
   expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
 
-  expect(deleteDayCallback).toBeCalledWith('some-id')
+  // expect(screen.getAllByTestId('Activity')).toHaveLength(1)
+  expect(screen.queryByTestId('AddActivityModal')).not.toBeInTheDocument()
+  fireEvent.click(screen.getByTestId('AddActivityModal button'))
+  fireEvent.animationEnd(screen.getByTestId('Fade'))
+  expect(screen.getByTestId('AddActivityModal')).toBeVisible()
+  fireEvent.submit(screen.getByTestId('ActivityForm'))
+  fireEvent.animationEnd(screen.getByTestId('Fade'))
+  expect(screen.queryByTestId('AddActivityModal')).not.toBeInTheDocument()
+  // expect(screen.getAllByTestId('Activity')).toHaveLength(2)
 
   expect(screen.queryByTestId('EditActivityModal')).not.toBeInTheDocument()
   fireEvent.click(screen.getByTestId('EditActivityModal button'))
@@ -73,15 +63,6 @@ it('Callbacks work', async () => {
   fireEvent.animationEnd(screen.getByTestId('Fade'))
   expect(screen.queryByTestId('EditActivityModal')).not.toBeInTheDocument()
 
-  expect(editActivityCallback).toBeCalledWith('some-id', {
-    id: 'some-id',
-    type: 'gramsOfKcal',
-    name: 'Pizza',
-    consumedGrams: 50,
-    kcalPer100g: 200,
-    consumedKcal: 0,
-  })
-
   expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
   fireEvent.click(screen.getByTestId('Activity delete button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
@@ -89,6 +70,5 @@ it('Callbacks work', async () => {
   fireEvent.click(screen.getByTestId('Delete confirmation modal yes button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
   expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
-
-  expect(deleteActivityCallback).toBeCalledWith('some-id', 'some-id')
+  // --------------------------
 })

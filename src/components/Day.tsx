@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import dayjs from 'dayjs'
 
-import type { SettingsInterface, ActivityInterface, DayInterface } from 'types'
+import type { DayInterface } from 'types'
+
+import { StoreContext } from 'store'
+import { ActionTypes } from 'reducers'
 
 import Div from 'components/Div'
 import Modal from 'components/Modal'
@@ -11,36 +14,25 @@ import DailyCaloricProgress from 'components/DailyCaloricProgress'
 
 type Props = {
   day: DayInterface
-  dailyCaloricTarget: SettingsInterface['dailyCaloricTarget']
-  onEditActivity: (dayId: DayInterface['id'], formData: ActivityInterface) => void
-  onDeleteActivity: (dayId: DayInterface['id'], activityId: ActivityInterface['id']) => void
-  onDeleteDay: (dayId: DayInterface['id']) => void
 }
 
-export default function Day({
-  day,
-  dailyCaloricTarget,
-  onDeleteDay,
-  onEditActivity,
-  onDeleteActivity,
-}: Props) {
+export default function Day({ day }: Props) {
+  const {
+    state: {
+      settings: { dailyCaloricTarget },
+    },
+    dispatch,
+  } = useContext(StoreContext)
+
   const [isDeleteConfirmationModalVisible, setIsDeleteConfirmationModalVisible] = useState(false)
 
   function toggleDeleteConfirmationModal() {
     setIsDeleteConfirmationModalVisible(state => !state)
   }
 
-  function editActivity(formData: ActivityInterface) {
-    onEditActivity(day.id, formData)
-  }
-
-  function deleteActivity(activityId: ActivityInterface['id']) {
-    onDeleteActivity(day.id, activityId)
-  }
-
   function confirmDeleteDay() {
     toggleDeleteConfirmationModal()
-    onDeleteDay(day.id)
+    dispatch({ type: ActionTypes.deleteDay, payload: day.id })
   }
 
   const totalKcalConsumed = Math.round(
@@ -65,12 +57,7 @@ export default function Day({
 
         <Div columnTop={16}>
           {day.activities.map(activity => (
-            <Activity
-              key={activity.id}
-              activity={activity}
-              onEditActivity={editActivity}
-              onDeleteActivity={deleteActivity}
-            />
+            <Activity key={activity.id} dayId={day.id} activity={activity} />
           ))}
         </Div>
 

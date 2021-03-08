@@ -38,16 +38,3 @@ export default function AddActivityModal({ dayId }: Props) {
     </>
   )
 }
-
-// May come in handy for testing
-/*
-expect(screen.getAllByTestId('Activity')).toHaveLength(1)
-expect(screen.queryByTestId('AddActivityModal')).not.toBeInTheDocument()
-fireEvent.click(screen.getByTestId('AddActivityModal button'))
-fireEvent.animationEnd(screen.getByTestId('Fade'))
-expect(screen.getByTestId('AddActivityModal')).toBeVisible()
-fireEvent.submit(screen.getByTestId('ActivityForm'))
-fireEvent.animationEnd(screen.getByTestId('Fade'))
-expect(screen.queryByTestId('AddActivityModal')).not.toBeInTheDocument()
-expect(screen.getAllByTestId('Activity')).toHaveLength(2)
-*/

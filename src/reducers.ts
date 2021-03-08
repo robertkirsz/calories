@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import dayjs from 'dayjs'
 
-import { DayInterface, ActivityInterface, SettingsInterface } from 'types'
+import { DayInterface, ActivityInterface, SettingsInterface, StoreStateInterface } from 'types'
 
 export enum ActionTypes {
   // days
@@ -21,7 +21,7 @@ export enum ActionTypes {
 export type Actions =
   // days
   | { type: ActionTypes.addNewDay; }
-  | { type: ActionTypes.deleteDay; payload: { dayId: DayInterface['id'] } }
+  | { type: ActionTypes.deleteDay; payload: DayInterface['id'] }
   | { type: ActionTypes.addActivity; payload: { dayId: DayInterface['id']; formData: ActivityInterface } }
   | { type: ActionTypes.editActivity; payload: { dayId: DayInterface['id']; formData: ActivityInterface } }
   | { type: ActionTypes.deleteActivity; payload: { dayId: DayInterface['id']; activityId: ActivityInterface['id'] } }
@@ -31,12 +31,12 @@ export type Actions =
   | { type: ActionTypes.changeDailyCaloricTarget; payload: number }
   | { type: ActionTypes.toggleDarkMode; }
 
-export const daysReducer = (state: DayInterface[], action: Actions) => {
+const daysReducer = (state: DayInterface[], action: Actions) => {
   switch (action.type) {
     case 'addNewDay':
       return [...state, { id: uuid(), date: dayjs().format('YYYY-MM-DD'), activities: [] }]
     case 'deleteDay':
-      return state.filter(day => day.id !== action.payload.dayId)
+      return state.filter(day => day.id !== action.payload)
     case 'addActivity':
       return state.map(day =>
         day.id !== action.payload.dayId
@@ -74,7 +74,7 @@ export const daysReducer = (state: DayInterface[], action: Actions) => {
   }
 }
 
-export const settingsReducer = (state: SettingsInterface, action: Actions) => {
+const settingsReducer = (state: SettingsInterface, action: Actions) => {
   switch (action.type) {
     case ActionTypes.changeDailyCaloricTarget:
       return { ...state, dailyCaloricTarget: action.payload }
@@ -82,5 +82,12 @@ export const settingsReducer = (state: SettingsInterface, action: Actions) => {
       return { ...state, darkMode: !state.darkMode }
     default:
       return state
+  }
+}
+
+export const mainReducer = ({ days, settings }: StoreStateInterface, action: Actions) => {
+  return {
+    days: daysReducer(days, action),
+    settings: settingsReducer(settings, action),
   }
 }
