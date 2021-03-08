@@ -1,4 +1,4 @@
-import { createContext, useReducer, Dispatch, ReactNode } from 'react'
+import { createContext, useReducer, Dispatch, ReactNode, useEffect } from 'react'
 
 import { DayInterface, SettingsInterface, StoreStateInterface } from 'types'
 import { daysReducer, settingsReducer, Actions } from 'reducers'
@@ -33,6 +33,14 @@ type Props = {
 
 function StoreProvider({ children, initialState = stateFromStorage }: Props) {
   const [state, dispatch] = useReducer(mainReducer, initialState)
+
+  useEffect(() => {
+    localStorage.setItem('days', JSON.stringify(state.days))
+  }, [state.days])
+
+  useEffect(() => {
+    localStorage.setItem('settings', JSON.stringify(state.settings))
+  }, [state.settings])
 
   return <StoreContext.Provider value={{ state, dispatch }}>{children}</StoreContext.Provider>
 }

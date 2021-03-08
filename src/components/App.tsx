@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import dayjs from 'dayjs'
 
 import type { DayInterface, ActivityInterface } from 'types'
@@ -21,16 +21,6 @@ export default function App() {
 
   const sortedDays = days.sort(descendingBy('date'))
 
-  // TODO: move this to provider?
-  useEffect(() => {
-    localStorage.setItem('days', JSON.stringify(days))
-  }, [days])
-
-  // TODO: move this to provider?
-  useEffect(() => {
-    localStorage.setItem('settings', JSON.stringify(settings))
-  }, [settings])
-
   return (
     <>
       <SettingsModal />
@@ -44,8 +34,7 @@ export default function App() {
       </button>
 
       <Div columnTop={40} selfStretch margin="16px 0">
-        {/* TDOD: this (day: DayInterface) should be unnecessary */}
-        {sortedDays.map((day: DayInterface) => (
+        {sortedDays.map(day => (
           <Day
             key={day.id}
             day={day}
