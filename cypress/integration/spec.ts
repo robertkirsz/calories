@@ -109,6 +109,21 @@ context('e2e test', () => {
       '225 kcal'
     )
 
+    // DailyCaloricProgress
+
+    cy.get('[data-testid="DailyCaloricProgress"]').should('not.exist')
+
+    cy.get('[data-testid="Settings"]').should('not.exist')
+    cy.get('[data-testid="SettingsModal button"]').click()
+    cy.get('[data-testid="Settings"]').should('be.visible')
+    cy.get('[data-testid="Settings dailyCaloricTarget input"]').clear().type('2000')
+    cy.get('[data-testid="SettingsModal close button"]').click()
+    cy.get('[data-testid="Settings"]').should('not.exist')
+
+    cy.get('[data-testid="DailyCaloricProgress"]')
+      .should('be.visible')
+      .and('have.attr', 'style', 'width: 11%; background-color: lime;')
+
     // DELETING STUFF
 
     // The first activity should disappear when clicking it's delete button

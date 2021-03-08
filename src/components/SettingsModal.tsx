@@ -29,6 +29,10 @@ export default function SettingsModal() {
 
       <Modal show={isModalVisible} onClose={toggleModalVisibility} data-testid="SettingsModal">
         <Settings settings={settings} onDailyCaloricTargetChange={changeDailyCaloricTarget} />
+
+        <button data-testid="SettingsModal close button" onClick={toggleModalVisibility}>
+          Close
+        </button>
       </Modal>
     </>
   )
