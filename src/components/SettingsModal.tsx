@@ -1,20 +1,25 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+
+import { StoreContext } from 'store'
+import { ActionTypes } from 'reducers'
 
 import Modal from 'components/Modal'
 import Settings from 'components/Settings'
 
-import type { SettingsInterface } from 'types'
+export default function SettingsModal() {
+  const {
+    state: { settings },
+    dispatch,
+  } = useContext(StoreContext)
 
-type Props = {
-  settings: SettingsInterface
-  onUpdate: (settings: SettingsInterface) => void
-}
-
-export default function SettingsModal({ settings, onUpdate }: Props) {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   function toggleModalVisibility() {
     setIsModalVisible(state => !state)
+  }
+
+  function changeDailyCaloricTarget(value: number) {
+    dispatch({ type: ActionTypes.changeDailyCaloricTarget, payload: value })
   }
 
   return (
@@ -24,7 +29,7 @@ export default function SettingsModal({ settings, onUpdate }: Props) {
       </button>
 
       <Modal show={isModalVisible} onClose={toggleModalVisibility} data-testid="SettingsModal">
-        <Settings settings={settings} onUpdate={onUpdate} />
+        <Settings settings={settings} onDailyCaloricTargetChange={changeDailyCaloricTarget} />
       </Modal>
     </>
   )

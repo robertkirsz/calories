@@ -21,13 +21,13 @@ test('Dipslays full red bar if exceded the daily caloric target', () => {
   )
 })
 
-test('Displays notthing if percentage is 0', () => {
+test('Displays nothing if percentage is 0', () => {
   render(<DailyCaloricProgress percentage={0} />)
 
   expect(screen.queryByTestId('DailyCaloricProgress')).not.toBeInTheDocument()
 })
 
-test('Displays notthing if percentage is null', () => {
+test('Displays nothing if percentage is null', () => {
   render(<DailyCaloricProgress percentage={null} />)
 
   expect(screen.queryByTestId('DailyCaloricProgress')).not.toBeInTheDocument()

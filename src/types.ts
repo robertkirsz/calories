@@ -19,3 +19,8 @@ export interface SettingsInterface {
   dailyCaloricTarget: number
   darkMode: boolean
 }
+
+export interface StoreStateInterface {
+  days: DayInterface[]
+  settings: SettingsInterface
+}
