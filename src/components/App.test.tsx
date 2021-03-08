@@ -4,7 +4,7 @@ import type { DayInterface, StoreStateInterface } from 'types'
 
 import mockDays from 'days.json'
 import defaultSettings from 'defaultSettings'
-import { StoreProvider } from 'store'
+import StoreProvider from 'store'
 import App from 'components/App'
 
 function AppToTest({ initialState }: { initialState: StoreStateInterface }) {

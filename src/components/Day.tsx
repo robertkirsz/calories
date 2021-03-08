@@ -1,10 +1,9 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import dayjs from 'dayjs'
 
 import type { DayInterface } from 'types'
 
-import { StoreContext } from 'store'
-import { ActionTypes } from 'reducers'
+import { useStore, ActionTypes } from 'store'
 
 import Div from 'components/Div'
 import Modal from 'components/Modal'
@@ -22,7 +21,7 @@ export default function Day({ day }: Props) {
       settings: { dailyCaloricTarget },
     },
     dispatch,
-  } = useContext(StoreContext)
+  } = useStore()
 
   const [isDeleteConfirmationModalVisible, setIsDeleteConfirmationModalVisible] = useState(false)
 

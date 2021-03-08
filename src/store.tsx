@@ -1,7 +1,7 @@
-import { createContext, useReducer, Dispatch, ReactNode, useEffect } from 'react'
+import { createContext, useReducer, useEffect, useContext } from 'react'
 
 import { DayInterface, SettingsInterface, StoreStateInterface } from 'types'
-import { mainReducer, Actions } from 'reducers'
+import { mainReducer, Actions, ActionTypes } from 'reducers'
 import defaultSettings from 'defaultSettings'
 
 const stateFromStorage = {
@@ -12,7 +12,7 @@ const stateFromStorage = {
 
 const StoreContext = createContext<{
   state: StoreStateInterface
-  dispatch: Dispatch<Actions>
+  dispatch: React.Dispatch<Actions>
 }>({
   state: stateFromStorage,
   dispatch: () => {},
@@ -20,10 +20,10 @@ const StoreContext = createContext<{
 
 type Props = {
   initialState?: StoreStateInterface
-  children: ReactNode
+  children: React.ReactNode
 }
 
-function StoreProvider({ children, initialState = stateFromStorage }: Props) {
+export default function StoreProvider({ children, initialState = stateFromStorage }: Props) {
   const [state, dispatch] = useReducer(mainReducer, initialState)
 
   useEffect(() => {
@@ -37,4 +37,8 @@ function StoreProvider({ children, initialState = stateFromStorage }: Props) {
   return <StoreContext.Provider value={{ state, dispatch }}>{children}</StoreContext.Provider>
 }
 
-export { StoreProvider, StoreContext }
+function useStore() {
+  return useContext(StoreContext)
+}
+
+export { useStore, ActionTypes }

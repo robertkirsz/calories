@@ -1,9 +1,8 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 
 import type { ActivityInterface, DayInterface } from 'types'
 
-import { StoreContext } from 'store'
-import { ActionTypes } from 'reducers'
+import { useStore, ActionTypes } from 'store'
 
 import Div from 'components/Div'
 import Modal from 'components/Modal'
@@ -23,7 +22,7 @@ export const getTotalCalories = ({
   type === 'onlyKcal' ? consumedKcal : Math.round((kcalPer100g * consumedGrams) / 100)
 
 export default function Activity({ activity, dayId }: Props) {
-  const { dispatch } = useContext(StoreContext)
+  const { dispatch } = useStore()
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
 
   function toggleDeleteActivityModal() {

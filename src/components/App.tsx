@@ -1,11 +1,9 @@
-import { useContext } from 'react'
 import dayjs from 'dayjs'
 
 import type { DayInterface } from 'types'
 
 import { descendingBy } from 'utils'
-import { StoreContext } from 'store'
-import { ActionTypes } from 'reducers'
+import { useStore, ActionTypes } from 'store'
 
 import Div from 'components/Div'
 import SettingsModal from 'components/SettingsModal'
@@ -17,7 +15,7 @@ export default function App() {
   const {
     state: { days },
     dispatch,
-  } = useContext(StoreContext)
+  } = useStore()
 
   const sortedDays = days.sort(descendingBy('date'))
 

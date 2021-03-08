@@ -1,9 +1,8 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 
 import type { ActivityInterface, DayInterface } from 'types'
 
-import { StoreContext } from 'store'
-import { ActionTypes } from 'reducers'
+import { useStore, ActionTypes } from 'store'
 
 import Modal from 'components/Modal'
 import ActivityForm from 'components/ActivityForm'
@@ -13,7 +12,7 @@ type Props = {
 }
 
 export default function AddActivityModal({ dayId }: Props) {
-  const { dispatch } = useContext(StoreContext)
+  const { dispatch } = useStore()
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 

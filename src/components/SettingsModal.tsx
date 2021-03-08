@@ -1,7 +1,6 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 
-import { StoreContext } from 'store'
-import { ActionTypes } from 'reducers'
+import { useStore, ActionTypes } from 'store'
 
 import Modal from 'components/Modal'
 import Settings from 'components/Settings'
@@ -10,7 +9,7 @@ export default function SettingsModal() {
   const {
     state: { settings },
     dispatch,
-  } = useContext(StoreContext)
+  } = useStore()
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
