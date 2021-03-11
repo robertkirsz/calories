@@ -91,12 +91,18 @@ context('e2e test', () => {
     // EDITING STUFF
 
     // Edit values of the first activity
+    cy.get('[data-testid="EditActivityModal"]').should('not.exist')
+    cy.get('[data-testid="Activity menu modal"]').should('not.exist')
+    cy.get('[data-testid="Activity MenuButton"]').first().click()
+    cy.get('[data-testid="Activity menu modal"]').should('be.visible')
     cy.get('[data-testid="EditActivityModal button"]').first().click()
     cy.get('[data-testid="EditActivityModal"]').should('be.visible')
     cy.get('input[name="name"]').clear().type('Hamburger')
     cy.get('input[name="consumedGrams"]').clear().type('50')
     cy.get('input[name="kcalPer100g"]').clear().type('150')
     cy.get('[data-testid="ActivityForm"]').submit()
+    cy.get('[data-testid="EditActivityModal"]').should('not.exist')
+    cy.get('[data-testid="Activity menu modal"]').should('not.exist')
 
     // Activity should be updated
     cy.get('[data-testid="Activity name"]').first().should('have.text', 'Hamburger')
@@ -127,7 +133,8 @@ context('e2e test', () => {
     // DELETING STUFF
 
     // The first activity should disappear when clicking it's delete button
-    cy.get('[data-testid="Activity delete button"]').first().click()
+    cy.get('[data-testid="Activity MenuButton"]').first().click()
+    cy.get('[data-testid="Activity delete button"]').click()
     cy.get('[data-testid="ConfirmationModal"]').should('be.visible')
     cy.get('[data-testid="ConfirmationModal yes button"]').click()
 
@@ -141,9 +148,13 @@ context('e2e test', () => {
     )
 
     // Day should disappear when clicking it's delete button
+    cy.get('[data-testid="Day menu modal"]').should('not.exist')
+    cy.get('[data-testid="Day MenuButton"]').click()
+    cy.get('[data-testid="Day menu modal"]').should('be.visible')
     cy.get('[data-testid="Day delete button"]').click()
     cy.get('[data-testid="ConfirmationModal"]').should('be.visible')
     cy.get('[data-testid="ConfirmationModal yes button"]').click()
+    cy.get('[data-testid="Day menu modal"]').should('not.exist')
     cy.get('[data-testid="Day"]').should('not.exist')
 
     // The "add day" button should no longer be disabled

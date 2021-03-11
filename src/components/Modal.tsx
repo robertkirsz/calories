@@ -18,9 +18,7 @@ type Props = {
 }
 
 export default function Modal({ show, onClose, children, ...props }: Props) {
-  function handleBackgroundClick(
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) {
+  function handleBackgroundClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     event.target === event.currentTarget && onClose()
   }
 
@@ -40,7 +38,7 @@ const Background = styled.div`
   align-items: center;
 
   padding: 8px;
-  background: rgba(50, 50, 50, 0.7);
+  background: rgba(0, 0, 0, 0.7);
 
   position: fixed;
   top: 0;
@@ -48,7 +46,8 @@ const Background = styled.div`
   bottom: 0;
   left: 0;
 
-  backdrop-filter: blur(2px);
+  // Poor performance on some mobile devices
+  /* backdrop-filter: blur(2px); */
 `
 
 const Content = styled.div`

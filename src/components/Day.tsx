@@ -10,6 +10,8 @@ import ConfirmationModal from 'components/ConfirmationModal'
 import AddActivityModal from 'components/AddActivityModal'
 import Activity, { getTotalCalories } from 'components/Activity'
 import DailyCaloricProgress from 'components/DailyCaloricProgress'
+import Modal from 'components/Modal'
+import MenuButton from 'components/MenuButton'
 
 type Props = {
   day: DayInterface
@@ -24,6 +26,11 @@ export default function Day({ day }: Props) {
   } = useStore()
 
   const [isDeleteConfirmationModalVisible, setIsDeleteConfirmationModalVisible] = useState(false)
+  const [isMenuModalVisible, setIsMenuModalVisible] = useState(false)
+
+  function toggleMenuModal() {
+    setIsMenuModalVisible(state => !state)
+  }
 
   function toggleDeleteConfirmationModal() {
     setIsDeleteConfirmationModalVisible(state => !state)
@@ -31,6 +38,7 @@ export default function Day({ day }: Props) {
 
   function confirmDeleteDay() {
     toggleDeleteConfirmationModal()
+    toggleMenuModal()
     dispatch({ type: ActionTypes.deleteDay, payload: day.id })
   }
 
@@ -49,9 +57,7 @@ export default function Day({ day }: Props) {
         <Div justifyBetween>
           <span data-testid="Day date">{dayjs(day.date).format('DD-MM-YYYY')}</span>
           <span data-testid="Day total kcal consumed">{totalKcalConsumed} kcal</span>
-          <button data-testid="Day delete button" onClick={toggleDeleteConfirmationModal}>
-            Delete
-          </button>
+          <MenuButton onClick={toggleMenuModal} data-testid="Day MenuButton" />
         </Div>
 
         <Div columnTop={16}>
@@ -62,6 +68,12 @@ export default function Day({ day }: Props) {
 
         <AddActivityModal dayId={day.id} />
       </Div>
+
+      <Modal show={isMenuModalVisible} onClose={toggleMenuModal} data-testid="Day menu modal">
+        <button data-testid="Day delete button" onClick={toggleDeleteConfirmationModal}>
+          Delete
+        </button>
+      </Modal>
 
       <ConfirmationModal
         isVisible={isDeleteConfirmationModalVisible}

@@ -5,8 +5,10 @@ import type { ActivityInterface, DayInterface } from 'types'
 import { useStore, ActionTypes } from 'store'
 
 import Div from 'components/Div'
+import Modal from 'components/Modal'
 import ConfirmationModal from 'components/ConfirmationModal'
 import EditActivityModal from 'components/EditActivityModal'
+import MenuButton from 'components/MenuButton'
 
 type Props = {
   activity: ActivityInterface
@@ -24,6 +26,11 @@ export const getTotalCalories = ({
 export default function Activity({ activity, dayId }: Props) {
   const { dispatch } = useStore()
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
+  const [isMenuModalVisible, setIsMenuModalVisible] = useState(false)
+
+  function toggleMenuModal() {
+    setIsMenuModalVisible(state => !state)
+  }
 
   function toggleDeleteActivityModal() {
     setIsDeleteModalVisible(state => !state)
@@ -31,10 +38,12 @@ export default function Activity({ activity, dayId }: Props) {
 
   function confirmDelete() {
     toggleDeleteActivityModal()
+    toggleMenuModal()
     dispatch({ type: ActionTypes.deleteActivity, payload: { dayId, activityId: activity.id } })
   }
 
   function editActivity(formData: ActivityInterface) {
+    toggleMenuModal()
     dispatch({ type: ActionTypes.editActivity, payload: { dayId, formData } })
   }
 
@@ -55,14 +64,18 @@ export default function Activity({ activity, dayId }: Props) {
           </Div>
         </Div>
 
-        <Div listLeft>
+        <MenuButton onClick={toggleMenuModal} data-testid="Activity MenuButton" />
+      </Div>
+
+      <Modal show={isMenuModalVisible} onClose={toggleMenuModal} data-testid="Activity menu modal">
+        <Div columnTop>
           <button data-testid="Activity delete button" onClick={toggleDeleteActivityModal}>
-            x
+            Delete activity
           </button>
 
           <EditActivityModal activity={activity} onSubmit={editActivity} />
         </Div>
-      </Div>
+      </Modal>
 
       <ConfirmationModal
         isVisible={isDeleteModalVisible}

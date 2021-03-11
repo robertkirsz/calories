@@ -20,7 +20,7 @@ export default function Fade({ show, children }: Props) {
 
   return (
     <div
-      style={{ animation: `${show ? 'fadeIn' : 'fadeOut'} 250ms` }}
+      style={{ animation: `${show ? 'fadeIn' : 'fadeOut'} 200ms` }}
       onAnimationEnd={onAnimationEnd}
       data-testid="Fade"
     >
