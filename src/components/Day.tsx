@@ -6,7 +6,7 @@ import type { DayInterface } from 'types'
 import { useStore, ActionTypes } from 'store'
 
 import Div from 'components/Div'
-import Modal from 'components/Modal'
+import ConfirmationModal from 'components/ConfirmationModal'
 import AddActivityModal from 'components/AddActivityModal'
 import Activity, { getTotalCalories } from 'components/Activity'
 import DailyCaloricProgress from 'components/DailyCaloricProgress'
@@ -63,20 +63,11 @@ export default function Day({ day }: Props) {
         <AddActivityModal dayId={day.id} />
       </Div>
 
-      <Modal show={isDeleteConfirmationModalVisible} onClose={toggleDeleteConfirmationModal}>
-        <Div columnTop={16} itemsCenter data-testid="Delete confirmation modal">
-          <span>You sure?</span>
-          <button data-testid="Delete confirmation modal yes button" onClick={confirmDeleteDay}>
-            Yes
-          </button>
-          <button
-            data-testid="Delete confirmation modal no button"
-            onClick={toggleDeleteConfirmationModal}
-          >
-            No
-          </button>
-        </Div>
-      </Modal>
+      <ConfirmationModal
+        isVisible={isDeleteConfirmationModalVisible}
+        onConfirm={confirmDeleteDay}
+        onClose={toggleDeleteConfirmationModal}
+      />
     </>
   )
 }

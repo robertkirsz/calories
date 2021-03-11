@@ -5,7 +5,7 @@ import type { ActivityInterface, DayInterface } from 'types'
 import { useStore, ActionTypes } from 'store'
 
 import Div from 'components/Div'
-import Modal from 'components/Modal'
+import ConfirmationModal from 'components/ConfirmationModal'
 import EditActivityModal from 'components/EditActivityModal'
 
 type Props = {
@@ -64,23 +64,11 @@ export default function Activity({ activity, dayId }: Props) {
         </Div>
       </Div>
 
-      {/* TODO: move confirmation modal to a separate component */}
-      <Modal show={isDeleteModalVisible} onClose={toggleDeleteActivityModal}>
-        <Div columnTop={16} itemsCenter data-testid="Delete confirmation modal">
-          <span>You sure?</span>
-
-          <button data-testid="Delete confirmation modal yes button" onClick={confirmDelete}>
-            Yes
-          </button>
-
-          <button
-            data-testid="Delete confirmation modal no button"
-            onClick={toggleDeleteActivityModal}
-          >
-            No
-          </button>
-        </Div>
-      </Modal>
+      <ConfirmationModal
+        isVisible={isDeleteModalVisible}
+        onConfirm={confirmDelete}
+        onClose={toggleDeleteActivityModal}
+      />
     </>
   )
 }

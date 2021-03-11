@@ -37,13 +37,13 @@ it('Callbacks work', async () => {
 
   // --------------------------
   /* These should be moved somewhere else perhaps */
-  expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
   fireEvent.click(screen.getByTestId('Day delete button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.getByTestId('Delete confirmation modal')).toBeVisible()
-  fireEvent.click(screen.getByTestId('Delete confirmation modal yes button'))
+  expect(screen.getByTestId('ConfirmationModal')).toBeVisible()
+  fireEvent.click(screen.getByTestId('ConfirmationModal yes button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
 
   // expect(screen.getAllByTestId('Activity')).toHaveLength(1)
   expect(screen.queryByTestId('AddActivityModal')).not.toBeInTheDocument()
@@ -63,12 +63,12 @@ it('Callbacks work', async () => {
   fireEvent.animationEnd(screen.getByTestId('Fade'))
   expect(screen.queryByTestId('EditActivityModal')).not.toBeInTheDocument()
 
-  expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
   fireEvent.click(screen.getByTestId('Activity delete button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.getByTestId('Delete confirmation modal')).toBeVisible()
-  fireEvent.click(screen.getByTestId('Delete confirmation modal yes button'))
+  expect(screen.getByTestId('ConfirmationModal')).toBeVisible()
+  fireEvent.click(screen.getByTestId('ConfirmationModal yes button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
   // --------------------------
 })

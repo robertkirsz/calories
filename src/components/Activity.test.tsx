@@ -50,13 +50,13 @@ it('Callbacks work', async () => {
   render(<Activity activity={gramsOfKcalActivity} dayId="some-id" />)
 
   // Not sure about these tests, they don't test much
-  expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
   fireEvent.click(screen.getByTestId('Activity delete button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.getByTestId('Delete confirmation modal')).toBeVisible()
-  fireEvent.click(screen.getByTestId('Delete confirmation modal yes button'))
+  expect(screen.getByTestId('ConfirmationModal')).toBeVisible()
+  fireEvent.click(screen.getByTestId('ConfirmationModal yes button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.queryByTestId('Delete confirmation modal')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
 
   expect(screen.queryByTestId('EditActivityModal')).not.toBeInTheDocument()
   fireEvent.click(screen.getByTestId('EditActivityModal button'))

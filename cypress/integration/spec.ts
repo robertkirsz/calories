@@ -128,8 +128,8 @@ context('e2e test', () => {
 
     // The first activity should disappear when clicking it's delete button
     cy.get('[data-testid="Activity delete button"]').first().click()
-    cy.get('[data-testid="Delete confirmation modal"]').should('be.visible')
-    cy.get('[data-testid="Delete confirmation modal yes button"]').click()
+    cy.get('[data-testid="ConfirmationModal"]').should('be.visible')
+    cy.get('[data-testid="ConfirmationModal yes button"]').click()
 
     // We now should have only one activity visible
     cy.get('[data-testid="Activity"]').should('have.length', 1)
@@ -142,8 +142,8 @@ context('e2e test', () => {
 
     // Day should disappear when clicking it's delete button
     cy.get('[data-testid="Day delete button"]').click()
-    cy.get('[data-testid="Delete confirmation modal"]').should('be.visible')
-    cy.get('[data-testid="Delete confirmation modal yes button"]').click()
+    cy.get('[data-testid="ConfirmationModal"]').should('be.visible')
+    cy.get('[data-testid="ConfirmationModal yes button"]').click()
     cy.get('[data-testid="Day"]').should('not.exist')
 
     // The "add day" button should no longer be disabled
