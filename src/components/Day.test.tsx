@@ -27,7 +27,7 @@ it('All texts and interactive elements are in place', () => {
   expect(screen.getByTestId('Day')).toBeVisible()
   expect(screen.getByTestId('Day date')).toHaveTextContent('01-06-1987')
   expect(screen.getByTestId('Day total kcal consumed')).toHaveTextContent('100 kcal')
-  expect(screen.getByTestId('Day delete button')).toBeVisible()
+  expect(screen.getByTestId('Day MenuButton')).toBeVisible()
   expect(screen.getByTestId('Activity')).toBeVisible()
   expect(screen.getByTestId('AddActivityModal button')).toBeVisible()
 })
@@ -38,11 +38,14 @@ it('Callbacks work', async () => {
   // --------------------------
   /* These should be moved somewhere else perhaps */
   expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
-  fireEvent.click(screen.getByTestId('Day delete button'))
+  fireEvent.click(screen.getByTestId('Day MenuButton'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
+  fireEvent.click(screen.getByTestId('Day delete button'))
+  fireEvent.animationEnd(screen.getAllByTestId('Fade')[1])
   expect(screen.getByTestId('ConfirmationModal')).toBeVisible()
   fireEvent.click(screen.getByTestId('ConfirmationModal yes button'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
+  fireEvent.animationEnd(screen.getAllByTestId('Fade')[1])
+  fireEvent.animationEnd(screen.getAllByTestId('Fade')[0])
   expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
 
   // expect(screen.getAllByTestId('Activity')).toHaveLength(1)
@@ -54,21 +57,5 @@ it('Callbacks work', async () => {
   fireEvent.animationEnd(screen.getByTestId('Fade'))
   expect(screen.queryByTestId('AddActivityModal')).not.toBeInTheDocument()
   // expect(screen.getAllByTestId('Activity')).toHaveLength(2)
-
-  expect(screen.queryByTestId('EditActivityModal')).not.toBeInTheDocument()
-  fireEvent.click(screen.getByTestId('EditActivityModal button'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.getByTestId('EditActivityModal')).toBeVisible()
-  fireEvent.submit(screen.getByTestId('ActivityForm'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.queryByTestId('EditActivityModal')).not.toBeInTheDocument()
-
-  expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
-  fireEvent.click(screen.getByTestId('Activity delete button'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.getByTestId('ConfirmationModal')).toBeVisible()
-  fireEvent.click(screen.getByTestId('ConfirmationModal yes button'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
-  expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
   // --------------------------
 })
