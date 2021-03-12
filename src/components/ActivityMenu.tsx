@@ -27,10 +27,9 @@ export default function ActivityMenu({ dayId, activity }: Props) {
     setIsDeleteModalVisible(state => !state)
   }
 
-  function confirmDelete() {
-    toggleDeleteActivityModal()
+  function copyActivity() {
+    dispatch({ type: ActionTypes.copyActivity, payload: activity })
     toggleModalVisibility()
-    dispatch({ type: ActionTypes.deleteActivity, payload: { dayId, activityId: activity.id } })
   }
 
   function editActivity(formData: ActivityInterface) {
@@ -38,12 +37,22 @@ export default function ActivityMenu({ dayId, activity }: Props) {
     toggleModalVisibility()
   }
 
+  function confirmDelete() {
+    toggleDeleteActivityModal()
+    toggleModalVisibility()
+    dispatch({ type: ActionTypes.deleteActivity, payload: { dayId, activityId: activity.id } })
+  }
+
   return (
     <>
       <MenuButton onClick={toggleModalVisibility} data-testid="ActivityMenu button" />
 
       <Modal show={isModalVisible} onClose={toggleModalVisibility} data-testid="ActivityMenu modal">
-        <button data-testid="Activity delete button" onClick={toggleDeleteActivityModal}>
+        <button data-testid="ActivityMenu copy button" onClick={copyActivity}>
+          Copy activity
+        </button>
+
+        <button data-testid="ActivityMenu delete button" onClick={toggleDeleteActivityModal}>
           Delete activity
         </button>
 

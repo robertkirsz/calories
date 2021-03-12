@@ -19,11 +19,6 @@ export default function ActivityForm({ initialData, onSubmit, onCancel }: Props)
   const [kcalPer100g, setKcalPer100g] = useState(String(initialData?.kcalPer100g || ''))
   const [consumedKcal, setConsumedKcal] = useState(String(initialData?.consumedKcal || ''))
 
-  if (name === null) console.log('name', String(name))
-  if (consumedGrams === null) console.log('consumedGrams', String(consumedGrams))
-  if (kcalPer100g === null) console.log('kcalPer100g', String(kcalPer100g))
-  if (consumedKcal === null) console.log('consumedKcal', String(consumedKcal))
-
   function handleTypeChange(event: React.ChangeEvent<HTMLInputElement>) {
     setType(event.currentTarget.value as ActivityType)
   }

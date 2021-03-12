@@ -32,7 +32,7 @@ describe('Existing data', () => {
     )
 
     expect(screen.getByText('New day')).toBeInTheDocument()
-    expect(screen.getAllByTestId('Day')).toHaveLength(6)
-    expect(screen.getAllByTestId('Activity')).toHaveLength(12)
+    expect(screen.getAllByTestId('Day')).toHaveLength(3)
+    expect(screen.getAllByTestId('Activity')).toHaveLength(5)
   })
 })

@@ -19,7 +19,7 @@
     "activities": [
       {
         "id": "pdo87324d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-        "name": "Huel",
+        "name": "Pizza",
         "type": "gramsOfKcal",
         "kcalPer100g": 200,
         "consumedGrams": 100,
@@ -27,7 +27,7 @@
       },
       {
         "id": "xss87324d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-        "name": "Huel",
+        "name": "Hamburger",
         "type": "gramsOfKcal",
         "kcalPer100g": 200,
         "consumedGrams": 49,
@@ -49,85 +49,11 @@
     "activities": [
       {
         "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-        "name": "Cup Noodle",
+        "name": "Ramen",
         "type": "gramsOfKcal",
         "kcalPer100g": 231,
         "consumedGrams": 123,
         "consumedKcal": 0
-      },
-      {
-        "id": "ur763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
-        "name": "",
-        "type": "gramsOfKcal",
-        "kcalPer100g": 129,
-        "consumedGrams": 27,
-        "consumedKcal": 0
-      }
-    ]
-  },
-  {
-    "id": "3b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-    "date": "2021-03-01",
-    "activities": [
-      {
-        "id": "1b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-        "name": "Cup Noodle",
-        "type": "gramsOfKcal",
-        "kcalPer100g": 231,
-        "consumedGrams": 123,
-        "consumedKcal": 0
-      },
-      {
-        "id": "1r763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
-        "name": "",
-        "type": "gramsOfKcal",
-        "kcalPer100g": 129,
-        "consumedGrams": 27,
-        "consumedKcal": 0
-      }
-    ]
-  },
-  {
-    "id": "2b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-    "date": "2021-03-02",
-    "activities": [
-      {
-        "id": "2b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-        "name": "Cup Noodle",
-        "type": "gramsOfKcal",
-        "kcalPer100g": 231,
-        "consumedGrams": 123,
-        "consumedKcal": 0
-      },
-      {
-        "id": "2r763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
-        "name": "",
-        "type": "gramsOfKcal",
-        "kcalPer100g": 129,
-        "consumedGrams": 27,
-        "consumedKcal": 0
-      }
-    ]
-  },
-  {
-    "id": "1b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-    "date": "2021-03-04",
-    "activities": [
-      {
-        "id": "3b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-        "name": "Cup Noodle",
-        "type": "gramsOfKcal",
-        "kcalPer100g": 200,
-        "consumedGrams": 50,
-        "consumedKcal": 0
-      },
-      {
-        "id": "3r763b4d-3b7d-4bad-9bdd-2b0d7b3dh709",
-        "name": "",
-        "type": "onlyKcal",
-        "kcalPer100g": 0,
-        "consumedGrams": 0,
-        "consumedKcal": 100
       }
     ]
   }

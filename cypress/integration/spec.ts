@@ -34,6 +34,9 @@ context('e2e test', () => {
       '0 kcal'
     )
 
+    // Should have no activities
+    cy.get('[data-testid="Day"] [data-testid="Activity"]').should('not.exist')
+
     // There should be a button for adding activities
     cy.get('[data-testid="Day"] [data-testid="AddActivityModal button"]')
       .should('be.visible')
@@ -126,7 +129,7 @@ context('e2e test', () => {
 
     // The first activity should disappear when clicking it's delete button
     cy.get('[data-testid="ActivityMenu button"]').first().click()
-    cy.get('[data-testid="Activity delete button"]').click()
+    cy.get('[data-testid="ActivityMenu delete button"]').click()
     cy.get('[data-testid="ConfirmationModal yes button"]').click()
 
     // We now should have only one activity visible
@@ -150,5 +153,47 @@ context('e2e test', () => {
 
     // The "add day" button should no longer be disabled
     cy.get('[data-testid="add-new-day-button"]').should('not.be.disabled')
+  })
+
+  it('Activity can be copied to a new day', () => {
+    cy.get('[data-testid="Load mock data button"]').click()
+    cy.get('[data-testid="Day"]').should('have.length', 3)
+    cy.get('[data-testid="Activity"]').should('have.length', 5)
+
+    cy.get('[data-testid="Day"]:first-child [data-testid="Activity"]')
+      .should('have.length', 1)
+      .find('[data-testid="ActivityMenu button"]')
+      .click()
+
+    cy.get('[data-testid="ActivityMenu copy button"]').click()
+
+    cy.get('[data-testid="Day"]').should('have.length', 4)
+    cy.get('[data-testid="Activity"]').should('have.length', 6)
+
+    cy.get('[data-testid="Day"]:first-child [data-testid="Activity"]').should('have.length', 1)
+    cy.get('[data-testid="Day"]:first-child [data-testid="Activity"] [data-testid="Activity name"]')
+      .first()
+      .should('have.text', 'Ramen')
+  })
+
+  it('Activity can be copied to an existing day', () => {
+    cy.get('[data-testid="Load mock data button"]').click()
+    cy.get('[data-testid="Day"]').should('have.length', 3)
+    cy.get('[data-testid="Activity"]').should('have.length', 5)
+    cy.get('[data-testid="add-new-day-button"]').click()
+
+    cy.get(
+      '[data-testid="Day"]:nth-child(2) [data-testid="Activity"] [data-testid="ActivityMenu button"]'
+    ).click()
+
+    cy.get('[data-testid="ActivityMenu copy button"]').click()
+
+    cy.get('[data-testid="Day"]').should('have.length', 4)
+    cy.get('[data-testid="Activity"]').should('have.length', 6)
+
+    cy.get('[data-testid="Day"]:first-child [data-testid="Activity"]').should('have.length', 1)
+    cy.get('[data-testid="Day"]:first-child [data-testid="Activity"] [data-testid="Activity name"]')
+      .first()
+      .should('have.text', 'Ramen')
   })
 })

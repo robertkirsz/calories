@@ -62,7 +62,7 @@ it('Callbacks work', () => {
   fireEvent.click(screen.getByTestId('ActivityMenu button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
   expect(screen.getByTestId('ActivityMenu modal')).toBeVisible()
-  fireEvent.click(screen.getByTestId('Activity delete button'))
+  fireEvent.click(screen.getByTestId('ActivityMenu delete button'))
   fireEvent.animationEnd(screen.getAllByTestId('Fade')[1])
   expect(screen.getByTestId('ConfirmationModal')).toBeVisible()
   fireEvent.click(screen.getByTestId('ConfirmationModal yes button'))

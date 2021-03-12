@@ -37,11 +37,14 @@ export default function App() {
         ))}
       </Div>
 
-      <Div listLeft itemsCenter>
-        <button onClick={() => dispatch({ type: ActionTypes.clearDays })}>Clear</button>
+      <small>v{version}</small>
 
-        {process.env.NODE_ENV === 'development' && (
+      {process.env.NODE_ENV !== 'production' && (
+        <Div listLeft itemsCenter>
+          <button onClick={() => dispatch({ type: ActionTypes.clearDays })}>Clear</button>
+
           <button
+            data-testid="Load mock data button"
             onClick={() => {
               import(/* webpackChunkName: 'mock-data' */ 'days.json').then(module => {
                 dispatch({
@@ -53,10 +56,8 @@ export default function App() {
           >
             Load mock data
           </button>
-        )}
-
-        <small>v{version}</small>
-      </Div>
+        </Div>
+      )}
     </>
   )
 }
