@@ -26,7 +26,7 @@ it('All interactive elements are in place', () => {
   render(<Activity activity={gramsOfKcalActivity} dayId="some-id" />)
 
   expect(screen.getByTestId('Activity')).toBeVisible()
-  expect(screen.getByTestId('Activity MenuButton')).toBeVisible()
+  expect(screen.getByTestId('ActivityMenu button')).toBeVisible()
 })
 
 it('Properly displays "gramsOfKcal" activity type', () => {
@@ -45,24 +45,23 @@ it('Properly displays "onlyKcal" activity type', () => {
   expect(screen.queryByTestId('Activity details')).not.toBeInTheDocument()
 })
 
-it('Callbacks work', async () => {
+it('Callbacks work', () => {
   render(<Activity activity={gramsOfKcalActivity} dayId="some-id" />)
 
   // Not sure about these tests, they don't test much
-  expect(screen.queryByTestId('EditActivityModal')).not.toBeInTheDocument()
-  fireEvent.click(screen.getByTestId('Activity MenuButton'))
+  expect(screen.queryByTestId('ActivityMenu modal')).not.toBeInTheDocument()
+  fireEvent.click(screen.getByTestId('ActivityMenu button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
-  fireEvent.click(screen.getByTestId('EditActivityModal button'))
-  fireEvent.animationEnd(screen.getAllByTestId('Fade')[1])
-  expect(screen.getByTestId('EditActivityModal')).toBeVisible()
-  fireEvent.click(screen.getByTestId('ActivityForm submit button'))
-  fireEvent.animationEnd(screen.getAllByTestId('Fade')[1])
-  fireEvent.animationEnd(screen.getAllByTestId('Fade')[0])
-  expect(screen.queryByTestId('EditActivityModal')).not.toBeInTheDocument()
+  expect(screen.getByTestId('ActivityMenu modal')).toBeVisible()
+  fireEvent.submit(screen.getByTestId('ActivityForm'))
+  fireEvent.animationEnd(screen.getByTestId('Fade'))
+  expect(screen.queryByTestId('ActivityMenu modal')).not.toBeInTheDocument()
 
+  expect(screen.queryByTestId('ActivityMenu modal')).not.toBeInTheDocument()
   expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
-  fireEvent.click(screen.getByTestId('Activity MenuButton'))
+  fireEvent.click(screen.getByTestId('ActivityMenu button'))
   fireEvent.animationEnd(screen.getByTestId('Fade'))
+  expect(screen.getByTestId('ActivityMenu modal')).toBeVisible()
   fireEvent.click(screen.getByTestId('Activity delete button'))
   fireEvent.animationEnd(screen.getAllByTestId('Fade')[1])
   expect(screen.getByTestId('ConfirmationModal')).toBeVisible()
@@ -70,6 +69,7 @@ it('Callbacks work', async () => {
   fireEvent.animationEnd(screen.getAllByTestId('Fade')[1])
   fireEvent.animationEnd(screen.getAllByTestId('Fade')[0])
   expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('ActivityMenu modal')).not.toBeInTheDocument()
 })
 
 it('Total calories are calculated propery', () => {

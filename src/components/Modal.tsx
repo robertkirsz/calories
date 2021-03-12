@@ -1,6 +1,7 @@
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 
+import Div from 'components/Div'
 import Fade from 'components/Fade'
 
 let root = document.getElementById('modal-root')
@@ -25,7 +26,19 @@ export default function Modal({ show, onClose, children, ...props }: Props) {
   return createPortal(
     <Fade show={show}>
       <Background onClick={handleBackgroundClick}>
-        <Content {...props}>{children}</Content>
+        <Div
+          columnTop
+          maxHeight="100%"
+          maxWidth="100%"
+          padding="24px 16px"
+          background="var(--near-white)"
+          radius={4}
+          color="var(--near-black)"
+          overflow="auto"
+          {...props}
+        >
+          {children}
+        </Div>
       </Background>
     </Fade>,
     root!
@@ -48,20 +61,4 @@ const Background = styled.div`
 
   // Poor performance on some mobile devices
   /* backdrop-filter: blur(2px); */
-`
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  max-width: 100%;
-  max-height: 100%;
-  padding: 24px 16px;
-
-  background: var(--near-white);
-  border-radius: 4px;
-
-  color: var(--near-black);
-
-  overflow: auto;
 `

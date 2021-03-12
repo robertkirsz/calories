@@ -86,6 +86,7 @@ const settingsReducer = (state: SettingsInterface, action: Actions) => {
 }
 
 export const mainReducer = ({ days, settings }: StoreStateInterface, action: Actions) => {
+  console.log(action.type)
   return {
     days: daysReducer(days, action),
     settings: settingsReducer(settings, action),

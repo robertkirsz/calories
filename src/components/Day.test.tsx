@@ -32,7 +32,7 @@ it('All texts and interactive elements are in place', () => {
   expect(screen.getByTestId('AddActivityModal button')).toBeVisible()
 })
 
-it('Callbacks work', async () => {
+it('Callbacks work', () => {
   render(<Day day={day} />)
 
   // --------------------------
