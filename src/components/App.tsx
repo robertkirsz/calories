@@ -21,23 +21,25 @@ export default function App() {
 
   return (
     <>
-      <SettingsModal />
+      <Div selfStretch itemsCenter justifyBetween listLeft>
+        <small>v{version}</small>
 
-      <button
-        disabled={sortedDays.length !== 0 && dayjs().isSame(sortedDays[0].date, 'day')}
-        onClick={() => dispatch({ type: ActionTypes.addNewDay })}
-        data-testid="add-new-day-button"
-      >
-        New day
-      </button>
+        <button
+          disabled={sortedDays.length !== 0 && dayjs().isSame(sortedDays[0].date, 'day')}
+          onClick={() => dispatch({ type: ActionTypes.addNewDay })}
+          data-testid="add-new-day-button"
+        >
+          New day
+        </button>
+
+        <SettingsModal />
+      </Div>
 
       <Div columnTop={40} selfStretch margin="16px 0">
         {sortedDays.map(day => (
           <Day key={day.id} day={day} />
         ))}
       </Div>
-
-      <small>v{version}</small>
 
       {process.env.NODE_ENV !== 'production' && (
         <Div listLeft itemsCenter>
