@@ -12,7 +12,6 @@ import DailyCaloricProgress from 'components/DailyCaloricProgress'
 import Activity, { getTotalCalories } from 'components/Activity'
 import ConfirmationModal from 'components/ConfirmationModal'
 import AddActivityModal from 'components/AddActivityModal'
-import AddActivitySetModal from 'components/AddActivitySetModal'
 
 type Props = {
   day: DayInterface
@@ -74,10 +73,7 @@ export default function Day({ day }: Props) {
               ))}
             </Div>
 
-            <Div listLeft selfCenter>
-              <AddActivityModal dayId={day.id} />
-              <AddActivitySetModal dayId={day.id} />
-            </Div>
+            <AddActivityModal dayId={day.id} />
           </>
         )}
       </Div>
