@@ -4,6 +4,11 @@ import type { ActivityInterface } from 'types'
 
 import Activity, { getTotalCalories } from 'components/Activity'
 
+// TODO: move somewhere else
+const withFade = (firedEvent: boolean, index = 0) => {
+  fireEvent.animationEnd(screen.getAllByTestId('Fade')[index])
+}
+
 const gramsOfKcalActivity: ActivityInterface = {
   id: 'some-id',
   type: 'gramsOfKcal',
@@ -50,24 +55,18 @@ it('Callbacks work', () => {
 
   // Not sure about these tests, they don't test much
   expect(screen.queryByTestId('ActivityMenu modal')).not.toBeInTheDocument()
-  fireEvent.click(screen.getByTestId('ActivityMenu button'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
+  withFade(fireEvent.click(screen.getByTestId('ActivityMenu button')))
   expect(screen.getByTestId('ActivityMenu modal')).toBeVisible()
-  fireEvent.submit(screen.getByTestId('ActivityForm'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
+  withFade(fireEvent.submit(screen.getByTestId('ActivityForm')))
   expect(screen.queryByTestId('ActivityMenu modal')).not.toBeInTheDocument()
 
   expect(screen.queryByTestId('ActivityMenu modal')).not.toBeInTheDocument()
   expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
-  fireEvent.click(screen.getByTestId('ActivityMenu button'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
+  withFade(fireEvent.click(screen.getByTestId('ActivityMenu button')))
   expect(screen.getByTestId('ActivityMenu modal')).toBeVisible()
   fireEvent.click(screen.getByTestId('ActivityMenu delete button'))
-  fireEvent.animationEnd(screen.getAllByTestId('Fade')[1])
   expect(screen.getByTestId('ConfirmationModal')).toBeVisible()
-  fireEvent.click(screen.getByTestId('ConfirmationModal yes button'))
-  fireEvent.animationEnd(screen.getAllByTestId('Fade')[1])
-  fireEvent.animationEnd(screen.getAllByTestId('Fade')[0])
+  withFade(fireEvent.click(screen.getByTestId('ConfirmationModal yes button')))
   expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
   expect(screen.queryByTestId('ActivityMenu modal')).not.toBeInTheDocument()
 })

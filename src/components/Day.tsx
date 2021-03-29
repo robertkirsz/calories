@@ -83,7 +83,7 @@ export default function Day({ day }: Props) {
       </Div>
 
       <Modal show={isMenuModalVisible} onClose={toggleMenuModal} data-testid="Day menu modal">
-        <button data-testid="Day close button" onClick={toggleDayCollapse}>
+        <button data-testid="Day collapse button" onClick={toggleDayCollapse}>
           {day.isCollapsed ? 'Open' : 'Close'}
         </button>
 

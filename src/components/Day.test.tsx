@@ -6,6 +6,11 @@ import Day from 'components/Day'
 
 jest.mock('uuid', () => ({ v4: () => 'mocked-id' }))
 
+// TODO: move somewhere else
+const withFade = (firedEvent: boolean, index = 0) => {
+  fireEvent.animationEnd(screen.getAllByTestId('Fade')[index])
+}
+
 const activity: ActivityInterface = {
   id: 'some-id',
   type: 'gramsOfKcal',
@@ -32,29 +37,36 @@ it('All texts and interactive elements are in place', () => {
   expect(screen.getByTestId('AddActivityModal button')).toBeVisible()
 })
 
+// TODO: doesn't work because it's not using store
+// it('Can be collapsed', () => {
+//   render(<Day day={day} />)
+
+//   fireEvent.click(screen.getByTestId('Day MenuButton'))
+//   fireEvent.animationEnd(screen.getByTestId('Fade'))
+//   fireEvent.click(screen.getByTestId('Day collapse button'))
+//   fireEvent.animationEnd(screen.getByTestId('Fade'))
+
+//   expect(screen.getByTestId('Activity')).not.toBeInTheDocument()
+// })
+
 it('Callbacks work', () => {
   render(<Day day={day} />)
 
   // --------------------------
   /* These should be moved somewhere else perhaps */
   expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
-  fireEvent.click(screen.getByTestId('Day MenuButton'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
+
+  withFade(fireEvent.click(screen.getByTestId('Day MenuButton')))
   fireEvent.click(screen.getByTestId('Day delete button'))
-  fireEvent.animationEnd(screen.getAllByTestId('Fade')[1])
   expect(screen.getByTestId('ConfirmationModal')).toBeVisible()
-  fireEvent.click(screen.getByTestId('ConfirmationModal yes button'))
-  fireEvent.animationEnd(screen.getAllByTestId('Fade')[1])
-  fireEvent.animationEnd(screen.getAllByTestId('Fade')[0])
+  withFade(fireEvent.click(screen.getByTestId('ConfirmationModal yes button')), 1)
   expect(screen.queryByTestId('ConfirmationModal')).not.toBeInTheDocument()
 
   // expect(screen.getAllByTestId('Activity')).toHaveLength(1)
   expect(screen.queryByTestId('AddActivityModal')).not.toBeInTheDocument()
-  fireEvent.click(screen.getByTestId('AddActivityModal button'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
+  withFade(fireEvent.click(screen.getByTestId('AddActivityModal button')))
   expect(screen.getByTestId('AddActivityModal')).toBeVisible()
-  fireEvent.submit(screen.getByTestId('ActivityForm'))
-  fireEvent.animationEnd(screen.getByTestId('Fade'))
+  withFade(fireEvent.submit(screen.getByTestId('ActivityForm')))
   expect(screen.queryByTestId('AddActivityModal')).not.toBeInTheDocument()
   // expect(screen.getAllByTestId('Activity')).toHaveLength(2)
   // --------------------------
