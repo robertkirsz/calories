@@ -14,6 +14,7 @@ export interface DayInterface {
   id: string
   date: string
   activities: ActivityInterface[]
+  isCollapsed?: boolean
 }
 
 export interface SettingsInterface {

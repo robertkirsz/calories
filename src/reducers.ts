@@ -6,6 +6,7 @@ import { DayInterface, ActivityInterface, SettingsInterface, StoreStateInterface
 export enum ActionTypes {
   // Days
   addNewDay = 'addNewDay',
+  collapseDay = 'collapseDay',
   deleteDay = 'deleteDay',
   setDays = 'setDays',
   clearDays = 'clearDays',
@@ -23,6 +24,7 @@ export enum ActionTypes {
 export type Actions =
   // Days
   | { type: ActionTypes.addNewDay; }
+  | { type: ActionTypes.collapseDay; payload: DayInterface['id'] }
   | { type: ActionTypes.deleteDay; payload: DayInterface['id'] }
   | { type: ActionTypes.setDays; payload: DayInterface[] }
   | { type: ActionTypes.clearDays; }
@@ -37,21 +39,25 @@ export type Actions =
 
 const daysReducer = (state: DayInterface[], action: Actions) => {
   switch (action.type) {
-    case 'addNewDay':
+    case ActionTypes.addNewDay:
       return [...state, { id: uuid(), date: dayjs().format('YYYY-MM-DD'), activities: [] }]
-    case 'deleteDay':
+    case ActionTypes.collapseDay:
+      return state.map(day =>
+        day.id !== action.payload ? day : { ...day, isCollapsed: !day.isCollapsed }
+      )
+    case ActionTypes.deleteDay:
       return state.filter(day => day.id !== action.payload)
-    case 'setDays':
+    case ActionTypes.setDays:
       return action.payload
-    case 'clearDays':
+    case ActionTypes.clearDays:
       return []
-    case 'addActivity':
+    case ActionTypes.addActivity:
       return state.map(day =>
         day.id !== action.payload.dayId
           ? day
           : { ...day, activities: [...day.activities, action.payload.formData] }
       )
-    case 'editActivity':
+    case ActionTypes.editActivity:
       return state.map(day =>
         day.id !== action.payload.dayId
           ? day
@@ -62,7 +68,7 @@ const daysReducer = (state: DayInterface[], action: Actions) => {
               ),
             }
       )
-    case 'deleteActivity':
+    case ActionTypes.deleteActivity:
       return state.map(day =>
         day.id !== action.payload.dayId
           ? day
@@ -73,7 +79,7 @@ const daysReducer = (state: DayInterface[], action: Actions) => {
               ),
             }
       )
-    case 'copyActivity':
+    case ActionTypes.copyActivity:
       const copiedActivity: ActivityInterface = { ...action.payload, id: uuid() }
       const todaysDay = state.find(day => dayjs().isSame(day.date, 'day'))
 

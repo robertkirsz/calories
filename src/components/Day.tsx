@@ -6,12 +6,13 @@ import type { DayInterface } from 'types'
 import { useStore, ActionTypes } from 'store'
 
 import Div from 'components/Div'
-import ConfirmationModal from 'components/ConfirmationModal'
-import AddActivityModal from 'components/AddActivityModal'
-import Activity, { getTotalCalories } from 'components/Activity'
-import DailyCaloricProgress from 'components/DailyCaloricProgress'
 import Modal from 'components/Modal'
 import MenuButton from 'components/MenuButton'
+import DailyCaloricProgress from 'components/DailyCaloricProgress'
+import Activity, { getTotalCalories } from 'components/Activity'
+import ConfirmationModal from 'components/ConfirmationModal'
+import AddActivityModal from 'components/AddActivityModal'
+import AddActivitySetModal from 'components/AddActivitySetModal'
 
 type Props = {
   day: DayInterface
@@ -34,6 +35,11 @@ export default function Day({ day }: Props) {
 
   function toggleDeleteConfirmationModal() {
     setIsDeleteConfirmationModalVisible(state => !state)
+  }
+
+  function toggleDayCollapse() {
+    toggleMenuModal()
+    dispatch({ type: ActionTypes.collapseDay, payload: day.id })
   }
 
   function confirmDeleteDay() {
@@ -60,16 +66,27 @@ export default function Day({ day }: Props) {
           <MenuButton onClick={toggleMenuModal} data-testid="Day MenuButton" />
         </Div>
 
-        <Div columnTop={16}>
-          {day.activities.map(activity => (
-            <Activity key={activity.id} dayId={day.id} activity={activity} />
-          ))}
-        </Div>
+        {!day.isCollapsed && (
+          <>
+            <Div columnTop={16}>
+              {day.activities.map(activity => (
+                <Activity key={activity.id} dayId={day.id} activity={activity} />
+              ))}
+            </Div>
 
-        <AddActivityModal dayId={day.id} />
+            <Div listLeft selfCenter>
+              <AddActivityModal dayId={day.id} />
+              <AddActivitySetModal dayId={day.id} />
+            </Div>
+          </>
+        )}
       </Div>
 
       <Modal show={isMenuModalVisible} onClose={toggleMenuModal} data-testid="Day menu modal">
+        <button data-testid="Day close button" onClick={toggleDayCollapse}>
+          {day.isCollapsed ? 'Open' : 'Close'}
+        </button>
+
         <button data-testid="Day delete button" onClick={toggleDeleteConfirmationModal}>
           Delete
         </button>
