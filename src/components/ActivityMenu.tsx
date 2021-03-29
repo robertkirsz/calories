@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
-import type { ActivityInterface, DayInterface } from 'types'
+import type { ActivityInterface, ActivityValue, DayInterface } from 'types'
 
 import { useStore, ActionTypes } from 'store'
 
@@ -16,19 +16,9 @@ type Props = {
 
 export default function ActivityMenu({ dayId, activity }: Props) {
   const { dispatch } = useStore()
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
-
-  function toggleModalVisibility() {
-    setIsModalVisible(state => !state)
-  }
-
-  function toggleDeleteActivityModal() {
-    setIsDeleteModalVisible(state => !state)
-  }
 
   function copyActivity() {
-    dispatch({ type: ActionTypes.copyActivity, payload: activity })
+    dispatch({ type: ActionTypes.copyActivity, payload: copiedActivity.current })
     toggleModalVisibility()
   }
 
@@ -41,6 +31,28 @@ export default function ActivityMenu({ dayId, activity }: Props) {
     toggleDeleteActivityModal()
     toggleModalVisibility()
     dispatch({ type: ActionTypes.deleteActivity, payload: { dayId, activityId: activity.id } })
+  }
+
+  // TODO: not sure why state is stale here and I need to use ref instead
+  // const [copiedActivity, setCopiedActivity] = useState<ActivityInterface>({ ...activity })
+  const copiedActivity = useRef<ActivityInterface>({ ...activity })
+
+  function handleActivityValueChange(name: ActivityValue, value: string) {
+    // setCopiedActivity(state => ({ [name]: value, ...state }))
+    // @ts-ignore
+    copiedActivity.current[name] = value
+  }
+
+  const [isModalVisible, setIsModalVisible] = useState(false)
+
+  function toggleModalVisibility() {
+    setIsModalVisible(state => !state)
+  }
+
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
+
+  function toggleDeleteActivityModal() {
+    setIsDeleteModalVisible(state => !state)
   }
 
   return (
@@ -64,6 +76,7 @@ export default function ActivityMenu({ dayId, activity }: Props) {
 
         <ActivityForm
           initialData={activity}
+          onChange={handleActivityValueChange}
           onSubmit={editActivity}
           onCancel={toggleModalVisibility}
         />

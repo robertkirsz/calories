@@ -2,22 +2,34 @@ import { useState } from 'react'
 import 'styled-components/macro'
 import { v4 as uuid } from 'uuid'
 
-import type { ActivityInterface, ActivityType } from 'types'
+import type { ActivityInterface, ActivityType, ActivityValue } from 'types'
 
 import Div from 'components/Div'
 
 type Props = {
   initialData?: ActivityInterface
   onSubmit?: (formData: ActivityInterface) => void
+  onChange?: (name: ActivityValue, value: string) => void
   onCancel?: () => void
 }
 
-export default function ActivityForm({ initialData, onSubmit, onCancel }: Props) {
+export default function ActivityForm({ initialData, onSubmit, onChange, onCancel }: Props) {
   const [type, setType] = useState<ActivityType>(initialData?.type || 'gramsOfKcal')
   const [name, setName] = useState(initialData?.name || '')
   const [consumedGrams, setConsumedGrams] = useState(String(initialData?.consumedGrams || ''))
   const [kcalPer100g, setKcalPer100g] = useState(String(initialData?.kcalPer100g || ''))
   const [consumedKcal, setConsumedKcal] = useState(String(initialData?.consumedKcal || ''))
+
+  function handleValueChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.currentTarget
+
+    if (name === 'name') setName(value)
+    if (name === 'consumedGrams') setConsumedGrams(value)
+    if (name === 'kcalPer100g') setKcalPer100g(value)
+    if (name === 'consumedKcal') setConsumedKcal(value)
+
+    onChange?.(name as ActivityValue, value)
+  }
 
   function handleTypeChange(event: React.ChangeEvent<HTMLInputElement>) {
     setType(event.currentTarget.value as ActivityType)
@@ -54,7 +66,7 @@ export default function ActivityForm({ initialData, onSubmit, onCancel }: Props)
         name="name"
         placeholder="Optional name of meal or activity"
         value={name}
-        onChange={event => setName(event.target.value)}
+        onChange={handleValueChange}
         data-testid="ActivityForm name input"
       />
 
@@ -78,7 +90,7 @@ export default function ActivityForm({ initialData, onSubmit, onCancel }: Props)
             type="number"
             name="consumedGrams"
             value={consumedGrams}
-            onChange={event => setConsumedGrams(event.target.value)}
+            onChange={handleValueChange}
             data-testid="ActivityForm consumedGrams input"
             css="width: 32px; margin: 0 4px;"
           />
@@ -87,7 +99,7 @@ export default function ActivityForm({ initialData, onSubmit, onCancel }: Props)
             type="number"
             name="kcalPer100g"
             value={kcalPer100g}
-            onChange={event => setKcalPer100g(event.target.value)}
+            onChange={handleValueChange}
             data-testid="ActivityForm kcalPer100g input"
             css="width: 32px; margin: 0 4px;"
           />
@@ -115,7 +127,7 @@ export default function ActivityForm({ initialData, onSubmit, onCancel }: Props)
             type="number"
             name="consumedKcal"
             value={consumedKcal}
-            onChange={event => setConsumedKcal(event.target.value)}
+            onChange={handleValueChange}
             data-testid="ActivityForm consumedKcal input"
             css="width: 32px; margin: 0 4px;"
           />

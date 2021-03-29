@@ -165,6 +165,8 @@ context('e2e test', () => {
       .find('[data-testid="ActivityMenu button"]')
       .click()
 
+    cy.get('input[name="name"]').clear().type('Copied Ramen')
+
     cy.get('[data-testid="ActivityMenu copy button"]').click()
 
     cy.get('[data-testid="Day"]').should('have.length', 4)
@@ -173,7 +175,7 @@ context('e2e test', () => {
     cy.get('[data-testid="Day"]:first-child [data-testid="Activity"]').should('have.length', 1)
     cy.get('[data-testid="Day"]:first-child [data-testid="Activity"] [data-testid="Activity name"]')
       .first()
-      .should('have.text', 'Ramen')
+      .should('have.text', 'Copied Ramen')
   })
 
   it('Activity can be copied to an existing day', () => {

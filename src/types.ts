@@ -1,4 +1,5 @@
 export type ActivityType = 'gramsOfKcal' | 'onlyKcal'
+export type ActivityValue = 'name' | 'consumedGrams' | 'kcalPer100g' | 'consumedKcal'
 
 export interface ActivityInterface {
   id: string

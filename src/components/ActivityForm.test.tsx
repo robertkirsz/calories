@@ -100,13 +100,36 @@ describe('Add new activity', () => {
     })
   })
 
-  it('Cancel callback is called', () => {
-    const cancelCallback = jest.fn()
+  it('"onChange" callback is called', () => {
+    const callback = jest.fn()
 
-    render(<ActivityForm onCancel={cancelCallback} />)
+    render(<ActivityForm onChange={callback} />)
+
+    const nameInput = screen.getByTestId('ActivityForm name input')
+    const consumedGramsInput = screen.getByTestId('ActivityForm consumedGrams input')
+    const kcalPer100gInput = screen.getByTestId('ActivityForm kcalPer100g input')
+
+    fireEvent.change(nameInput, { target: { value: 'Pizza' } })
+    fireEvent.change(consumedGramsInput, { target: { value: '50' } })
+    fireEvent.change(kcalPer100gInput, { target: { value: '200' } })
+
+    expect(nameInput).toHaveValue('Pizza')
+    expect(consumedGramsInput).toHaveValue(50)
+    expect(kcalPer100gInput).toHaveValue(200)
+
+    expect(callback).toBeCalledTimes(3)
+    expect(callback).toBeCalledWith('name', 'Pizza')
+    expect(callback).toBeCalledWith('consumedGrams', '50')
+    expect(callback).toBeCalledWith('kcalPer100g', '200')
+  })
+
+  it('"onCancel" callback is called', () => {
+    const callback = jest.fn()
+
+    render(<ActivityForm onCancel={callback} />)
 
     fireEvent.click(screen.getByTestId('ActivityForm cancel button'))
 
-    expect(cancelCallback).toBeCalled()
+    expect(callback).toBeCalled()
   })
 })
