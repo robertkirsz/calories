@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import dayjs from 'dayjs'
 
 context('e2e test', () => {
@@ -154,9 +152,37 @@ context('e2e test', () => {
     // The "add day" button should no longer be disabled
     cy.get('[data-testid="add-new-day-button"]').should('not.be.disabled')
   })
+})
 
-  it('Activity can be copied to a new day', () => {
+context('Day', () => {
+  beforeEach(() => {
+    cy.visit('/')
     cy.get('[data-testid="Load mock data button"]').click()
+  })
+
+  it('Can be merged', () => {
+    cy.get('[data-testid="Day"]:nth-child(2) [data-testid="Activity"]').should('have.length', 3)
+    cy.get('[data-testid="Day"]:nth-child(2) [data-testid="Day total kcal consumed"]').should(
+      'have.text',
+      '649 kcal'
+    )
+    cy.get('[data-testid="Day"]:nth-child(2) [data-testid="Day MenuButton"]').click()
+    cy.get('[data-testid="Day merge button"]').click()
+    cy.get('[data-testid="Day"]:nth-child(2) [data-testid="Activity"]').should('not.exist')
+    cy.get('[data-testid="Day"]:nth-child(2) [data-testid="Day total kcal consumed"]').should(
+      'have.text',
+      '649 kcal'
+    )
+  })
+})
+
+context('Activity', () => {
+  beforeEach(() => {
+    cy.visit('/')
+    cy.get('[data-testid="Load mock data button"]').click()
+  })
+
+  it('Can be copied to a new day', () => {
     cy.get('[data-testid="Day"]').should('have.length', 3)
     cy.get('[data-testid="Activity"]').should('have.length', 5)
 
@@ -178,8 +204,7 @@ context('e2e test', () => {
       .should('have.text', 'Copied Ramen')
   })
 
-  it('Activity can be copied to an existing day', () => {
-    cy.get('[data-testid="Load mock data button"]').click()
+  it('Can be copied to an existing day', () => {
     cy.get('[data-testid="Day"]').should('have.length', 3)
     cy.get('[data-testid="Activity"]').should('have.length', 5)
     cy.get('[data-testid="add-new-day-button"]').click()

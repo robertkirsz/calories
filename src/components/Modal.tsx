@@ -1,6 +1,8 @@
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 
+import type { DivProps } from 'components/Div'
+
 import Div from 'components/Div'
 import Fade from 'components/Fade'
 
@@ -18,7 +20,7 @@ type Props = {
   children: React.ReactNode
 }
 
-export default function Modal({ show, onClose, children, ...props }: Props) {
+export default function Modal({ show, onClose, children, ...props }: Props & DivProps) {
   function handleBackgroundClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     event.target === event.currentTarget && onClose()
   }

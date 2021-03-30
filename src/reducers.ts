@@ -1,13 +1,38 @@
 import { v4 as uuid } from 'uuid'
 import dayjs from 'dayjs'
 
-import { DayInterface, ActivityInterface, SettingsInterface, StoreStateInterface } from 'types'
+import type { DayInterface, ActivityInterface, SettingsInterface, StoreStateInterface } from 'types'
+
+import { getTotalCalories } from 'components/Activity'
+
+const mergeDay = (day: DayInterface): DayInterface => {
+  const activityTemplate: ActivityInterface = {
+    id: uuid(),
+    name: '',
+    type: 'onlyKcal',
+    kcalPer100g: 0,
+    consumedGrams: 0,
+    consumedKcal: 0,
+  }
+
+  return {
+    ...day,
+    isCollapsed: true,
+    activities: [
+      day.activities.reduce(
+        (prev, curr) => ({ ...prev, consumedKcal: prev.consumedKcal + getTotalCalories(curr) }),
+        activityTemplate
+      ),
+    ],
+  }
+}
 
 export enum ActionTypes {
   // Days
   addNewDay = 'addNewDay',
   collapseDay = 'collapseDay',
   deleteDay = 'deleteDay',
+  mergeDay = 'mergeDay',
   setDays = 'setDays',
   clearDays = 'clearDays',
   // Activities
@@ -26,6 +51,7 @@ export type Actions =
   | { type: ActionTypes.addNewDay; }
   | { type: ActionTypes.collapseDay; payload: DayInterface['id'] }
   | { type: ActionTypes.deleteDay; payload: DayInterface['id'] }
+  | { type: ActionTypes.mergeDay; payload: DayInterface['id'] }
   | { type: ActionTypes.setDays; payload: DayInterface[] }
   | { type: ActionTypes.clearDays; }
   // Activities
@@ -47,6 +73,8 @@ const daysReducer = (state: DayInterface[], action: Actions) => {
       )
     case ActionTypes.deleteDay:
       return state.filter(day => day.id !== action.payload)
+    case ActionTypes.mergeDay:
+      return state.map(day => (day.id !== action.payload ? day : mergeDay(day)))
     case ActionTypes.setDays:
       return action.payload
     case ActionTypes.clearDays:

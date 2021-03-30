@@ -1,6 +1,7 @@
 import { createContext, useReducer, useEffect, useContext } from 'react'
 
-import { DayInterface, SettingsInterface, StoreStateInterface } from 'types'
+import type { DayInterface, SettingsInterface, StoreStateInterface } from 'types'
+
 import { mainReducer, Actions, ActionTypes } from 'reducers'
 import defaultSettings from 'defaultSettings'
 

@@ -61,26 +61,19 @@ const stuff = {
   // Margin
   margin: (value: DuoType) => `margin: ${withUnit(value)};` /* Tested */,
   marginTop: (value: DuoType) => `margin-top: ${withUnit(value)};` /* Tested */,
-  marginRight: (value: DuoType) =>
-    `margin-right: ${withUnit(value)};` /* Tested */,
-  marginBottom: (value: DuoType) =>
-    `margin-bottom: ${withUnit(value)};` /* Tested */,
-  marginLeft: (value: DuoType) =>
-    `margin-left: ${withUnit(value)};` /* Tested */,
+  marginRight: (value: DuoType) => `margin-right: ${withUnit(value)};` /* Tested */,
+  marginBottom: (value: DuoType) => `margin-bottom: ${withUnit(value)};` /* Tested */,
+  marginLeft: (value: DuoType) => `margin-left: ${withUnit(value)};` /* Tested */,
   mTop: (value: DuoType) => `margin-top: ${withUnit(value)};`,
   mRight: (value: DuoType) => `margin-right: ${withUnit(value)};`,
   mBottom: (value: DuoType) => `margin-bottom: ${withUnit(value)};`,
   mLeft: (value: DuoType) => `margin-left: ${withUnit(value)};`,
   // Padding
   padding: (value: DuoType) => `padding: ${withUnit(value)};` /* Tested */,
-  paddingTop: (value: DuoType) =>
-    `padding-top: ${withUnit(value)};` /* Tested */,
-  paddingRight: (value: DuoType) =>
-    `padding-right: ${withUnit(value)};` /* Tested */,
-  paddingBottom: (value: DuoType) =>
-    `padding-bottom: ${withUnit(value)};` /* Tested */,
-  paddingLeft: (value: DuoType) =>
-    `padding-left: ${withUnit(value)};` /* Tested */,
+  paddingTop: (value: DuoType) => `padding-top: ${withUnit(value)};` /* Tested */,
+  paddingRight: (value: DuoType) => `padding-right: ${withUnit(value)};` /* Tested */,
+  paddingBottom: (value: DuoType) => `padding-bottom: ${withUnit(value)};` /* Tested */,
+  paddingLeft: (value: DuoType) => `padding-left: ${withUnit(value)};` /* Tested */,
   pTop: (value: DuoType) => `padding-top: ${withUnit(value)};`,
   pRight: (value: DuoType) => `padding-right: ${withUnit(value)};`,
   pBottom: (value: DuoType) => `padding-bottom: ${withUnit(value)};`,
@@ -109,30 +102,19 @@ const stuff = {
   fontSize: (value: DuoType) => `font-size: ${withUnit(value)};` /* Tested */,
   fontWeight: (value: DuoType) => `font-weight: ${value};` /* Tested */,
   lineHeight: (value: DuoType) => `line-height: ${value};` /* Tested */,
-  letterSpacing: (value: DuoType) =>
-    `letter-spacing: ${withUnit(value)};` /* Tested */,
+  letterSpacing: (value: DuoType) => `letter-spacing: ${withUnit(value)};` /* Tested */,
   textAlign: (value: string) => `text-align: ${value};` /* Tested */,
   color: (value: string) => `color: ${value};` /* Tested */,
   // Lists
-  listLeft: createList(
-    (value: string) => `> *:not(:first-child) { margin-left: ${value}; }`
-  ),
-  listRight: createList(
-    (value: string) => `> *:not(:first-child) { margin-right: ${value}; }`
-  ),
-  listTop: createList(
-    (value: string) => `> *:not(:first-child) { margin-top: ${value}; }`
-  ),
-  listBottom: createList(
-    (value: string) => `> *:not(:first-child) { margin-bottom: ${value}; }`
-  ),
+  listLeft: createList((value: string) => `> *:not(:first-child) { margin-left: ${value}; }`),
+  listRight: createList((value: string) => `> *:not(:first-child) { margin-right: ${value}; }`),
+  listTop: createList((value: string) => `> *:not(:first-child) { margin-top: ${value}; }`),
+  listBottom: createList((value: string) => `> *:not(:first-child) { margin-bottom: ${value}; }`),
   columnTop: createList(
-    (value: string) =>
-      `flex-direction: column; > *:not(:first-child) { margin-top: ${value}; }`
+    (value: string) => `flex-direction: column; > *:not(:first-child) { margin-top: ${value}; }`
   ),
   columnBottom: createList(
-    (value: string) =>
-      `flex-direction: column; > *:not(:first-child) { margin-bottom: ${value}; }`
+    (value: string) => `flex-direction: column; > *:not(:first-child) { margin-bottom: ${value}; }`
   ),
   // Other
   overflow: (value: string) => `overflow: ${value};` /* Tested */,
@@ -155,7 +137,7 @@ const stuff = {
     background: ${value};
     opacity: 0.2;
     pointer-events: none;
-  }`
+  }`,
 }
 
 function camelToKebab(value: string) {
@@ -193,10 +175,8 @@ function createCss(props) {
     // @ts-ignore
     const stuffValue = stuff[current]
     const propValue = props[current]
-    if (typeof stuffValue === 'string' && propValue)
-      return `${previous}${stuffValue}`
-    if (typeof stuffValue === 'function')
-      return `${previous}${stuffValue(propValue, props)}`
+    if (typeof stuffValue === 'string' && propValue) return `${previous}${stuffValue}`
+    if (typeof stuffValue === 'function') return `${previous}${stuffValue(propValue, props)}`
     return previous
   }
 }
@@ -228,7 +208,7 @@ function doMediaQueriesStuff(props = {}) {
           const stuffProperty = stuff[property]
           if (typeof stuffProperty !== 'string') return all
           return `${all}${stuffProperty}`
-        }, '')
+        }, ''),
       }
     }
 
@@ -241,11 +221,9 @@ function doMediaQueriesStuff(props = {}) {
         if (value === false) return all
         if (!stuffProperty) return `${all}${camelToKebab(property)}:${value};`
         return `${all}${
-          typeof stuffProperty === 'function'
-            ? stuffProperty(value, props)
-            : stuffProperty
+          typeof stuffProperty === 'function' ? stuffProperty(value, props) : stuffProperty
         }`
-      }, '')
+      }, ''),
     }
   }, {})
 
@@ -376,13 +354,7 @@ export type DivProps = {
 
 export default styled.div<DivProps>`
   display: ${({ block, inline }) =>
-    block && inline
-      ? 'inline-block'
-      : block
-      ? 'block'
-      : inline
-      ? 'inline-flex'
-      : 'flex'};
+    block && inline ? 'inline-block' : block ? 'block' : inline ? 'inline-flex' : 'flex'};
   ${doStuff}
   ${doMediaQueriesStuff}
 `

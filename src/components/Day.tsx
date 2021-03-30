@@ -41,6 +41,11 @@ export default function Day({ day }: Props) {
     dispatch({ type: ActionTypes.collapseDay, payload: day.id })
   }
 
+  function mergeDay() {
+    toggleMenuModal()
+    dispatch({ type: ActionTypes.mergeDay, payload: day.id })
+  }
+
   function confirmDeleteDay() {
     toggleDeleteConfirmationModal()
     toggleMenuModal()
@@ -78,9 +83,18 @@ export default function Day({ day }: Props) {
         )}
       </Div>
 
-      <Modal show={isMenuModalVisible} onClose={toggleMenuModal} data-testid="Day menu modal">
+      <Modal
+        show={isMenuModalVisible}
+        onClose={toggleMenuModal}
+        data-testid="Day menu modal"
+        columnTop={16}
+      >
         <button data-testid="Day collapse button" onClick={toggleDayCollapse}>
           {day.isCollapsed ? 'Open' : 'Close'}
+        </button>
+
+        <button data-testid="Day merge button" onClick={mergeDay}>
+          Merge activities
         </button>
 
         <button data-testid="Day delete button" onClick={toggleDeleteConfirmationModal}>
