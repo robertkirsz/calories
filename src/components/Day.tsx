@@ -18,15 +18,14 @@ type Props = {
 }
 
 export default function Day({ day }: Props) {
-  const {
-    state: {
-      settings: { dailyCaloricTarget },
-    },
-    dispatch,
-  } = useStore()
+  const { dispatch } = useStore()
 
   const [isDeleteConfirmationModalVisible, setIsDeleteConfirmationModalVisible] = useState(false)
   const [isMenuModalVisible, setIsMenuModalVisible] = useState(false)
+
+  const totalKcalConsumed = Math.round(
+    day.activities.reduce((all, activity) => all + getTotalCalories(activity), 0)
+  )
 
   function toggleMenuModal() {
     setIsMenuModalVisible(state => !state)
@@ -52,17 +51,10 @@ export default function Day({ day }: Props) {
     dispatch({ type: ActionTypes.deleteDay, payload: day.id })
   }
 
-  const totalKcalConsumed = Math.round(
-    day.activities.reduce((all, activity) => all + getTotalCalories(activity), 0)
-  )
-
-  const dailyCaloricProgressPercentage =
-    dailyCaloricTarget > 0 ? Math.round((totalKcalConsumed / dailyCaloricTarget) * 100) : null
-
   return (
     <>
       <Div columnTop data-testid="Day">
-        <DailyCaloricProgress percentage={dailyCaloricProgressPercentage} />
+        <DailyCaloricProgress kcal={totalKcalConsumed} />
 
         <Div justifyBetween>
           <span data-testid="Day date">{dayjs(day.date).format('DD-MM-YYYY')}</span>

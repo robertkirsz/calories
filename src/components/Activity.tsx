@@ -2,6 +2,7 @@ import type { ActivityInterface, DayInterface } from 'types'
 
 import Div from 'components/Div'
 import ActivityMenu from 'components/ActivityMenu'
+import DailyCaloricProgress from 'components/DailyCaloricProgress'
 
 type Props = {
   activity: ActivityInterface
@@ -17,23 +18,29 @@ export const getTotalCalories = ({
   type === 'onlyKcal' ? consumedKcal : Math.round((kcalPer100g * consumedGrams) / 100)
 
 export default function Activity({ activity, dayId }: Props) {
+  const totalCalories = getTotalCalories(activity)
+
   return (
-    <Div justifyBetween itemsCenter border="1px solid" data-testid="Activity">
-      <Div columnTop>
-        {activity.name !== '' && <span data-testid="Activity name">{activity.name}</span>}
+    <Div column border="1px solid" data-testid="Activity">
+      <DailyCaloricProgress kcal={totalCalories} small />
 
-        <Div itemsBaseline>
-          <span data-testid="Activity calories">{getTotalCalories(activity)} kcal</span>
+      <Div justifyBetween itemsCenter>
+        <Div columnTop>
+          {activity.name !== '' && <span data-testid="Activity name">{activity.name}</span>}
 
-          {activity.type === 'gramsOfKcal' && (
-            <Div mLeft={8} fontSize="0.8em" data-testid="Activity details">
-              ({activity.consumedGrams} g x {activity.kcalPer100g} kcal/100g)
-            </Div>
-          )}
+          <Div itemsBaseline>
+            <span data-testid="Activity calories">{totalCalories} kcal</span>
+
+            {activity.type === 'gramsOfKcal' && (
+              <Div mLeft={8} fontSize="0.8em" data-testid="Activity details">
+                ({activity.consumedGrams} g x {activity.kcalPer100g} kcal/100g)
+              </Div>
+            )}
+          </Div>
         </Div>
-      </Div>
 
-      <ActivityMenu dayId={dayId} activity={activity} />
+        <ActivityMenu dayId={dayId} activity={activity} />
+      </Div>
     </Div>
   )
 }
