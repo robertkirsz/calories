@@ -35,9 +35,10 @@ export default function Day({ day }: Props) {
     setIsDeleteConfirmationModalVisible(state => !state)
   }
 
-  function toggleDayCollapse() {
-    toggleMenuModal()
-    dispatch({ type: ActionTypes.collapseDay, payload: day.id })
+  function toggleDayCollapse(event: React.MouseEvent<HTMLDivElement>) {
+    if (event.target === event.currentTarget) {
+      dispatch({ type: ActionTypes.collapseDay, payload: day.id })
+    }
   }
 
   function mergeDay() {
@@ -56,7 +57,7 @@ export default function Day({ day }: Props) {
       <Div columnTop data-testid="Day">
         <DailyCaloricProgress kcal={totalKcalConsumed} />
 
-        <Div justifyBetween>
+        <Div justifyBetween data-testid="Day collapse button" onClick={toggleDayCollapse}>
           <span data-testid="Day date">{dayjs(day.date).format('DD-MM-YYYY')}</span>
           <span data-testid="Day total kcal consumed">{totalKcalConsumed} kcal</span>
           <MenuButton onClick={toggleMenuModal} data-testid="Day MenuButton" />
@@ -81,10 +82,6 @@ export default function Day({ day }: Props) {
         data-testid="Day menu modal"
         columnTop={16}
       >
-        <button data-testid="Day collapse button" onClick={toggleDayCollapse}>
-          {day.isCollapsed ? 'Open' : 'Close'}
-        </button>
-
         <button data-testid="Day merge button" onClick={mergeDay}>
           Merge activities
         </button>
