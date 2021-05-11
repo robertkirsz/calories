@@ -3,6 +3,9 @@
 :root {
   --near-white: #eee;
   --near-black: #111;
+  --red: hsl(0, 60%, 50%);
+  --green: hsl(120, 60%, 50%);
+  --blue: hsl(240, 60%, 50%);
 }
 
 body {

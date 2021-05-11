@@ -21,7 +21,7 @@ export default function Activity({ activity, dayId }: Props) {
   const totalCalories = getTotalCalories(activity)
 
   return (
-    <Div column border="1px solid" data-testid="Activity">
+    <Div columnTop={2} data-testid="Activity" background="rgba(255,255,255, 0.1)">
       <DailyCaloricProgress kcal={totalCalories} small />
 
       <Div justifyBetween itemsCenter>

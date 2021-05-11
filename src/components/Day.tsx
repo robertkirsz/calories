@@ -65,7 +65,7 @@ export default function Day({ day }: Props) {
 
         {!day.isCollapsed && (
           <>
-            <Div columnTop={16}>
+            <Div columnTop={16} paddingLeft={16}>
               {day.activities.map(activity => (
                 <Activity key={activity.id} dayId={day.id} activity={activity} />
               ))}

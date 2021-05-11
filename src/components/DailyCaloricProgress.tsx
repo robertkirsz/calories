@@ -1,5 +1,3 @@
-import styled from 'styled-components'
-
 import { useStore } from 'store'
 
 type Props = {
@@ -15,23 +13,10 @@ export default function DailyCaloricProgress({ kcal, small }: Props) {
   } = useStore()
 
   const percentage = dailyCaloricTarget > 0 ? Math.round((kcal / dailyCaloricTarget) * 100) : 0
+  const width = (Math.abs(percentage) > 100 ? 100 : Math.abs(percentage)) + '%'
+  const height = small ? 5 : 10
+  const backgroundColor =
+    percentage > 100 ? 'var(--red)' : percentage < 0 ? 'var(--blue)' : 'var(--green)'
 
-  if (percentage <= 0) return null
-
-  return (
-    <Wrapper
-      data-testid="DailyCaloricProgress"
-      style={{
-        width: (percentage > 100 ? 100 : percentage) + '%',
-        height: small ? 5 : 10,
-        backgroundColor: percentage > 100 ? 'red' : 'lime',
-      }}
-    />
-  )
+  return <div data-testid="DailyCaloricProgress" style={{ width, height, backgroundColor }} />
 }
-
-const Wrapper = styled.div`
-  transition-property: width, background-color;
-  transition-duration: 200ms;
-  will-change: width, background-color;
-`
