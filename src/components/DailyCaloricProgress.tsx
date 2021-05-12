@@ -3,9 +3,10 @@ import { useStore } from 'store'
 type Props = {
   kcal: number
   small?: boolean
+  style?: React.CSSProperties
 }
 
-export default function DailyCaloricProgress({ kcal, small }: Props) {
+export default function DailyCaloricProgress({ kcal, small, style }: Props) {
   const {
     state: {
       settings: { dailyCaloricTarget },
@@ -18,5 +19,7 @@ export default function DailyCaloricProgress({ kcal, small }: Props) {
   const backgroundColor =
     percentage > 100 ? 'var(--red)' : percentage < 0 ? 'var(--blue)' : 'var(--green)'
 
-  return <div data-testid="DailyCaloricProgress" style={{ width, height, backgroundColor }} />
+  return (
+    <div data-testid="DailyCaloricProgress" style={{ width, height, backgroundColor, ...style }} />
+  )
 }

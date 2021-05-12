@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import 'styled-components/macro'
 
 import type { ActivityInterface, DayInterface } from 'types'
 
@@ -27,7 +28,11 @@ export default function AddActivityModal({ dayId }: Props) {
 
   return (
     <>
-      <button data-testid="AddActivityModal button" onClick={toggleModalVisibility}>
+      <button
+        onClick={toggleModalVisibility}
+        css="width: 60px; align-self: center;"
+        data-testid="AddActivityModal button"
+      >
         +
       </button>
 

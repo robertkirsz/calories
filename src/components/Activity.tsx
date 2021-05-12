@@ -21,18 +21,28 @@ export default function Activity({ activity, dayId }: Props) {
   const totalCalories = getTotalCalories(activity)
 
   return (
-    <Div columnTop={2} data-testid="Activity" background="rgba(255,255,255, 0.1)">
-      <DailyCaloricProgress kcal={totalCalories} small />
+    <Div
+      columnTop={2}
+      relative
+      padding="8px 0 8px 8px"
+      background="rgba(255, 255, 255, 0.08)"
+      data-testid="Activity"
+    >
+      <DailyCaloricProgress
+        kcal={totalCalories}
+        small
+        style={{ position: 'absolute', top: 0, left: 0 }}
+      />
 
       <Div justifyBetween itemsCenter>
-        <Div columnTop>
-          {activity.name !== '' && <span data-testid="Activity name">{activity.name}</span>}
+        <Div column>
+          {activity.name !== '' && <strong data-testid="Activity name">{activity.name}</strong>}
 
-          <Div itemsBaseline>
+          <Div itemsBaseline listLeft={4}>
             <span data-testid="Activity calories">{totalCalories} kcal</span>
 
             {activity.type === 'gramsOfKcal' && (
-              <Div mLeft={8} fontSize="0.8em" data-testid="Activity details">
+              <Div fontSize="0.8em" data-testid="Activity details">
                 ({activity.consumedGrams} g x {activity.kcalPer100g} kcal/100g)
               </Div>
             )}
