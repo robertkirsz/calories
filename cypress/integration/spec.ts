@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 import dayjs from 'dayjs'
 
 context('e2e test', () => {
