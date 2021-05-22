@@ -112,7 +112,7 @@ context('e2e test', () => {
     )
 
     // DailyCaloricProgress
-    cy.get('[data-testid="DailyCaloricProgress"]').should('not.exist')
+    cy.get('[data-testid="DailyCaloricProgress"]').should('not.be.visible')
 
     cy.get('[data-testid="Settings"]').should('not.exist')
     cy.get('[data-testid="SettingsModal button"]').click()
@@ -123,7 +123,7 @@ context('e2e test', () => {
 
     cy.get('[data-testid="DailyCaloricProgress"]')
       .should('be.visible')
-      .and('have.attr', 'style', 'width: 11%; background-color: lime;')
+      .and('have.attr', 'style', 'width: 11%; height: 10px; background-color: var(--green);')
 
     // DELETING STUFF
 
