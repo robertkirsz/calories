@@ -61,10 +61,27 @@ export default function App() {
         </Div>
       )}
 
-      <Div columnTop fixed bottom={10} left={10}>
+      <Div
+        columnTop
+        fixed
+        bottom={10}
+        left={10}
+        z={1000}
+        background="white"
+        padding={4}
+        radius={8}
+        color="black"
+      >
         {favourites.map(fav => (
           <div key={fav.id}>
-            {fav.name} ({fav.type})
+            {fav.name} ({fav.type}){' '}
+            <button
+              onClick={() => {
+                dispatch({ type: ActionTypes.deleteFavourite, payload: fav.id })
+              }}
+            >
+              x
+            </button>
           </div>
         ))}
       </Div>
