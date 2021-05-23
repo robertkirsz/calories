@@ -40,6 +40,10 @@ export enum ActionTypes {
   editActivity = 'editActivity',
   deleteActivity = 'deleteActivity',
   copyActivity = 'copyActivity',
+  // Favourities
+  addFavourite = 'addFavourite',
+  editFavourite = 'editFavourite',
+  deleteFavourite = 'deleteFavourite',
   // Settings
   changeDailyCaloricTarget = 'changeDailyCaloricTarget',
   toggleDarkMode = 'toggleDarkMode',
@@ -59,6 +63,10 @@ export type Actions =
   | { type: ActionTypes.editActivity; payload: { dayId: DayInterface['id']; formData: ActivityInterface } }
   | { type: ActionTypes.deleteActivity; payload: { dayId: DayInterface['id']; activityId: ActivityInterface['id'] } }
   | { type: ActionTypes.copyActivity; payload: ActivityInterface }
+  // Favourities
+  | { type: ActionTypes.addFavourite; payload: ActivityInterface }
+  | { type: ActionTypes.editFavourite; payload: ActivityInterface }
+  | { type: ActionTypes.deleteFavourite; payload: ActivityInterface['id'] }
   // Settings
   | { type: ActionTypes.changeDailyCaloricTarget; payload: number }
   | { type: ActionTypes.toggleDarkMode; }
@@ -129,6 +137,21 @@ const daysReducer = (state: DayInterface[], action: Actions) => {
   }
 }
 
+const favouritesReducer = (state: ActivityInterface[], action: Actions) => {
+  switch (action.type) {
+    case ActionTypes.addFavourite:
+      return [...state, { ...action.payload, id: uuid() }]
+    case ActionTypes.editFavourite:
+      return state.map(favourite =>
+        favourite.id !== action.payload.id ? favourite : action.payload
+      )
+    case ActionTypes.deleteFavourite:
+      return state.filter(favourite => favourite.id !== action.payload)
+    default:
+      return state
+  }
+}
+
 const settingsReducer = (state: SettingsInterface, action: Actions) => {
   switch (action.type) {
     case ActionTypes.changeDailyCaloricTarget:
@@ -140,7 +163,11 @@ const settingsReducer = (state: SettingsInterface, action: Actions) => {
   }
 }
 
-export const mainReducer = ({ days, settings }: StoreStateInterface, action: Actions) => ({
+export const mainReducer = (
+  { days, favourites, settings }: StoreStateInterface,
+  action: Actions
+) => ({
   days: daysReducer(days, action),
+  favourites: favouritesReducer(favourites, action),
   settings: settingsReducer(settings, action),
 })

@@ -1,4 +1,8 @@
+import styled from 'styled-components'
+
 import type { ActivityInterface, DayInterface } from 'types'
+
+import { useStore, ActionTypes } from 'store'
 
 import Div from 'components/Div'
 import ActivityMenu from 'components/ActivityMenu'
@@ -18,7 +22,13 @@ export const getTotalCalories = ({
   type === 'onlyKcal' ? consumedKcal : Math.round((kcalPer100g * consumedGrams) / 100)
 
 export default function Activity({ activity, dayId }: Props) {
+  const { dispatch } = useStore()
+
   const totalCalories = getTotalCalories(activity)
+
+  function favouriteActivity() {
+    dispatch({ type: ActionTypes.addFavourite, payload: { ...activity } })
+  }
 
   return (
     <Div
@@ -34,7 +44,7 @@ export default function Activity({ activity, dayId }: Props) {
         style={{ position: 'absolute', top: 0, left: 0 }}
       />
 
-      <Div justifyBetween itemsCenter>
+      <Div itemsCenter>
         <Div column>
           {activity.name !== '' && <strong data-testid="Activity name">{activity.name}</strong>}
 
@@ -49,8 +59,30 @@ export default function Activity({ activity, dayId }: Props) {
           </Div>
         </Div>
 
+        <FavouriteButton
+          data-testid="Activity favourite button"
+          isActive={true}
+          onClick={favouriteActivity}
+        >
+          ⭐️
+        </FavouriteButton>
+
         <ActivityMenu dayId={dayId} activity={activity} />
       </Div>
     </Div>
   )
 }
+
+const FavouriteButton = styled.button<{ isActive: boolean }>`
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  ${props =>
+    !props.isActive &&
+    `
+    filter: grayscale(1);
+    opacity: 0.5;
+  `}
+`

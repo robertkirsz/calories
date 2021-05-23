@@ -61,11 +61,11 @@ export default function ActivityMenu({ dayId, activity }: Props) {
 
       <Modal show={isModalVisible} onClose={toggleModalVisibility} data-testid="ActivityMenu modal">
         <button data-testid="ActivityMenu copy button" onClick={copyActivity}>
-          Copy activity
+          Copy
         </button>
 
         <button data-testid="ActivityMenu delete button" onClick={toggleDeleteActivityModal}>
-          Delete activity
+          Delete
         </button>
 
         <ConfirmationModal

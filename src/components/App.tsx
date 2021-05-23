@@ -13,7 +13,7 @@ import { version } from '../../package.json'
 
 export default function App() {
   const {
-    state: { days },
+    state: { days, favourites },
     dispatch,
   } = useStore()
 
@@ -60,6 +60,14 @@ export default function App() {
           </button>
         </Div>
       )}
+
+      <Div columnTop fixed bottom={10} left={10}>
+        {favourites.map(fav => (
+          <div key={fav.id}>
+            {fav.name} ({fav.type})
+          </div>
+        ))}
+      </Div>
     </>
   )
 }

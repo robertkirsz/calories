@@ -1,12 +1,13 @@
 import { createContext, useReducer, useEffect, useContext } from 'react'
 
-import type { DayInterface, SettingsInterface, StoreStateInterface } from 'types'
+import type { DayInterface, ActivityInterface, SettingsInterface, StoreStateInterface } from 'types'
 
 import { mainReducer, Actions, ActionTypes } from 'reducers'
 import defaultSettings from 'defaultSettings'
 
 const stateFromStorage = {
   days: (JSON.parse(String(localStorage.getItem('days'))) as DayInterface[]) || [],
+  favourites: (JSON.parse(String(localStorage.getItem('favourites'))) as ActivityInterface[]) || [],
   settings:
     (JSON.parse(String(localStorage.getItem('settings'))) as SettingsInterface) || defaultSettings,
 }
@@ -30,6 +31,10 @@ export default function StoreProvider({ children, initialState = stateFromStorag
   useEffect(() => {
     localStorage.setItem('days', JSON.stringify(state.days))
   }, [state.days])
+
+  useEffect(() => {
+    localStorage.setItem('favourites', JSON.stringify(state.favourites))
+  }, [state.favourites])
 
   useEffect(() => {
     localStorage.setItem('settings', JSON.stringify(state.settings))

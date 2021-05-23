@@ -24,5 +24,6 @@ export interface SettingsInterface {
 
 export interface StoreStateInterface {
   days: DayInterface[]
+  favourites: ActivityInterface[]
   settings: SettingsInterface
 }
